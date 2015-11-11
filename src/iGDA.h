@@ -21,6 +21,7 @@ struct SeqFreq{
 
 };
 
+// iGDA is the user-interface class. It uses other classes as plugins
 
 class iGDA {
 public:
@@ -28,8 +29,13 @@ public:
     iGDA(const iGDA& orig);
     virtual ~iGDA();
     
-    void run();
+    // basic operations
     void setPileupFile(const string &pileupfile);
+    void run();
+    SeqFreq getSeqFreq();
+    
+    // setup plugins
+    
     
 private:
     
