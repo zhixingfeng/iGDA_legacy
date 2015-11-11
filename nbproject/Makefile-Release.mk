@@ -38,7 +38,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/iGDA.o \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/plugin/PileupParser/PileupParser.o \
-	${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o
+	${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o \
+	${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o
 
 
 # C Compiler Flags
@@ -84,6 +85,11 @@ ${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o: src/plugin/PreCaller/PreCaller.cp
 	${MKDIR} -p ${OBJECTDIR}/src/plugin/PreCaller
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o src/plugin/PreCaller/PreCaller.cpp
+
+${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o: src/plugin/PreCaller/PreCallerSingle.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/plugin/PreCaller
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o src/plugin/PreCaller/PreCallerSingle.cpp
 
 # Subprojects
 .build-subprojects:
