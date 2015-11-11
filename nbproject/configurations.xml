@@ -43,6 +43,7 @@
       </logicalFolder>
       <logicalFolder name="test" displayName="test" projectFiles="true">
         <itemPath>test/test.h</itemPath>
+        <itemPath>test/test_file.h</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -123,6 +124,8 @@
       </item>
       <item path="test/test.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="test/test_file.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -194,6 +197,8 @@
       <item path="src/plugin/plugin.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="test/test.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="test/test_file.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
