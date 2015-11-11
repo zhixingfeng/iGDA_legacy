@@ -42,7 +42,8 @@ public:
 private:
     // input pileup file 
     string pileupfile;
-    
+    ifstream fs_pileupfile;
+
     // results
     SeqFreq seqfreq;
     

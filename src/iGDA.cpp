@@ -30,7 +30,7 @@ void iGDA::run(){
 }
 
 void iGDA::setPileupFile(string  a_pileupfile){
-    throw "run not implemented yet";
+    pileupfile = a_pileupfile;
 }
 
 SeqFreq iGDA::getSeqFreq(){
