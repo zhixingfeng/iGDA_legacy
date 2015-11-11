@@ -29,6 +29,8 @@
           <logicalFolder name="PreCaller" displayName="PreCaller" projectFiles="true">
             <itemPath>src/plugin/PreCaller/PreCaller.cpp</itemPath>
             <itemPath>src/plugin/PreCaller/PreCaller.h</itemPath>
+            <itemPath>src/plugin/PreCaller/PreCallerMultiple.cpp</itemPath>
+            <itemPath>src/plugin/PreCaller/PreCallerMultiple.h</itemPath>
             <itemPath>src/plugin/PreCaller/PreCallerSingle.cpp</itemPath>
             <itemPath>src/plugin/PreCaller/PreCallerSingle.h</itemPath>
           </logicalFolder>
@@ -94,6 +96,16 @@
       </item>
       <item path="src/plugin/PreCaller/PreCaller.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/plugin/PreCaller/PreCallerMultiple.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/PreCaller/PreCallerMultiple.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
       <item path="src/plugin/PreCaller/PreCallerSingle.cpp"
             ex="false"
             tool="1"
@@ -153,6 +165,16 @@
       <item path="src/plugin/PreCaller/PreCaller.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/plugin/PreCaller/PreCaller.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/plugin/PreCaller/PreCallerMultiple.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/PreCaller/PreCallerMultiple.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/plugin/PreCaller/PreCallerSingle.cpp"
             ex="false"

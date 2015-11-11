@@ -25,7 +25,8 @@ iGDA::~iGDA() {
 }
 
 void iGDA::run(){
-    throw "run not implemented yet";
+    // check if pileupfile is set
+    
 }
 
 void iGDA::setPileupFile(string  a_pileupfile){

@@ -39,6 +39,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/plugin/PileupParser/PileupParser.o \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o \
+	${OBJECTDIR}/src/plugin/PreCaller/PreCallerMultiple.o \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o
 
 
@@ -85,6 +86,11 @@ ${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o: src/plugin/PreCaller/PreCaller.cp
 	${MKDIR} -p ${OBJECTDIR}/src/plugin/PreCaller
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o src/plugin/PreCaller/PreCaller.cpp
+
+${OBJECTDIR}/src/plugin/PreCaller/PreCallerMultiple.o: src/plugin/PreCaller/PreCallerMultiple.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/plugin/PreCaller
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/plugin/PreCaller/PreCallerMultiple.o src/plugin/PreCaller/PreCallerMultiple.cpp
 
 ${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o: src/plugin/PreCaller/PreCallerSingle.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/plugin/PreCaller
