@@ -11,15 +11,6 @@
  * Created on November 11, 2015, 1:50 PM
  */
 
-#include <cstdlib>
-
-using namespace std;
-
-/*
- * 
- */
-int main(int argc, char** argv) {
-
-    return 0;
-}
+#define CATCH_CONFIG_MAIN
+#include "catch.hpp"
 

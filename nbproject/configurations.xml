@@ -4,6 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="include" displayName="include" projectFiles="true">
+        <itemPath>include/stl.h</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -12,6 +15,12 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="src" displayName="src" projectFiles="true">
+        <itemPath>src/catch.hpp</itemPath>
+        <itemPath>src/iGDA.cpp</itemPath>
+        <itemPath>src/iGDA.h</itemPath>
+        <itemPath>src/main.cpp</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -41,6 +50,16 @@
           <standard>8</standard>
         </ccTool>
       </compileType>
+      <item path="include/stl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/catch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/iGDA.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/iGDA.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -63,6 +82,16 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="include/stl.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/catch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/iGDA.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/iGDA.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>
