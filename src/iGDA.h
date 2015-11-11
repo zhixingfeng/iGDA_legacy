@@ -31,12 +31,13 @@ public:
     virtual ~iGDA();
     
     // basic operations
-    inline void setPileupFile(string  a_pileupfile) {pileupfile = a_pileupfile;}
+    inline void setPileupFile(string  a_pileupfile) {pileupfile = a_pileupfile; verifyPileupFile();}
+    inline string getPileupFile(){return pileupfile;}
     void run();
     SeqFreq getSeqFreq();
     
     // setup plugins
-    inline void setPileupParser(PileupParser * a_PileupParser){ ptr_PileupParser = a_PileupParser;}
+    inline void setPileupParser(PileupParser * a_PileupParser){ ptr_PileupParser = a_PileupParser; }
     inline void setPreCaller(PreCaller * a_PreCaller){ ptr_PreCaller = a_PreCaller; }
     
 private:
@@ -50,6 +51,9 @@ private:
     // plugins
     PileupParser * ptr_PileupParser;
     PreCaller * ptr_PreCaller;
+
+private:
+    inline void verifyPileupFile(){fs_pileupfile = open_infile(pileupfile); fs_pileupfile.close();}
     
 };
 
