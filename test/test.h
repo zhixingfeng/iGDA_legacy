@@ -5,17 +5,16 @@
  */
 
 /* 
- * File:   plugin.h
+ * File:   test.h
  * Author: zhixingfeng
  *
- * Created on November 11, 2015, 4:33 PM
+ * Created on November 11, 2015, 5:15 PM
  */
 
-#ifndef PLUGIN_H
-#define PLUGIN_H
+#ifndef TEST_H
+#define TEST_H
 
-#include "./PileupParser/PileupParser.h"
-#include "./PreCaller/PreCaller.h"
 
-#endif /* PLUGIN_H */
+
+#endif /* TEST_H */
 

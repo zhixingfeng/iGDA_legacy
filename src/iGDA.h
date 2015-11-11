@@ -37,7 +37,7 @@ public:
     
     // setup plugins
     inline void setPileupParser(PileupParser * a_PileupParser){ ptr_PileupParser = a_PileupParser;}
-    
+    inline void setPreCaller(PreCaller * a_PreCaller){ ptr_PreCaller = a_PreCaller; }
     
 private:
     // input pileup file 
@@ -48,6 +48,7 @@ private:
     
     // plugins
     PileupParser * ptr_PileupParser;
+    PreCaller * ptr_PreCaller;
     
 };
 
