@@ -19,6 +19,11 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
+        <logicalFolder name="plugin" displayName="plugin" projectFiles="true">
+          <itemPath>src/plugin/PileupParser/PileupParser.cpp</itemPath>
+          <itemPath>src/plugin/PileupParser/PileupParser.h</itemPath>
+          <itemPath>src/plugin/plugin.h</itemPath>
+        </logicalFolder>
         <itemPath>src/iGDA.cpp</itemPath>
         <itemPath>src/iGDA.h</itemPath>
         <itemPath>src/main.cpp</itemPath>
@@ -62,6 +67,18 @@
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="src/plugin/PileupParser/PileupParser.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/PileupParser/PileupParser.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/plugin.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -93,6 +110,18 @@
       <item path="src/iGDA.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/plugin/PileupParser/PileupParser.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/PileupParser/PileupParser.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/plugin.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

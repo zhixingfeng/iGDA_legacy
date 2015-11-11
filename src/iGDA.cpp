@@ -27,6 +27,10 @@ void iGDA::run(){
     throw "run not implemented yet";
 }
 
-void iGDA::setPileupFile(const string& pileupfile){
+void iGDA::setPileupFile(string& pileupfile){
     throw "run not implemented yet";
+}
+
+SeqFreq iGDA::getSeqFreq(){
+    throw "run not implemented yet"; 
 }

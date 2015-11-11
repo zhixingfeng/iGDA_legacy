@@ -14,6 +14,7 @@
 #ifndef IGDA_H
 #define IGDA_H
 #include "../include/stl.h"
+#include "./plugin/plugin.h"
 
 // SeqFreq is used for store the output of iGDA. 
 // The most important output is joint probability of sequences.
@@ -30,15 +31,23 @@ public:
     virtual ~iGDA();
     
     // basic operations
-    void setPileupFile(const string &pileupfile);
+    void setPileupFile(string & _pileupfile);
     void run();
     SeqFreq getSeqFreq();
     
     // setup plugins
+    void setPileupParser();
     
     
 private:
+    // input pileup file 
+    string pileupfile;
     
+    // results
+    SeqFreq seqfreq;
+    
+    // plugins
+    PileupParser & ptr_PileupParser;
 };
 
 #endif /* IGDA_H */
