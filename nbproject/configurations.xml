@@ -5,7 +5,10 @@
                    displayName="Header Files"
                    projectFiles="true">
       <logicalFolder name="include" displayName="include" projectFiles="true">
-        <itemPath>include/stl.h</itemPath>
+        <logicalFolder name="include" displayName="include" projectFiles="true">
+          <itemPath>include/catch.hpp</itemPath>
+          <itemPath>include/stl.h</itemPath>
+        </logicalFolder>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -16,10 +19,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
-        <itemPath>src/GDA.cpp</itemPath>
-        <itemPath>src/GDA.h</itemPath>
-        <itemPath>src/SeqFreq.h</itemPath>
-        <itemPath>src/catch.hpp</itemPath>
         <itemPath>src/main.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
@@ -51,15 +50,9 @@
           <standard>8</standard>
         </ccTool>
       </compileType>
+      <item path="include/catch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/stl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/GDA.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/GDA.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/SeqFreq.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/catch.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -85,15 +78,9 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="include/catch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/stl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/GDA.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/GDA.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/SeqFreq.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/catch.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
