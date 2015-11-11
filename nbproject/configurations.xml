@@ -16,9 +16,10 @@
                    displayName="Source Files"
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
+        <itemPath>src/GDA.cpp</itemPath>
+        <itemPath>src/GDA.h</itemPath>
+        <itemPath>src/SeqFreq.h</itemPath>
         <itemPath>src/catch.hpp</itemPath>
-        <itemPath>src/iGDA.cpp</itemPath>
-        <itemPath>src/iGDA.h</itemPath>
         <itemPath>src/main.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
@@ -52,11 +53,13 @@
       </compileType>
       <item path="include/stl.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GDA.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GDA.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/SeqFreq.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/catch.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/iGDA.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/iGDA.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -84,11 +87,13 @@
       </compileType>
       <item path="include/stl.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/GDA.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GDA.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/SeqFreq.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/catch.hpp" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/iGDA.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/iGDA.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
       </item>
