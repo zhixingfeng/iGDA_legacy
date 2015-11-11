@@ -19,6 +19,7 @@
 #include <utility>
 #include <stdexcept>
 
+#include "file.h"
 //use namespace std to make the the source codes clear
 using namespace std;
 

@@ -31,7 +31,7 @@ public:
     virtual ~iGDA();
     
     // basic operations
-    void setPileupFile(string  a_pileupfile);
+    inline void setPileupFile(string  a_pileupfile) {pileupfile = a_pileupfile;}
     void run();
     SeqFreq getSeqFreq();
     

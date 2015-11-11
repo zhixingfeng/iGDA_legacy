@@ -7,6 +7,7 @@
       <logicalFolder name="include" displayName="include" projectFiles="true">
         <logicalFolder name="include" displayName="include" projectFiles="true">
           <itemPath>include/catch.hpp</itemPath>
+          <itemPath>include/file.h</itemPath>
           <itemPath>include/stl.h</itemPath>
         </logicalFolder>
       </logicalFolder>
@@ -73,6 +74,8 @@
         </ccTool>
       </compileType>
       <item path="include/catch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/file.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/stl.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -143,6 +146,8 @@
         </asmTool>
       </compileType>
       <item path="include/catch.hpp" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/file.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/stl.h" ex="false" tool="3" flavor2="0">
       </item>
