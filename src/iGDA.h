@@ -31,12 +31,12 @@ public:
     virtual ~iGDA();
     
     // basic operations
-    void setPileupFile(string & _pileupfile);
+    void setPileupFile(string  a_pileupfile);
     void run();
     SeqFreq getSeqFreq();
     
     // setup plugins
-    void setPileupParser();
+    inline void setPileupParser(PileupParser * a_PileupParser){ ptr_PileupParser = a_PileupParser;}
     
     
 private:
@@ -47,7 +47,8 @@ private:
     SeqFreq seqfreq;
     
     // plugins
-    PileupParser & ptr_PileupParser;
+    PileupParser * ptr_PileupParser;
+    
 };
 
 #endif /* IGDA_H */

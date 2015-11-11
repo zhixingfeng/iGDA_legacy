@@ -20,8 +20,16 @@
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
         <logicalFolder name="plugin" displayName="plugin" projectFiles="true">
-          <itemPath>src/plugin/PileupParser/PileupParser.cpp</itemPath>
-          <itemPath>src/plugin/PileupParser/PileupParser.h</itemPath>
+          <logicalFolder name="PileupParser"
+                         displayName="PileupParser"
+                         projectFiles="true">
+            <itemPath>src/plugin/PileupParser/PileupParser.cpp</itemPath>
+            <itemPath>src/plugin/PileupParser/PileupParser.h</itemPath>
+          </logicalFolder>
+          <logicalFolder name="PreCaller" displayName="PreCaller" projectFiles="true">
+            <itemPath>src/plugin/PreCaller/PreCaller.cpp</itemPath>
+            <itemPath>src/plugin/PreCaller/PreCaller.h</itemPath>
+          </logicalFolder>
           <itemPath>src/plugin/plugin.h</itemPath>
         </logicalFolder>
         <itemPath>src/iGDA.cpp</itemPath>
@@ -77,6 +85,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/plugin/PreCaller/PreCaller.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/plugin/PreCaller/PreCaller.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/plugin/plugin.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -120,6 +132,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/plugin/PreCaller/PreCaller.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/plugin/PreCaller/PreCaller.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/plugin/plugin.h" ex="false" tool="3" flavor2="0">
       </item>

@@ -5,17 +5,20 @@
  */
 
 /* 
- * File:   plugin.h
+ * File:   PreCaller.cpp
  * Author: zhixingfeng
- *
- * Created on November 11, 2015, 4:33 PM
+ * 
+ * Created on November 11, 2015, 4:54 PM
  */
 
-#ifndef PLUGIN_H
-#define PLUGIN_H
+#include "PreCaller.h"
 
-#include "./PileupParser/PileupParser.h"
+PreCaller::PreCaller() {
+}
 
+PreCaller::PreCaller(const PreCaller& orig) {
+}
 
-#endif /* PLUGIN_H */
+PreCaller::~PreCaller() {
+}
 

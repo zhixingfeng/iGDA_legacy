@@ -37,7 +37,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/iGDA.o \
 	${OBJECTDIR}/src/main.o \
-	${OBJECTDIR}/src/plugin/PileupParser/PileupParser.o
+	${OBJECTDIR}/src/plugin/PileupParser/PileupParser.o \
+	${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o
 
 
 # C Compiler Flags
@@ -78,6 +79,11 @@ ${OBJECTDIR}/src/plugin/PileupParser/PileupParser.o: src/plugin/PileupParser/Pil
 	${MKDIR} -p ${OBJECTDIR}/src/plugin/PileupParser
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/plugin/PileupParser/PileupParser.o src/plugin/PileupParser/PileupParser.cpp
+
+${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o: src/plugin/PreCaller/PreCaller.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/plugin/PreCaller
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o src/plugin/PreCaller/PreCaller.cpp
 
 # Subprojects
 .build-subprojects:
