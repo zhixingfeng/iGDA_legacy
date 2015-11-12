@@ -40,6 +40,10 @@ public:
     inline void setPileupParser(PileupParser * a_PileupParser){ ptr_PileupParser = a_PileupParser; }
     inline void setPreCaller(PreCaller * a_PreCaller){ ptr_PreCaller = a_PreCaller; }
     
+    // verification
+    inline void verifyPileupFile(){fs_pileupfile = open_infile(pileupfile); fs_pileupfile.close();}
+    void verifyPlugin();
+    
 private:
     // input pileup file 
     string pileupfile;
@@ -52,8 +56,6 @@ private:
     PileupParser * ptr_PileupParser;
     PreCaller * ptr_PreCaller;
 
-private:
-    inline void verifyPileupFile(){fs_pileupfile = open_infile(pileupfile); fs_pileupfile.close();}
     
 };
 

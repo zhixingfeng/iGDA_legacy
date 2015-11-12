@@ -15,7 +15,9 @@
 #define PLUGIN_H
 
 #include "./PileupParser/PileupParser.h"
+#include "./PileupParser/PileupParserGDA.h"
 #include "./PreCaller/PreCaller.h"
-
+#include "./PreCaller/PreCallerSingle.h"
+#include "./PreCaller/PreCallerMultiple.h"
 #endif /* PLUGIN_H */
 

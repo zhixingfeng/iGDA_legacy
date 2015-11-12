@@ -26,6 +26,8 @@
                          projectFiles="true">
             <itemPath>src/plugin/PileupParser/PileupParser.cpp</itemPath>
             <itemPath>src/plugin/PileupParser/PileupParser.h</itemPath>
+            <itemPath>src/plugin/PileupParser/PileupParserGDA.cpp</itemPath>
+            <itemPath>src/plugin/PileupParser/PileupParserGDA.h</itemPath>
           </logicalFolder>
           <logicalFolder name="PreCaller" displayName="PreCaller" projectFiles="true">
             <itemPath>src/plugin/PreCaller/PreCaller.cpp</itemPath>
@@ -93,6 +95,16 @@
             flavor2="0">
       </item>
       <item path="src/plugin/PileupParser/PileupParser.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/PileupParser/PileupParserGDA.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/PileupParser/PileupParserGDA.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -169,6 +181,16 @@
             flavor2="0">
       </item>
       <item path="src/plugin/PileupParser/PileupParser.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/PileupParser/PileupParserGDA.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/PileupParser/PileupParserGDA.h"
             ex="false"
             tool="3"
             flavor2="0">

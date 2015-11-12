@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/iGDA.o \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/plugin/PileupParser/PileupParser.o \
+	${OBJECTDIR}/src/plugin/PileupParser/PileupParserGDA.o \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCallerMultiple.o \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o
@@ -81,6 +82,11 @@ ${OBJECTDIR}/src/plugin/PileupParser/PileupParser.o: src/plugin/PileupParser/Pil
 	${MKDIR} -p ${OBJECTDIR}/src/plugin/PileupParser
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/plugin/PileupParser/PileupParser.o src/plugin/PileupParser/PileupParser.cpp
+
+${OBJECTDIR}/src/plugin/PileupParser/PileupParserGDA.o: src/plugin/PileupParser/PileupParserGDA.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/plugin/PileupParser
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/plugin/PileupParser/PileupParserGDA.o src/plugin/PileupParser/PileupParserGDA.cpp
 
 ${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o: src/plugin/PreCaller/PreCaller.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/plugin/PreCaller

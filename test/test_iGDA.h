@@ -31,6 +31,20 @@ TEST_CASE( "Test getPileupFile", "[iGDA]" ) {
     REQUIRE(gda.getPileupFile() == real_file);
 }
 
+TEST_CASE( "Test verifyPlugin", "[iGDA]" ) {
+    string real_file = "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup";
+    iGDA gda;
+    gda.setPileupFile(real_file);
+    
+    PileupParserGDA obj_PileupParserGDA;
+    PreCaller obj_PreCallerSingle;
+    REQUIRE_THROWS(gda.verifyPlugin());
+    gda.setPileupParser(& obj_PileupParserGDA);
+    REQUIRE_THROWS(gda.verifyPlugin());
+    gda.setPreCaller(& obj_PreCallerSingle);
+    REQUIRE_NOTHROW(gda.verifyPlugin());
+}
+
 //tests to be continued after run() is completed.
 
 #endif /* TEST_IGDA_H */
