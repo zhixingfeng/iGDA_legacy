@@ -14,12 +14,11 @@
 #ifndef TEST_H
 #define TEST_H
 
-#include "test_file.h"
-#include "test_iGDA.h"
-#include "test_data_type.h"
-#include "test_PileupParser.h"
 
-#include "../include/catch.hpp"
+
+#include "../include/headers.h"
+#include "../src/plugin/plugin.h"
+#include "../src/iGDA.h"
 
 #endif /* TEST_H */
 

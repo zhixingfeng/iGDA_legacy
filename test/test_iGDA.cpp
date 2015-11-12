@@ -14,6 +14,8 @@
 #ifndef TEST_IGDA_H
 #define TEST_IGDA_H
 
+#define CATCH_CONFIG_MAIN
+#include "../include/catch.hpp"
 #include "../src/iGDA.h"
 
 TEST_CASE( "Test setPileupFile", "[iGDA]" ) {

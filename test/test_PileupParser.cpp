@@ -13,9 +13,9 @@
 
 #ifndef TEST_PILEUPPARSER_H
 #define TEST_PILEUPPARSER_H
-//#include "../src/plugin/plugin.h"
 
-
+#include "../include/catch.hpp"
+#include "../src/plugin/plugin.h"
 
 #endif /* TEST_PILEUPPARSER_H */
 

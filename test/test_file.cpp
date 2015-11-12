@@ -13,6 +13,8 @@
 
 #ifndef TEST_FILE_H
 #define TEST_FILE_H
+
+#include "../include/catch.hpp"
 #include "../include/headers.h"
 
 TEST_CASE( "Test open_infile", "[file]" ) {

@@ -14,6 +14,7 @@
 #ifndef TEST_DATA_TYPE_H
 #define TEST_DATA_TYPE_H
 
+#include "../include/catch.hpp"
 #include "../include/headers.h"
 
 

@@ -15,7 +15,7 @@
 //#include "../include/catch.hpp"
 //#include "../test/test.h"
 
-int main() {
+int main_dump() {
     return 0;
 }
 
