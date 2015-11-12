@@ -13,9 +13,10 @@
 
 #ifndef TEST_H
 #define TEST_H
+
 #include "test_file.h"
 #include "test_iGDA.h"
-
+#include "test_data_type.h"
 
 #endif /* TEST_H */
 

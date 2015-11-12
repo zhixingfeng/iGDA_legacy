@@ -29,5 +29,6 @@ TEST_CASE( "Test open_outfile", "[file]" ) {
     REQUIRE_THROWS(open_outfile(wrong_file));
 }
 
+
 #endif /* TEST_FILE_H */
 

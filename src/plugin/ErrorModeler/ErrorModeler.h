@@ -17,8 +17,6 @@
 #include "../../../include/headers.h"
 
 
-
-        
 class ErrorModeler {
 public:
     ErrorModeler();

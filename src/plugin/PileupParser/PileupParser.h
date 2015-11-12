@@ -15,24 +15,7 @@
 #define PILEUPPARSER_H
 
 #include "../../../include/headers.h"
-struct PileUpLine
-{
-        int refID;
-        int locus;
-        bool is_ins;
-        char refSeq;
-        vector<string> readSeq;
-        vector<int> readID;
-        map<int, string> readSeq_group;
-        int cvg;
 
-        PileUpLine(){
-                refID = -1;
-                locus = -1;
-                refSeq = 'X';
-                cvg = 0;
-        }
-};
 
 class PileupParser {
 public:
@@ -49,7 +32,7 @@ protected:
     virtual void readLine()=0;
     
 protected:    
-    vector<PileUpLine> data;
+    vector<Pileup> data;
     string signature;
 };
 
