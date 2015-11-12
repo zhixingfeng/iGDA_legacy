@@ -14,6 +14,7 @@
 #include "PreCallerMultiple.h"
 
 PreCallerMultiple::PreCallerMultiple() {
+    signature = "PreCallerMultiple";
 }
 
 PreCallerMultiple::PreCallerMultiple(const PreCallerMultiple& orig) {

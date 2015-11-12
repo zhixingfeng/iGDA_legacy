@@ -14,6 +14,7 @@
 #include "PreCallerSingle.h"
 
 PreCallerSingle::PreCallerSingle() {
+    signature = "PreCallerSingle";
 }
 
 PreCallerSingle::PreCallerSingle(const PreCallerSingle& orig) {

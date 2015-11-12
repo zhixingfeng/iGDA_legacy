@@ -14,6 +14,7 @@
 #include "PreCaller.h"
 
 PreCaller::PreCaller() {
+    signature = "PreCaller";
 }
 
 PreCaller::PreCaller(const PreCaller& orig) {

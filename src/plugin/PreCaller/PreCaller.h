@@ -13,14 +13,17 @@
 
 #ifndef PRECALLER_H
 #define PRECALLER_H
+#include "../../../include/stl.h"
 
 class PreCaller {
 public:
     PreCaller();
     PreCaller(const PreCaller& orig);
     virtual ~PreCaller();
-private:
-
+    
+    string getSignature(){return signature;}
+protected:
+    string signature;
 };
 
 #endif /* PRECALLER_H */

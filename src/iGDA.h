@@ -45,6 +45,8 @@ public:
     void verifyPlugin();
     
     // get signature of plugins
+    //string getSigPileupParser(){ptr_PileupParser->readLines()}
+    string getSigPreCaller(){return ptr_PreCaller->getSignature();}
     
 private:
     // input pileup file 
