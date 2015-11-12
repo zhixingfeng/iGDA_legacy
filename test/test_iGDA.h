@@ -66,7 +66,6 @@ TEST_CASE( "Test signature of plugins", "[iGDA]" ) {
     gda.setPreCaller(& obj_PreCallerMultiple);
     REQUIRE(gda.getSigPreCaller() == "PreCallerMultiple");
     
-    
 }
 
 //tests to be continued after run() is completed.

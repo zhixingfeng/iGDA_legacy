@@ -7,7 +7,9 @@
       <logicalFolder name="include" displayName="include" projectFiles="true">
         <logicalFolder name="include" displayName="include" projectFiles="true">
           <itemPath>include/catch.hpp</itemPath>
+          <itemPath>include/data_type.h</itemPath>
           <itemPath>include/file.h</itemPath>
+          <itemPath>include/headers.h</itemPath>
           <itemPath>include/stl.h</itemPath>
         </logicalFolder>
       </logicalFolder>
@@ -21,6 +23,12 @@
                    projectFiles="true">
       <logicalFolder name="src" displayName="src" projectFiles="true">
         <logicalFolder name="plugin" displayName="plugin" projectFiles="true">
+          <logicalFolder name="ErrorModeler"
+                         displayName="ErrorModeler"
+                         projectFiles="true">
+            <itemPath>src/plugin/ErrorModeler/ErrorModeler.cpp</itemPath>
+            <itemPath>src/plugin/ErrorModeler/ErrorModeler.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="PileupParser"
                          displayName="PileupParser"
                          projectFiles="true">
@@ -79,7 +87,11 @@
       </compileType>
       <item path="include/catch.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/data_type.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/file.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/headers.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/stl.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -88,6 +100,16 @@
       <item path="src/iGDA.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/plugin/ErrorModeler/ErrorModeler.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/ErrorModeler/ErrorModeler.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/plugin/PileupParser/PileupParser.cpp"
             ex="false"
@@ -165,7 +187,11 @@
       </compileType>
       <item path="include/catch.hpp" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/data_type.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="include/file.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="include/headers.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="include/stl.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -174,6 +200,16 @@
       <item path="src/iGDA.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/plugin/ErrorModeler/ErrorModeler.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/ErrorModeler/ErrorModeler.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/plugin/PileupParser/PileupParser.cpp"
             ex="false"

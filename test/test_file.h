@@ -13,7 +13,7 @@
 
 #ifndef TEST_FILE_H
 #define TEST_FILE_H
-#include "../include/stl.h"
+#include "../include/headers.h"
 
 TEST_CASE( "Test open_infile", "[file]" ) {
     string real_file = "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup";

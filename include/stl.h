@@ -19,8 +19,13 @@
 #include <utility>
 #include <stdexcept>
 
-#include "file.h"
+#include <unordered_map>
+#if __cplusplus < 201103L
+    #error c++11 is not used. try "g++ -std=c++11".
+#endif
+
 //use namespace std to make the the source codes clear
 using namespace std;
+
 
 #endif //STL_H

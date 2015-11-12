@@ -13,7 +13,6 @@
 
 #ifndef IGDA_H
 #define IGDA_H
-#include "../include/stl.h"
 #include "./plugin/plugin.h"
 
 // SeqFreq is used for store the output of iGDA. 

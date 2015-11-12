@@ -5,26 +5,32 @@
  */
 
 /* 
- * File:   PreCaller.h
+ * File:   ErrorModeler.h
  * Author: zhixingfeng
  *
- * Created on November 11, 2015, 4:54 PM
+ * Created on November 12, 2015, 10:47 AM
  */
 
-#ifndef PRECALLER_H
-#define PRECALLER_H
+#ifndef ERRORMODELER_H
+#define ERRORMODELER_H
+
 #include "../../../include/headers.h"
 
-class PreCaller {
+
+
+        
+class ErrorModeler {
 public:
-    PreCaller();
-    PreCaller(const PreCaller& orig);
-    virtual ~PreCaller();
+    ErrorModeler();
+    ErrorModeler(const ErrorModeler& orig);
+    virtual ~ErrorModeler();
     
     string getSignature(){return signature;}
+    
+    // 
 protected:
     string signature;
 };
 
-#endif /* PRECALLER_H */
+#endif /* ERRORMODELER_H */
 
