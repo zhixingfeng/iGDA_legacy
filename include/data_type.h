@@ -30,25 +30,8 @@ struct NtBase {
     char score_ins;
 };
 
+
 typedef vector<NtBase> NtSeq;
-
-// converstion between string and nucleotide sequence.
-inline NtSeq str2NtSeq (string &seq) {
-    NtSeq ntseq;
-    for (int i=0; i<(int)seq.size(); i++) {
-        ntseq.push_back(NtBase(seq[i]));
-    }
-    return ntseq;
-}
-
-inline string NtSeq2Str (NtSeq &ntseq) {
-    string seq;
-    for (int i=0; i<(int)ntseq.size(); i++) {
-        seq.push_back(ntseq[i].base);
-    }
-    return seq;
-}
-
 
 
 struct Pileup {
@@ -72,6 +55,7 @@ struct Pileup {
     unordered_map<int, NtSeq> readSeq_group_ins;
     
 };
+
 
 struct BaseFreq {
     
@@ -97,7 +81,28 @@ struct BaseFreq {
 };
 
 
+// converstion between string and nucleotide sequence.
+inline NtSeq str2NtSeq (string &seq) {
+    NtSeq ntseq;
+    for (int i=0; i<(int)seq.size(); i++) {
+        ntseq.push_back(NtBase(seq[i]));
+    }
+    return ntseq;
+}
 
+inline string NtSeq2Str (NtSeq &ntseq) {
+    string seq;
+    for (int i=0; i<(int)ntseq.size(); i++) {
+        seq.push_back(ntseq[i].base);
+    }
+    return seq;
+}
+
+
+// print Pileup
+/*ostream & operator << (ostream & os, const Pileup & obj_Pileup) {
+    
+}*/
 
 #endif /* DATA_TYPE_H */
 

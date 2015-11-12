@@ -28,7 +28,8 @@ public:
     void setPileupFileStream (ifstream * a_ptr_fs_pileupfile) { ptr_fs_pileupfile = a_ptr_fs_pileupfile; }
     virtual int readLines(int nlines = 1)=0; // return number of read lines
     virtual void calBaseFreq() = 0;
-
+    void clear() {data_Pileup.clear(); data_BaseFreq.clear();}
+    
     // get results
     vector<Pileup> getPileup() {return data_Pileup;}
     vector<BaseFreq> getBaseFreq() {return data_BaseFreq;}

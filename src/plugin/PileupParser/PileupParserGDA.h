@@ -27,6 +27,7 @@ public:
     
 protected:
     bool readLine();
+    void parseLine(string & line, Pileup & obj_Pileup, bool is_ins);
 
 };
 

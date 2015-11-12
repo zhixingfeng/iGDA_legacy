@@ -69,6 +69,7 @@ TEST_CASE( "Test signature of plugins", "[iGDA]" ) {
     
 }
 
+
 //tests to be continued after run() is completed.
 
 #endif /* TEST_IGDA_H */

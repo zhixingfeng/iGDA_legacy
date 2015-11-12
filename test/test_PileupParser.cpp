@@ -17,7 +17,7 @@
 #include "../include/catch.hpp"
 #include "../src/plugin/plugin.h"
 
-        
+   
 SCENARIO ("Test PileupParserGDA", "[PileupParser][PileupParserGDA]") {
     string pileupfile_gda = "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup"; 
     
@@ -36,7 +36,9 @@ SCENARIO ("Test PileupParserGDA", "[PileupParser][PileupParserGDA]") {
         WHEN ("pointer ptr_fs_pileupfile is set") {
             ifstream fs_pileup = open_infile(pileupfile_gda);
             obj_PileupParserGDA.setPileupFileStream(& fs_pileup);
-            obj_PileupParserGDA.readLines(10);
+            obj_PileupParserGDA.readLines(1);
+            vector<Pileup> obj_Pileup = obj_PileupParserGDA.getPileup();
+            
             fs_pileup.close();
         }
         

@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include "stl.h"
+#include "data_type.h"
 #include <ctype.h>
 #include <sstream>
 // find index of a string in a string vector (fisrt occurence only)
@@ -83,6 +84,20 @@ inline bool islower(const string &str)
 	}
 }
 // split string 
+inline vector<NtSeq> split_NtSeq(const string &s, char delim, bool rm_empty=true) {
+    stringstream ss(s);
+    string item;
+    vector<NtSeq> tokens;
+    while (getline(ss, item, delim)) {
+	if (rm_empty){
+        	if (item!="") tokens.push_back(str2NtSeq(item));
+	}else{
+		tokens.push_back(str2NtSeq(item));
+	}
+    }
+    return tokens;
+}
+
 inline vector<string> split(const string &s, char delim, bool rm_empty=true) {
     stringstream ss(s);
     string item;
