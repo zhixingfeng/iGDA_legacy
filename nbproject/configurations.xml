@@ -11,6 +11,7 @@
           <itemPath>include/file.h</itemPath>
           <itemPath>include/headers.h</itemPath>
           <itemPath>include/stl.h</itemPath>
+          <itemPath>include/utils.h</itemPath>
         </logicalFolder>
       </logicalFolder>
     </logicalFolder>
@@ -52,7 +53,6 @@
         <itemPath>src/main.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="test" displayName="test" projectFiles="true">
-        <itemPath>test/test.h</itemPath>
         <itemPath>test/test_PileupParser.cpp</itemPath>
         <itemPath>test/test_data_type.cpp</itemPath>
         <itemPath>test/test_file.cpp</itemPath>
@@ -97,6 +97,8 @@
       </item>
       <item path="include/stl.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/utils.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/iGDA.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/iGDA.h" ex="false" tool="3" flavor2="0">
@@ -158,8 +160,6 @@
             flavor2="0">
       </item>
       <item path="src/plugin/plugin.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="test/test.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="test/test_PileupParser.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -201,6 +201,8 @@
       </item>
       <item path="include/stl.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="include/utils.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/iGDA.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/iGDA.h" ex="false" tool="3" flavor2="0">
@@ -262,8 +264,6 @@
             flavor2="0">
       </item>
       <item path="src/plugin/plugin.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="test/test.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="test/test_PileupParser.cpp" ex="false" tool="1" flavor2="0">
       </item>

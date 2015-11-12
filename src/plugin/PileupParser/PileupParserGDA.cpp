@@ -23,13 +23,22 @@ PileupParserGDA::PileupParserGDA(const PileupParserGDA& orig) {
 PileupParserGDA::~PileupParserGDA() {
 }
 
-void PileupParserGDA::readLines(int nlines) {
+int PileupParserGDA::readLines(int nlines) {
     if (ptr_fs_pileupfile == NULL)
         throw runtime_error("Error in PileupParserGDA::readLines: ptr_fs_pileupfile has not been setup yet.");
+    int rlines = 0;
+    for (int i=0; i<nlines; i++) {
+        bool is_eof = readLine();
+        if (is_eof) break;
+        rlines ++;
+    }
+    return nlines;
 }
 
-void PileupParserGDA::readLine() {
-    
+bool PileupParserGDA::readLine() {
+
+    //ptr_fs_pileupfile->
+    return false;
 }
 
 

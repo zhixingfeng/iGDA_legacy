@@ -22,11 +22,11 @@ public:
     PileupParserGDA(const PileupParserGDA& orig);
     virtual ~PileupParserGDA();
     
-    void readLines(int nlines = 1);
+    int readLines(int nlines = 1);
     void calBaseFreq();
     
 protected:
-    void readLine();
+    bool readLine();
 
 };
 

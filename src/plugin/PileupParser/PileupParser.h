@@ -25,8 +25,8 @@ public:
     virtual ~PileupParser();
     
     // basic operations 
-    void setPileupFileStream (fstream * a_ptr_fs_pileupfile) { ptr_fs_pileupfile = a_ptr_fs_pileupfile; }
-    virtual void readLines(int nlines = 1)=0;
+    void setPileupFileStream (ifstream * a_ptr_fs_pileupfile) { ptr_fs_pileupfile = a_ptr_fs_pileupfile; }
+    virtual int readLines(int nlines = 1)=0; // return number of read lines
     virtual void calBaseFreq() = 0;
 
     // get results
@@ -35,10 +35,10 @@ public:
     string getSignature(){return signature;}
 
 protected:
-    virtual void readLine()=0;
+    virtual bool readLine()=0; // return if reach end of a file
     
 protected:    
-    fstream * ptr_fs_pileupfile;
+    ifstream * ptr_fs_pileupfile;
     vector<Pileup> data_Pileup;
     vector<BaseFreq> data_BaseFreq;
     string signature;
