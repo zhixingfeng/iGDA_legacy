@@ -49,18 +49,24 @@ TEST_CASE( "Test verifyPlugin", "[iGDA]" ) {
 
 TEST_CASE( "Test signature of plugins", "[iGDA]" ) {
     iGDA gda;
-    PreCaller obj_PreCaller;
+    
+    // PileupParser
+    PileupParserGDA obj_PileupParserGDA;
+    
+    gda.setPileupParser(& obj_PileupParserGDA);
+    REQUIRE(gda.getSigPileupParser() == "PileupParserGDA");
+    obj_PileupParserGDA.readLines();
+    
+    // preCaller
     PreCallerSingle obj_PreCallerSingle;
     PreCallerMultiple obj_PreCallerMultiple;
     
-    gda.setPreCaller(& obj_PreCaller);
-    REQUIRE(gda.getSigPreCaller() == "PreCaller");
-    
     gda.setPreCaller(& obj_PreCallerSingle);
     REQUIRE(gda.getSigPreCaller() == "PreCallerSingle");
-    
     gda.setPreCaller(& obj_PreCallerMultiple);
     REQUIRE(gda.getSigPreCaller() == "PreCallerMultiple");
+    
+    
 }
 
 //tests to be continued after run() is completed.

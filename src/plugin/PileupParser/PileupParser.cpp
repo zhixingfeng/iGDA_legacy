@@ -14,6 +14,7 @@
 #include "PileupParser.h"
 
 PileupParser::PileupParser() {
+    signature = "PileupParser";
 }
 
 PileupParser::PileupParser(const PileupParser& orig) {

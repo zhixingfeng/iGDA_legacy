@@ -36,15 +36,21 @@ struct PileUpLine
 
 class PileupParser {
 public:
+    
     PileupParser();
     PileupParser(const PileupParser& orig);
     virtual ~PileupParser();
     
-    virtual void readLines()=0;
-private:
+    virtual void readLines(int nlines = 1)=0;
 
-    vector<PileUpLine> data;
+    string getSignature(){return signature;}
+
+protected:
+    virtual void readLine()=0;
     
+protected:    
+    vector<PileUpLine> data;
+    string signature;
 };
 
 #endif /* PILEUPPARSER_H */

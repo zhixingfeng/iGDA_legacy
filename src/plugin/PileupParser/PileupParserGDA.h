@@ -21,8 +21,10 @@ public:
     PileupParserGDA();
     PileupParserGDA(const PileupParserGDA& orig);
     virtual ~PileupParserGDA();
-    void readLines(){}
-private:
+    void readLines(int nlines = 1);
+
+protected:
+    void readLine();
 
 };
 

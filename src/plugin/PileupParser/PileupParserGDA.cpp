@@ -14,6 +14,7 @@
 #include "PileupParserGDA.h"
 
 PileupParserGDA::PileupParserGDA() {
+    signature = "PileupParserGDA";
 }
 
 PileupParserGDA::PileupParserGDA(const PileupParserGDA& orig) {
@@ -22,3 +23,10 @@ PileupParserGDA::PileupParserGDA(const PileupParserGDA& orig) {
 PileupParserGDA::~PileupParserGDA() {
 }
 
+void PileupParserGDA::readLines(int nlines) {
+    //cout << "readLines() " << this->getSignature() << endl;
+}
+
+void PileupParserGDA::readLine() {
+    
+}

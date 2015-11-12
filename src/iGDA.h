@@ -46,9 +46,10 @@ public:
     
     // get signature of plugins
     //string getSigPileupParser(){ptr_PileupParser->readLines()}
-    string getSigPreCaller(){return ptr_PreCaller->getSignature();}
+    inline string getSigPreCaller() {return ptr_PreCaller->getSignature();}
+    inline string getSigPileupParser() {return ptr_PileupParser->getSignature();}
     
-private:
+protected:
     // input pileup file 
     string pileupfile;
     ifstream fs_pileupfile;
