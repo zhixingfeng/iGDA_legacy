@@ -24,9 +24,15 @@ PileupParserGDA::~PileupParserGDA() {
 }
 
 void PileupParserGDA::readLines(int nlines) {
-    //cout << "readLines() " << this->getSignature() << endl;
+    if (ptr_fs_pileupfile == NULL)
+        throw runtime_error("Error in PileupParserGDA::readLines: ptr_fs_pileupfile has not been setup yet.");
 }
 
 void PileupParserGDA::readLine() {
+    
+}
+
+
+void PileupParserGDA::calBaseFreq() {
     
 }

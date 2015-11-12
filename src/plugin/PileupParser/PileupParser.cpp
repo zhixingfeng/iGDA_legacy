@@ -14,6 +14,7 @@
 #include "PileupParser.h"
 
 PileupParser::PileupParser() {
+    ptr_fs_pileupfile = NULL;
     signature = "PileupParser";
 }
 

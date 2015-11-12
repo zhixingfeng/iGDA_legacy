@@ -55,7 +55,6 @@ TEST_CASE( "Test signature of plugins", "[iGDA]" ) {
     
     gda.setPileupParser(& obj_PileupParserGDA);
     REQUIRE(gda.getSigPileupParser() == "PileupParserGDA");
-    obj_PileupParserGDA.readLines();
     
     // preCaller
     PreCallerSingle obj_PreCallerSingle;

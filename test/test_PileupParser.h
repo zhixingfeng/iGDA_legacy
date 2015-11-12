@@ -5,17 +5,17 @@
  */
 
 /* 
- * File:   main.cpp
+ * File:   test_PileupParser.h
  * Author: zhixingfeng
  *
- * Created on November 11, 2015, 1:50 PM
+ * Created on November 12, 2015, 3:48 PM
  */
 
-//#define CATCH_CONFIG_MAIN
-//#include "../include/catch.hpp"
-//#include "../test/test.h"
+#ifndef TEST_PILEUPPARSER_H
+#define TEST_PILEUPPARSER_H
+//#include "../src/plugin/plugin.h"
 
-int main() {
-    return 0;
-}
+
+
+#endif /* TEST_PILEUPPARSER_H */
 

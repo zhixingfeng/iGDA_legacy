@@ -17,6 +17,9 @@
 #include "test_file.h"
 #include "test_iGDA.h"
 #include "test_data_type.h"
+#include "test_PileupParser.h"
+
+#include "../include/catch.hpp"
 
 #endif /* TEST_H */
 
