@@ -44,6 +44,8 @@ public:
     inline void verifyPileupFile(){fs_pileupfile = open_infile(pileupfile); fs_pileupfile.close();}
     void verifyPlugin();
     
+    // get signature of plugins
+    
 private:
     // input pileup file 
     string pileupfile;
