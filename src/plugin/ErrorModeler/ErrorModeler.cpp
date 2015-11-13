@@ -14,6 +14,7 @@
 #include "ErrorModeler.h"
 
 ErrorModeler::ErrorModeler() {
+    signature = "ErrorModeler";
 }
 
 ErrorModeler::ErrorModeler(const ErrorModeler& orig) {

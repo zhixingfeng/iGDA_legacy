@@ -15,7 +15,8 @@
 #define ERRORMODELER_H
 
 #include "../../../include/headers.h"
-
+#include "../PileupParser/PileupParser.h"
+#include "../PileupParser/PileupParserGDA.h"
 
 class ErrorModeler {
 public:
@@ -27,7 +28,11 @@ public:
     
     // 
 protected:
+    
     string signature;
+    
+    // plugins
+    PileupParser * ptr_PileupParser;
 };
 
 #endif /* ERRORMODELER_H */

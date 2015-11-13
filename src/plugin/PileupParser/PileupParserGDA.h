@@ -23,10 +23,11 @@ public:
     virtual ~PileupParserGDA();
     
     int readLines(int nlines = 1);
+    bool readLine();
     void calBaseFreq();
     
 protected:
-    bool readLine();
+    
     void parseLine(string & line, Pileup & obj_Pileup, bool is_ins);
 
 };

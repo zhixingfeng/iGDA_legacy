@@ -35,9 +35,6 @@ public:
     vector<BaseFreq> getBaseFreq() {return data_BaseFreq;}
     string getSignature(){return signature;}
 
-protected:
-    virtual bool readLine()=0; // return if reach end of a file
-    
 protected:    
     ifstream * ptr_fs_pileupfile;
     vector<Pileup> data_Pileup;
