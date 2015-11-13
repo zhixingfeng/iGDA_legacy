@@ -149,7 +149,55 @@ inline bool operator == (const Pileup & obj_Pileup_l, const Pileup & obj_Pileup_
     return true;
 }
 
+// print baseFreq
+template<class T>
+inline ostream & operator << (ostream & os, unordered_map<string, T> & base_freq) {
+    typename unordered_map<string, T>::iterator it;
+    for (it=base_freq.begin(); it!=base_freq.end(); ++it) {
+        os << it->first << ':' << it->second << ',';
+    }
+    return os;
+}
 // get BaseFreq from Pileup
+inline BaseFreq Pileup2BaseFreq (const Pileup & obj_Pileup) {
+    BaseFreq obj_BaseFreq(obj_Pileup);
+    
+    unordered_map<string, int>::iterator it;
+    
+    // get freq of insertion
+    for (int i=0; i<(int) obj_Pileup.readSeq_ins.size(); i++) {
+        string cur_seq = NtSeq2Str(obj_Pileup.readSeq_ins[i]);
+        it = obj_BaseFreq.freq_ins.find( cur_seq );
+        if ( it == obj_BaseFreq.freq_ins.end() )
+            obj_BaseFreq.freq_ins[cur_seq] = 1;
+        else 
+            obj_BaseFreq.freq_ins[cur_seq] ++;
+            
+    }
+    
+    // get freq of match
+    for (int i=0; i<(int) obj_Pileup.readSeq.size(); i++) {
+        string cur_seq = NtSeq2Str(obj_Pileup.readSeq[i]);
+        it = obj_BaseFreq.freq.find( cur_seq );
+        if ( it == obj_BaseFreq.freq.end() )
+            obj_BaseFreq.freq[cur_seq] = 1;
+        else 
+            obj_BaseFreq.freq[cur_seq] ++;
+            
+    }
+    
+    // get prob of insertion
+    for (it=obj_BaseFreq.freq_ins.begin(); it!= obj_BaseFreq.freq_ins.end(); it++)
+        obj_BaseFreq.prob_ins[it->first] = double(it->second) / obj_BaseFreq.cvg;
+    
+    // get prob of match
+    for (it=obj_BaseFreq.freq.begin(); it!= obj_BaseFreq.freq.end(); it++)
+        obj_BaseFreq.prob[it->first] = double(it->second) / obj_BaseFreq.cvg;
+    
+    return obj_BaseFreq;
+}
+
+
 
 #endif /* DATA_TYPE_H */
 

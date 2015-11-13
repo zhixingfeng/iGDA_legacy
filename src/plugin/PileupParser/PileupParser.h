@@ -26,8 +26,13 @@ public:
     
     // basic operations 
     void setPileupFileStream (ifstream * a_ptr_fs_pileupfile) { ptr_fs_pileupfile = a_ptr_fs_pileupfile; }
+    
     virtual int readLines(int nlines = 1)=0; // return number of read lines
+    
+    virtual bool readLine() = 0;
+    
     virtual void calBaseFreq() = 0;
+    
     void clear() {data_Pileup.clear(); data_BaseFreq.clear();}
     
     // get results

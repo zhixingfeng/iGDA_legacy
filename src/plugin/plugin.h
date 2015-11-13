@@ -16,6 +16,8 @@
 
 #include "./PileupParser/PileupParser.h"
 #include "./PileupParser/PileupParserGDA.h"
+#include "./ErrorModeler/ErrorModeler.h"
+#include "./ErrorModeler/ErrorModelerHomo.h"
 #include "./PreCaller/PreCaller.h"
 #include "./PreCaller/PreCallerSingle.h"
 #include "./PreCaller/PreCallerMultiple.h"

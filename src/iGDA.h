@@ -32,21 +32,27 @@ public:
     // basic operations
     inline void setPileupFile(string  a_pileupfile) {pileupfile = a_pileupfile; verifyPileupFile();}
     inline string getPileupFile(){return pileupfile;}
+    
+    void trainErrorModel();
+    void loadErrorModel();
+    
     void run();
     SeqFreq getSeqFreq();
     
     // setup plugins
-    inline void setPileupParser(PileupParser * a_PileupParser){ ptr_PileupParser = a_PileupParser; }
-    inline void setPreCaller(PreCaller * a_PreCaller){ ptr_PreCaller = a_PreCaller; }
+    inline void setPileupParser(PileupParser * a_PileupParser) { ptr_PileupParser = a_PileupParser; }
+    inline void setErrorModeler(ErrorModeler * a_ErrorModeler) {ptr_ErrorModeler = a_ErrorModeler;}
+    inline void setPreCaller(PreCaller * a_PreCaller) { ptr_PreCaller = a_PreCaller; }
     
     // verification
     inline void verifyPileupFile(){fs_pileupfile = open_infile(pileupfile); fs_pileupfile.close();}
     void verifyPlugin();
     
     // get signature of plugins
-    //string getSigPileupParser(){ptr_PileupParser->readLines()}
-    inline string getSigPreCaller() {return ptr_PreCaller->getSignature();}
     inline string getSigPileupParser() {return ptr_PileupParser->getSignature();}
+    inline string getSigErrorModeler() {return ptr_ErrorModeler->getSignature();}
+    inline string getSigPreCaller() {return ptr_PreCaller->getSignature();}
+    
     
 protected:
     // input pileup file 
@@ -58,6 +64,7 @@ protected:
     
     // plugins
     PileupParser * ptr_PileupParser;
+    ErrorModeler * ptr_ErrorModeler;
     PreCaller * ptr_PreCaller;
 
     

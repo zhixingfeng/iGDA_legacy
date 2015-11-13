@@ -11,6 +11,8 @@
  * Created on November 12, 2015, 10:47 AM
  */
 
+// Warning : all the error model assume all the read are mapped to the forward strand !!!
+
 #ifndef ERRORMODELER_H
 #define ERRORMODELER_H
 
