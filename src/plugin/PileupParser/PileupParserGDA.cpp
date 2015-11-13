@@ -45,8 +45,11 @@ bool PileupParserGDA::readLine() {
     getline(*ptr_fs_pileupfile, cur_line);
     
     if (ptr_fs_pileupfile->eof()) return true;
+    
     // parse insertion
     this->parseLine(cur_line_ins, obj_Pileup, true);
+    
+    // parse match
     this->parseLine(cur_line, obj_Pileup, false);
     
     data_Pileup.push_back(obj_Pileup);

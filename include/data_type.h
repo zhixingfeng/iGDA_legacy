@@ -17,8 +17,8 @@
 #define DATA_TYPE_H
 
 #include "stl.h"
+#include <vector>
 
-/* ------------- Define nucleotide base and sequence with quality score ------------- */
 
 struct NtBase {
     NtBase (char base) : base(base), score_sub(0), score_del(0), score_ins(0) {}
@@ -30,9 +30,7 @@ struct NtBase {
     char score_ins;
 };
 
-
 typedef vector<NtBase> NtSeq;
-
 
 struct Pileup {
     
@@ -82,7 +80,7 @@ struct BaseFreq {
 
 
 // converstion between string and nucleotide sequence.
-inline NtSeq str2NtSeq (string &seq) {
+inline NtSeq str2NtSeq (string seq) {
     NtSeq ntseq;
     for (int i=0; i<(int)seq.size(); i++) {
         ntseq.push_back(NtBase(seq[i]));
@@ -90,7 +88,7 @@ inline NtSeq str2NtSeq (string &seq) {
     return ntseq;
 }
 
-inline string NtSeq2Str (NtSeq &ntseq) {
+inline string NtSeq2Str (NtSeq ntseq) {
     string seq;
     for (int i=0; i<(int)ntseq.size(); i++) {
         seq.push_back(ntseq[i].base);
@@ -98,11 +96,10 @@ inline string NtSeq2Str (NtSeq &ntseq) {
     return seq;
 }
 
-
-// print Pileup
-/*ostream & operator << (ostream & os, const Pileup & obj_Pileup) {
+inline ostream & operator << (ostream & os, const Pileup & obj_Pileup) {
     
-}*/
+    return os;
+}
 
 #endif /* DATA_TYPE_H */
 
