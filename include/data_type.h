@@ -19,7 +19,9 @@
 #include "stl.h"
 #include <vector>
 
+/* ----------------------- global data structure ----------------------------- */
 
+// define base and sequence with quality score 
 struct NtBase {
     NtBase (char base) : base(base), score_sub(0), score_del(0), score_ins(0) {}
     
@@ -32,6 +34,8 @@ struct NtBase {
 
 typedef vector<NtBase> NtSeq;
 
+
+// define data structure of pileup of a locus
 struct Pileup {
     
     Pileup() : refID(-1), locus(-1), refSeq ('X'), cvg(-1), cvg_ins(-1) {}
@@ -54,7 +58,7 @@ struct Pileup {
     
 };
 
-
+// define base frequency of 
 struct BaseFreq {
     
     BaseFreq(): refID(-1), locus(-1), refSeq ('X'), cvg(-1), cvg_ins(-1){}
@@ -74,10 +78,10 @@ struct BaseFreq {
     
     unordered_map<string, int> freq_ins;
     unordered_map<string, double> prob_ins;
-    
-    
+       
 };
 
+/* ----------------------- global functions ----------------------------- */
 
 // converstion between string and nucleotide sequence.
 inline NtSeq str2NtSeq (string seq) {
@@ -96,6 +100,7 @@ inline string NtSeq2Str (NtSeq ntseq) {
     return seq;
 }
 
+// print and compare Pileup structure
 inline ostream & operator << (ostream & os, const Pileup & obj_Pileup) {
     // print insertion
     os << obj_Pileup.refID << "\t_" << obj_Pileup.locus << '\t' << obj_Pileup.refSeq << '\t' << obj_Pileup.cvg_ins << '\t';
@@ -143,5 +148,8 @@ inline bool operator == (const Pileup & obj_Pileup_l, const Pileup & obj_Pileup_
     // readSeq_group_ins and readSeq_group are NOT compared !!!
     return true;
 }
+
+// get BaseFreq from Pileup
+
 #endif /* DATA_TYPE_H */
 

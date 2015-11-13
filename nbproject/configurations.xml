@@ -29,6 +29,8 @@
                          projectFiles="true">
             <itemPath>src/plugin/ErrorModeler/ErrorModeler.cpp</itemPath>
             <itemPath>src/plugin/ErrorModeler/ErrorModeler.h</itemPath>
+            <itemPath>src/plugin/ErrorModeler/ErrorModelerHomo.cpp</itemPath>
+            <itemPath>src/plugin/ErrorModeler/ErrorModelerHomo.h</itemPath>
           </logicalFolder>
           <logicalFolder name="PileupParser"
                          displayName="PileupParser"
@@ -111,6 +113,16 @@
             flavor2="0">
       </item>
       <item path="src/plugin/ErrorModeler/ErrorModeler.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/ErrorModeler/ErrorModelerHomo.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/ErrorModeler/ErrorModelerHomo.h"
             ex="false"
             tool="3"
             flavor2="0">
@@ -215,6 +227,16 @@
             flavor2="0">
       </item>
       <item path="src/plugin/ErrorModeler/ErrorModeler.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/ErrorModeler/ErrorModelerHomo.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/plugin/ErrorModeler/ErrorModelerHomo.h"
             ex="false"
             tool="3"
             flavor2="0">

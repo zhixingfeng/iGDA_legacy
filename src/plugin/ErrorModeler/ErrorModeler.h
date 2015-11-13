@@ -26,13 +26,18 @@ public:
     
     string getSignature(){return signature;}
     
-    // 
+    // set plugins
+    inline void setPileupParser(PileupParser * a_PileupParser){ ptr_PileupParser = a_PileupParser; }
+    
 protected:
     
     string signature;
     
     // plugins
     PileupParser * ptr_PileupParser;
+    
+    // context specific error rate
+    
 };
 
 #endif /* ERRORMODELER_H */

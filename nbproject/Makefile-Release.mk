@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/iGDA.o \
 	${OBJECTDIR}/src/main.o \
 	${OBJECTDIR}/src/plugin/ErrorModeler/ErrorModeler.o \
+	${OBJECTDIR}/src/plugin/ErrorModeler/ErrorModelerHomo.o \
 	${OBJECTDIR}/src/plugin/PileupParser/PileupParser.o \
 	${OBJECTDIR}/src/plugin/PileupParser/PileupParserGDA.o \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o \
@@ -87,6 +88,11 @@ ${OBJECTDIR}/src/plugin/ErrorModeler/ErrorModeler.o: src/plugin/ErrorModeler/Err
 	${MKDIR} -p ${OBJECTDIR}/src/plugin/ErrorModeler
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/plugin/ErrorModeler/ErrorModeler.o src/plugin/ErrorModeler/ErrorModeler.cpp
+
+${OBJECTDIR}/src/plugin/ErrorModeler/ErrorModelerHomo.o: src/plugin/ErrorModeler/ErrorModelerHomo.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/plugin/ErrorModeler
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/plugin/ErrorModeler/ErrorModelerHomo.o src/plugin/ErrorModeler/ErrorModelerHomo.cpp
 
 ${OBJECTDIR}/src/plugin/PileupParser/PileupParser.o: src/plugin/PileupParser/PileupParser.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src/plugin/PileupParser

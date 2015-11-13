@@ -60,8 +60,11 @@ SCENARIO ("Test PileupParserGDA", "[PileupParser][PileupParserGDA]") {
             
             vector<Pileup> obj_Pileup_in = obj_PileupParserGDA.getPileup();
             REQUIRE(obj_Pileup_in.size() == obj_Pileup.size());
+            
+            bool is_equal = true;
             for (int i=0; i<(int)obj_Pileup_in.size(); i++)
-                REQUIRE(obj_Pileup_in[i] == obj_Pileup[i]);
+                if ( !(obj_Pileup_in[i] == obj_Pileup[i]) ) {is_equal = false; break;}
+            REQUIRE(is_equal == true);
         }
         
     }

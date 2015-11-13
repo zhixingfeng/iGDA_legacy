@@ -36,10 +36,12 @@ public:
     string getSignature(){return signature;}
 
 protected:    
+    string signature;
+    
     ifstream * ptr_fs_pileupfile;
     vector<Pileup> data_Pileup;
     vector<BaseFreq> data_BaseFreq;
-    string signature;
+    
 };
 
 #endif /* PILEUPPARSER_H */

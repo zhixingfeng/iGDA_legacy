@@ -18,12 +18,6 @@
 #include "../include/headers.h"
 
 
-TEST_CASE( "Test str2NtSeq and NtSeq2Str", "[data_type]" ) {
-    string seq = "CGTAGTCGTAGCGATGCTAGCGTNNNGTCGTAG";
-    NtSeq ntseq = str2NtSeq(seq);
-    REQUIRE(NtSeq2Str(ntseq) == seq);
-}
-
 TEST_CASE("Test Pileup", "[data_type]") {
     Pileup obj_Pileup(0, 104, 'A', 194, 24);
     REQUIRE(obj_Pileup.refID == 0);
@@ -52,6 +46,14 @@ TEST_CASE("Test BaseFreq", "[data_type]") {
         REQUIRE(obj_BaseFreq.cvg_ins == 24);
     }
 }
+
+
+TEST_CASE( "Test str2NtSeq and NtSeq2Str", "[data_type]" ) {
+    string seq = "CGTAGTCGTAGCGATGCTAGCGTNNNGTCGTAG";
+    NtSeq ntseq = str2NtSeq(seq);
+    REQUIRE(NtSeq2Str(ntseq) == seq);
+}
+
 
 #endif /* TEST_DATA_TYPE_H */
 
