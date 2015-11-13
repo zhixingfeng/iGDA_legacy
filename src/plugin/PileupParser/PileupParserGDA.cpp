@@ -36,6 +36,8 @@ int PileupParserGDA::readLines(int nlines) {
 }
 
 bool PileupParserGDA::readLine() {
+    if (ptr_fs_pileupfile == NULL)
+        throw runtime_error("Error in PileupParserGDA::readLine: ptr_fs_pileupfile has not been setup yet.");
     string cur_line_ins;
     string cur_line;
     vector<string> buf;
@@ -90,5 +92,8 @@ void PileupParserGDA::parseLine(string & line, Pileup &obj_Pileup, bool is_ins) 
 }
 
 void PileupParserGDA::calBaseFreq() {
-    
+    data_BaseFreq.clear();
+    for (int i=0; i<(int)data_Pileup.size(); i++) {
+        data_BaseFreq.push_back(Pileup2BaseFreq(data_Pileup[i]));
+    }
 }
