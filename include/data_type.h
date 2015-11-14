@@ -166,6 +166,7 @@ inline ostream & operator << (ostream & os, unordered_map<string, T> & base_freq
     }
     return os;
 }
+
 // get BaseFreq from Pileup
 inline BaseFreq Pileup2BaseFreq (const Pileup & obj_Pileup) {
     BaseFreq obj_BaseFreq(obj_Pileup);

@@ -54,6 +54,37 @@ TEST_CASE( "Test str2NtSeq and NtSeq2Str", "[data_type]" ) {
     REQUIRE(NtSeq2Str(ntseq) == seq);
 }
 
+TEST_CASE( "Test Pileup2BaseFreq", "[data_type][hide]" ) {
+    string pileupfile_gda = "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup";
+    string basefreqfile_gda = "./results/mixed_MSSA_78_ratio_0.05_B_1.bam.basefreq";
+    string baseprobfile_gda = "./results/mixed_MSSA_78_ratio_0.05_B_1.bam.baseprob";
+   
+    // load pileup
+    ifstream fs_pileup = open_infile(pileupfile_gda);
+    ofstream fs_basefreq = open_outfile(basefreqfile_gda);
+    ofstream fs_baseprob = open_outfile(baseprobfile_gda);
+    
+    PileupParserGDA obj_PileupParserGDA(& fs_pileup);
+    
+    while (true) {
+        obj_PileupParserGDA.readLine();
+        if (fs_pileup.eof()) break;
+        Pileup obj_Pileup = obj_PileupParserGDA.getPileup();
+        BaseFreq obj_BaseFreq = Pileup2BaseFreq(obj_Pileup);
+        fs_basefreq << obj_BaseFreq.freq_ins << endl;
+        fs_basefreq << obj_BaseFreq.freq << endl;
+        fs_baseprob << obj_BaseFreq.prob_ins << endl;
+        fs_baseprob << obj_BaseFreq.prob << endl;
+    }
+    
+    fs_pileup.close();
+    fs_basefreq.close();
+    fs_baseprob.close();
+    
+    // strict test needed.
+}
+
+
 
 #endif /* TEST_DATA_TYPE_H */
 
