@@ -23,39 +23,30 @@ PileupParserGDA::PileupParserGDA(const PileupParserGDA& orig) {
 PileupParserGDA::~PileupParserGDA() {
 }
 
-int PileupParserGDA::readLines(int nlines) {
-    if (ptr_fs_pileupfile == NULL)
-        throw runtime_error("Error in PileupParserGDA::readLines: ptr_fs_pileupfile has not been setup yet.");
-    int rlines = 0;
-    for (int i=0; i<nlines; i++) {
-        bool is_eof = this->readLine();
-        if (is_eof) break;
-        rlines ++;
-    }
-    return rlines;
-}
+
 
 bool PileupParserGDA::readLine() {
     if (ptr_fs_pileupfile == NULL)
         throw runtime_error("Error in PileupParserGDA::readLine: ptr_fs_pileupfile has not been setup yet.");
+    data_Pileup.clear();            
+          
+            
     string cur_line_ins;
     string cur_line;
     vector<string> buf;
-    Pileup obj_Pileup;
     
     getline(*ptr_fs_pileupfile, cur_line_ins);
     getline(*ptr_fs_pileupfile, cur_line);
     
     if (ptr_fs_pileupfile->eof()) return true;
     
+    
     // parse insertion
-    this->parseLine(cur_line_ins, obj_Pileup, true);
+    this->parseLine(cur_line_ins, data_Pileup, true);
     
     // parse match
-    this->parseLine(cur_line, obj_Pileup, false);
+    this->parseLine(cur_line, data_Pileup, false);
     
-    data_Pileup.push_back(obj_Pileup);
-    // parse match
     return false;
 }
 
@@ -93,7 +84,4 @@ void PileupParserGDA::parseLine(string & line, Pileup &obj_Pileup, bool is_ins) 
 
 void PileupParserGDA::calBaseFreq() {
     data_BaseFreq.clear();
-    for (int i=0; i<(int)data_Pileup.size(); i++) {
-        data_BaseFreq.push_back(Pileup2BaseFreq(data_Pileup[i]));
-    }
 }

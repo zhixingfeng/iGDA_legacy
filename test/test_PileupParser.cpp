@@ -29,42 +29,38 @@ SCENARIO ("Test PileupParserGDA", "[PileupParser][PileupParserGDA]") {
         WHEN ("pointer ptr_fs_pileupfile is not set") {
             AND_WHEN ("readLines() is called") {
                 THEN ("A expection should be thrown") {
-                    REQUIRE_THROWS(obj_PileupParserGDA.readLines());
+                    REQUIRE_THROWS(obj_PileupParserGDA.readLine());
                 }
             }
         }
         
         WHEN ("pointer ptr_fs_pileupfile is set") {
-            // read pileup data
+            // read and write pileup data
             ifstream fs_pileup = open_infile(pileupfile_gda);
-            obj_PileupParserGDA.setPileupFileStream(& fs_pileup);
-            while (!fs_pileup.eof())
-                obj_PileupParserGDA.readLine();
-            fs_pileup.close();
-            
-            vector<Pileup> obj_Pileup = obj_PileupParserGDA.getPileup();
-            
-            // write read pileup data 
             ofstream fs_pileup_out = open_outfile(pileupfile_gda_out);
-            for (int i=0; i<(int)obj_Pileup.size(); i++)
-                fs_pileup_out << obj_Pileup[i];
-            fs_pileup.close();
             
-            // read written data again to validate
-            ifstream fs_pileup_in = open_infile(pileupfile_gda_out);
-            obj_PileupParserGDA.setPileupFileStream(& fs_pileup_in);
-            obj_PileupParserGDA.clear();
-            while (!fs_pileup_in.eof())
+            obj_PileupParserGDA.setPileupFileStream(& fs_pileup);
+            while (true) {
                 obj_PileupParserGDA.readLine();
-            fs_pileup_in.close();
+                if (fs_pileup.eof()) break;
+                fs_pileup_out << obj_PileupParserGDA.getPileup();
+            }
+            fs_pileup.close();
+            fs_pileup_out.close();
+
+            // check written file
+            ifstream fs_pileup_in = open_infile(pileupfile_gda_out);
+            fs_pileup = open_infile(pileupfile_gda);
             
-            vector<Pileup> obj_Pileup_in = obj_PileupParserGDA.getPileup();
-            REQUIRE(obj_Pileup_in.size() == obj_Pileup.size());
+            PileupParserGDA obj_PileupParserGDA_in( & fs_pileup_in);
+            while (true){
+                bool is_end = obj_PileupParserGDA.readLine();
+                bool is_end_out = obj_PileupParserGDA_in.readLine();
+                REQUIRE(is_end == is_end_out);
+                if (is_end) break;
+                REQUIRE(obj_PileupParserGDA.getPileup() == obj_PileupParserGDA_in.getPileup());
+            }
             
-            bool is_equal = true;
-            for (int i=0; i<(int)obj_Pileup_in.size(); i++)
-                if ( !(obj_Pileup_in[i] == obj_Pileup[i]) ) {is_equal = false; break;}
-            REQUIRE(is_equal == true);
         }
         
     }

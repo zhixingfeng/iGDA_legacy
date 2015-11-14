@@ -20,9 +20,9 @@ class PileupParserGDA : public PileupParser{
 public:
     PileupParserGDA();
     PileupParserGDA(const PileupParserGDA& orig);
+    PileupParserGDA(ifstream * a_ptr_fs_pileupfile) : PileupParser(a_ptr_fs_pileupfile) { }
     virtual ~PileupParserGDA();
     
-    int readLines(int nlines = 1);
     bool readLine();
     void calBaseFreq();
     

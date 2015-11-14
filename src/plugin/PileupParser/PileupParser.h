@@ -22,30 +22,27 @@ public:
     
     PileupParser();
     PileupParser(const PileupParser& orig);
+    PileupParser(ifstream * a_ptr_fs_pileupfile){ ptr_fs_pileupfile = a_ptr_fs_pileupfile; }
     virtual ~PileupParser();
     
     // basic operations 
     void setPileupFileStream (ifstream * a_ptr_fs_pileupfile) { ptr_fs_pileupfile = a_ptr_fs_pileupfile; }
-    
-    virtual int readLines(int nlines = 1)=0; // return number of read lines
-    
+        
     virtual bool readLine() = 0;
     
     virtual void calBaseFreq() = 0;
-    
-    void clear() {data_Pileup.clear(); data_BaseFreq.clear();}
-    
+        
     // get results
-    vector<Pileup> getPileup() {return data_Pileup;}
-    vector<BaseFreq> getBaseFreq() {return data_BaseFreq;}
+    Pileup getPileup() {return data_Pileup;}
+    BaseFreq getBaseFreq() {return data_BaseFreq;}
     string getSignature(){return signature;}
 
 protected:    
     string signature;
     
     ifstream * ptr_fs_pileupfile;
-    vector<Pileup> data_Pileup;
-    vector<BaseFreq> data_BaseFreq;
+    Pileup data_Pileup;
+    BaseFreq data_BaseFreq;
     
 };
 

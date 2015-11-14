@@ -41,7 +41,10 @@ struct Pileup {
     Pileup() : refID(-1), locus(-1), refSeq ('X'), cvg(-1), cvg_ins(-1) {}
     Pileup(int refID, int locus, char refSeq, int cvg, int cvg_ins) : 
         refID(refID), locus(locus), refSeq (refSeq), cvg(cvg), cvg_ins(cvg_ins) {}
-    
+    void clear() {
+        readSeq.clear(); readID.clear(); readSeq_group.clear();
+        readSeq_ins.clear(); readID_ins.clear(); readSeq_group_ins.clear();
+    }
     int refID;
     int locus;
     char refSeq;
@@ -66,6 +69,11 @@ struct BaseFreq {
         refID(refID), locus(locus), refSeq (refSeq), cvg(cvg), cvg_ins(cvg_ins) {}
     BaseFreq(const Pileup & obj_Pileup):  
         refID(obj_Pileup.refID), locus(obj_Pileup.locus), refSeq (obj_Pileup.refSeq), cvg(obj_Pileup.cvg), cvg_ins(obj_Pileup.cvg_ins) {}
+    
+    void clear() {
+        freq.clear(); prob.clear();
+        freq_ins.clear(); prob_ins.clear();
+    }
     
     int refID;
     int locus;
