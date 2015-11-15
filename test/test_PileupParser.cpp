@@ -88,6 +88,13 @@ TEST_CASE("Test PileupParser::getRefGenome", "[getRefGenome]") {
     PileupParserGDA obj_PileupParserGDA;
     PileupParser * ptr_PileupParser = &obj_PileupParserGDA;
     RefGenome refgenome = ptr_PileupParser->getRefGenome(pileupfile);
-    cout << refgenome[0] << endl;
+    
+    string refgenomefile_ref = "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.refgenome.ref";
+    ifstream fs_refgenomefile_ref = open_infile(refgenomefile_ref);
+    string refgenome_ref;
+    getline(fs_refgenomefile_ref,refgenome_ref);
+    fs_refgenomefile_ref.close();
+
+    REQUIRE(refgenome[0] == refgenome_ref);
 }
         
