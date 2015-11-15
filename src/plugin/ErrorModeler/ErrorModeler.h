@@ -53,6 +53,7 @@ public:
     
     //clear
     inline void clear() { err_context.clear(); }
+       
     
 protected:
     
@@ -67,6 +68,8 @@ protected:
     // context specific error rate
     ErrorContextEffect err_context;
     
+    // reference genome derived from pileupfile
+    RefGenome refgenome;
 };
 
 #endif /* ERRORMODELER_H */

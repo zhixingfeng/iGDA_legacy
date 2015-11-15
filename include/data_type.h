@@ -89,6 +89,9 @@ struct BaseFreq {
        
 };
 
+// define reference genome
+typedef unordered_map <int, string> RefGenome;
+
 /* ----------------------- global functions ----------------------------- */
 
 // converstion between string and nucleotide sequence.
@@ -205,7 +208,6 @@ inline BaseFreq Pileup2BaseFreq (const Pileup & obj_Pileup) {
     
     return obj_BaseFreq;
 }
-
 
 
 #endif /* DATA_TYPE_H */

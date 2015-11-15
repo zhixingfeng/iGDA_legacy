@@ -24,7 +24,10 @@ public:
     virtual ~PileupParserGDA();
     
     bool readLine();
+    
     void calBaseFreq();
+    
+    RefGenome getRefGenome (string pileupfile);
     
 protected:
     

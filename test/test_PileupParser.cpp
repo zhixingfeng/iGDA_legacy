@@ -83,4 +83,11 @@ SCENARIO ("Test PileupParserGDA", "[PileupParser][PileupParserGDA]") {
 }
 
 
-
+TEST_CASE("Test PileupParser::getRefGenome", "[getRefGenome]") {
+    string pileupfile = "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup"; 
+    PileupParserGDA obj_PileupParserGDA;
+    PileupParser * ptr_PileupParser = &obj_PileupParserGDA;
+    RefGenome refgenome = ptr_PileupParser->getRefGenome(pileupfile);
+    cout << refgenome[0] << endl;
+}
+        

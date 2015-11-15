@@ -32,6 +32,8 @@ public:
     
     virtual void calBaseFreq() = 0;
         
+    virtual RefGenome getRefGenome (string pileupfile) = 0;
+    
     // get results
     Pileup getPileup() {return data_Pileup;}
     BaseFreq getBaseFreq() {return data_BaseFreq;}

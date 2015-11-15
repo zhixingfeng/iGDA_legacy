@@ -17,6 +17,7 @@ ErrorModeler::ErrorModeler() {
     signature = "ErrorModeler";
     pileupfile = "";
     ptr_PileupParser = NULL;
+    
 }
 
 ErrorModeler::ErrorModeler(const ErrorModeler& orig) {

@@ -34,7 +34,6 @@ bool PileupParserGDA::readLine() {
             
     string cur_line_ins;
     string cur_line;
-    vector<string> buf;
     
     getline(*ptr_fs_pileupfile, cur_line_ins);
     getline(*ptr_fs_pileupfile, cur_line);
@@ -125,4 +124,34 @@ void PileupParserGDA::calBaseFreq() {
     // get prob of match
     for (it=data_BaseFreq.freq.begin(); it!= data_BaseFreq.freq.end(); it++)
         data_BaseFreq.prob[it->first] = double(it->second) / data_BaseFreq.cvg;
+}
+
+
+RefGenome PileupParserGDA::getRefGenome(string pileupfile) {
+    RefGenome refgenome;
+    ifstream cur_fs_pileupfile = open_infile(pileupfile);
+    while(true) {
+        string cur_line_ins;
+        string cur_line;
+        
+        getline(cur_fs_pileupfile, cur_line_ins);
+        getline(cur_fs_pileupfile, cur_line);
+    
+        if (cur_fs_pileupfile.eof()) break;
+        
+        vector<string> buf_ins = split(cur_line_ins, '\t');
+        vector<string> buf = split(cur_line, '\t');
+        
+        if ((buf.size()!=4 && buf.size()!=6) || (buf_ins.size()!=4 && buf_ins.size()!=6)) 
+            throw runtime_error ("Error in PileupParserGDA::getRefGenome : incorrect buf size.");
+        if (buf_ins[1][0] != '_' || buf[1][0] == '_')
+            throw runtime_error ("Error in PileupParserGDA::getRefGenome : incorrect pileupfile format.");
+        
+        //RefGenome::iterator it = refgenome.find(atoi(buf[0].c_str()));
+        //if (it == )
+        refgenome[ atoi(buf[0].c_str()) ].push_back(buf[2][0]);
+        
+    }
+    cur_fs_pileupfile.close();
+    return refgenome;
 }

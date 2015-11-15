@@ -30,6 +30,11 @@ void ErrorModelerHomo::train() {
         throw runtime_error("Error in ErrorModelerHomo::train: PileupParser has not been setup.");
     
     ifstream fs_pileupfile = open_infile(pileupfile);
-    
+    ptr_PileupParser->setPileupFileStream(& fs_pileupfile);
+    while ( !fs_pileupfile.eof() ) {
+        ptr_PileupParser->readLine();
+        ptr_PileupParser->calBaseFreq();
+        
+    }
     fs_pileupfile.close();
 }
