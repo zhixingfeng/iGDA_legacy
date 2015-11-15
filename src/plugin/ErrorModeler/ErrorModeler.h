@@ -21,10 +21,11 @@
 #include "../PileupParser/PileupParserGDA.h"
 
 struct ErrorContextEffect {
-    
+    void clear(){ data.clear(); }
+    unordered_map<string, vector<BaseFreq> > data;
+    unordered_map<string, map<string, double> > err_rate_mean;
+    unordered_map<string, map<string, double> > err_rate_sd;
 };
-
-
 
 class ErrorModeler {
 public:
@@ -32,19 +33,39 @@ public:
     ErrorModeler(const ErrorModeler& orig);
     virtual ~ErrorModeler();
     
-    string getSignature(){return signature;}
+    string getSignature() { return signature; }
+    
+    // set pileup file
+    inline void setPileupFile(string & a_pileupfile)  { pileupfile = a_pileupfile; }
     
     // set plugins
     inline void setPileupParser(PileupParser * a_PileupParser){ ptr_PileupParser = a_PileupParser; }
+    
+    // calculate context effect of error rate or train the background model. 
+    virtual void train() = 0;
+    
+    // get results
+    inline ErrorContextEffect getErrorContextEffect () { return err_context; }
+    
+    // save and load
+    void save();
+    void load();
+    
+    //clear
+    inline void clear() { err_context.clear(); }
     
 protected:
     
     string signature;
     
+    // pileup file
+    string pileupfile;
+    
     // plugins
     PileupParser * ptr_PileupParser;
     
     // context specific error rate
+    ErrorContextEffect err_context;
     
 };
 

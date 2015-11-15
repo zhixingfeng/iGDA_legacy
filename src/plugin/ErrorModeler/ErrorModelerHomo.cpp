@@ -23,3 +23,13 @@ ErrorModelerHomo::ErrorModelerHomo(const ErrorModelerHomo& orig) {
 ErrorModelerHomo::~ErrorModelerHomo() {
 }
 
+void ErrorModelerHomo::train() {
+    if (pileupfile == "")
+        throw runtime_error("Error in ErrorModelerHomo::train: pileupfile has not been setup.");
+    if (ptr_PileupParser == NULL)
+        throw runtime_error("Error in ErrorModelerHomo::train: PileupParser has not been setup.");
+    
+    ifstream fs_pileupfile = open_infile(pileupfile);
+    
+    fs_pileupfile.close();
+}

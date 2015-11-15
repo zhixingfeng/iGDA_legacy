@@ -11,9 +11,6 @@
  * Created on November 12, 2015, 12:45 PM
  */
 
-#ifndef TEST_DATA_TYPE_H
-#define TEST_DATA_TYPE_H
-
 #include "../include/catch.hpp"
 #include "../include/headers.h"
 #include "../src/plugin/plugin.h"
@@ -86,5 +83,4 @@ TEST_CASE( "Test Pileup2BaseFreq", "[data_type][hide]" ) {
 
 
 
-#endif /* TEST_DATA_TYPE_H */
 

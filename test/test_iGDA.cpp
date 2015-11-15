@@ -11,9 +11,6 @@
  * Created on November 11, 2015, 6:31 PM
  */
 
-#ifndef TEST_IGDA_H
-#define TEST_IGDA_H
-
 #define CATCH_CONFIG_MAIN
 #include "../include/catch.hpp"
 #include "../src/iGDA.h"
@@ -73,5 +70,4 @@ TEST_CASE( "Test signature of plugins", "[iGDA]" ) {
 
 //tests to be continued after run() is completed.
 
-#endif /* TEST_IGDA_H */
 

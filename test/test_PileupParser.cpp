@@ -11,8 +11,6 @@
  * Created on November 12, 2015, 3:48 PM
  */
 
-#ifndef TEST_PILEUPPARSER_H
-#define TEST_PILEUPPARSER_H
 
 #include "../include/catch.hpp"
 #include "../src/plugin/plugin.h"
@@ -85,5 +83,4 @@ SCENARIO ("Test PileupParserGDA", "[PileupParser][PileupParserGDA]") {
 }
 
 
-#endif /* TEST_PILEUPPARSER_H */
 

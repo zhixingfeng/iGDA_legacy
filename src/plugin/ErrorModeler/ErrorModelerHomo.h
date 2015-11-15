@@ -21,7 +21,8 @@ public:
     ErrorModelerHomo();
     ErrorModelerHomo(const ErrorModelerHomo& orig);
     virtual ~ErrorModelerHomo();
-    
+
+    void train();
 protected:
 
 };

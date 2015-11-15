@@ -44,6 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCallerMultiple.o \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o \
+	${OBJECTDIR}/test/test_ErrorModeler.o \
 	${OBJECTDIR}/test/test_PileupParser.o \
 	${OBJECTDIR}/test/test_data_type.o \
 	${OBJECTDIR}/test/test_file.o \
@@ -118,6 +119,11 @@ ${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o: src/plugin/PreCaller/PreCal
 	${MKDIR} -p ${OBJECTDIR}/src/plugin/PreCaller
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o src/plugin/PreCaller/PreCallerSingle.cpp
+
+${OBJECTDIR}/test/test_ErrorModeler.o: test/test_ErrorModeler.cpp 
+	${MKDIR} -p ${OBJECTDIR}/test
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/test/test_ErrorModeler.o test/test_ErrorModeler.cpp
 
 ${OBJECTDIR}/test/test_PileupParser.o: test/test_PileupParser.cpp 
 	${MKDIR} -p ${OBJECTDIR}/test

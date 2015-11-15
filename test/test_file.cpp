@@ -11,9 +11,6 @@
  * Created on November 11, 2015, 6:11 PM
  */
 
-#ifndef TEST_FILE_H
-#define TEST_FILE_H
-
 #include "../include/catch.hpp"
 #include "../include/headers.h"
 
@@ -32,5 +29,4 @@ TEST_CASE( "Test open_outfile", "[file]" ) {
 }
 
 
-#endif /* TEST_FILE_H */
 
