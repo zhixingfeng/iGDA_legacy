@@ -20,6 +20,12 @@
 #include "../PileupParser/PileupParser.h"
 #include "../PileupParser/PileupParserGDA.h"
 
+struct ErrorContextEffect {
+    
+};
+
+
+
 class ErrorModeler {
 public:
     ErrorModeler();
