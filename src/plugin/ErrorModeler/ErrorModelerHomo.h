@@ -22,9 +22,14 @@ public:
     ErrorModelerHomo(const ErrorModelerHomo& orig);
     virtual ~ErrorModelerHomo();
 
-    void train();
+    void train(int left = 1, int right = 1);
+    
 protected:
 
+    // note: the locus is 1-based, should be converted into 0-based to retrieve refgenome
+    // left is the number of non-homopoly mer bases to the left of the currect homopoly region
+    // right is the number of non-homopoly mer bases to the right of the currect homopoly region
+    pair<string, string> getLocalContext(int refID, int locus, int left, int right); 
 };
 
 #endif /* ERRORMODELERHOMO_H */

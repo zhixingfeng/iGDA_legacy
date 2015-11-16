@@ -21,10 +21,19 @@
 #include "../PileupParser/PileupParserGDA.h"
 
 struct ErrorContextEffect {
-    void clear(){ data.clear(); }
-    unordered_map<string, vector<BaseFreq> > data;
-    unordered_map<string, map<string, double> > err_rate_mean;
-    unordered_map<string, map<string, double> > err_rate_sd;
+    void clear(){ 
+        data.clear(); 
+        err_rate_mean.clear(); err_rate_sd.clear();
+        err_rate_mean_ins.clear(); err_rate_sd_ins.clear();
+    }
+    
+    unordered_map<string, unordered_map<string, vector<BaseFreq> > > data;
+    
+    unordered_map<string, unordered_map<string, unordered_map<string, double> > >  err_rate_mean;
+    unordered_map<string, unordered_map<string, unordered_map<string, double> > > err_rate_sd;
+    
+    unordered_map<string, unordered_map<string, unordered_map<string, double> > > err_rate_mean_ins;
+    unordered_map<string, unordered_map<string, unordered_map<string, double> > > err_rate_sd_ins;
 };
 
 class ErrorModeler {
@@ -42,14 +51,14 @@ public:
     inline void setPileupParser(PileupParser * a_PileupParser){ ptr_PileupParser = a_PileupParser; }
     
     // calculate context effect of error rate or train the background model. 
-    virtual void train() = 0;
+    virtual void train(int left, int right) = 0;
     
     // get results
     inline ErrorContextEffect getErrorContextEffect () { return err_context; }
     
-    // save and load
-    void save();
-    void load();
+    // save and load. Warning: load will not erase existing err_context !!!!
+    void save(string err_context_file);
+    void load(string err_context_file);
     
     //clear
     inline void clear() { err_context.clear(); }

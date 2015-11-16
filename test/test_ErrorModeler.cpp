@@ -8,6 +8,8 @@
 
 SCENARIO ("Test ErrorModelerHomo", "[ErrorModelerHomo][ErrorModeler]") {
     string pileupfile = "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup"; 
+    string err_context_file = "./results/mixed_MSSA_78_ratio_0.05_B_1.bam.err";
+    
     GIVEN("A object of ErrorModelerHomo and a pileup file " + pileupfile) {
         
         ErrorModelerHomo obj_ErrorModelerHomo;
@@ -17,7 +19,9 @@ SCENARIO ("Test ErrorModelerHomo", "[ErrorModelerHomo][ErrorModeler]") {
                 REQUIRE_THROWS( obj_ErrorModelerHomo.train() );
             }
         }
+        
         obj_ErrorModelerHomo.setPileupFile(pileupfile);
+        
         WHEN ("PileupParser has not been set and train() is called") {
             THEN ("train() should throw a expection") {
                 REQUIRE_THROWS( obj_ErrorModelerHomo.train() );
@@ -27,5 +31,7 @@ SCENARIO ("Test ErrorModelerHomo", "[ErrorModelerHomo][ErrorModeler]") {
         PileupParserGDA obj_PileupParser;
         obj_ErrorModelerHomo.setPileupParser(& obj_PileupParser);
         obj_ErrorModelerHomo.train();
+        obj_ErrorModelerHomo.save(err_context_file);
+        // to be further validated.
     }
 }
