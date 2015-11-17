@@ -36,12 +36,15 @@ void ErrorModelerHomo::train(int left, int right) {
     // calculate ErrorContextEffect
     ifstream fs_pileupfile = open_infile(pileupfile);
     ptr_PileupParser->setPileupFileStream(& fs_pileupfile);
-    while ( !fs_pileupfile.eof() ) {
+    while (true) {
         ptr_PileupParser->readLine();
+        if (fs_pileupfile.eof()) break;
+        
         ptr_PileupParser->calBaseFreq();
         
         BaseFreq cur_basefreq = ptr_PileupParser->getBaseFreq();
-        
+        //cout << cur_basefreq.prob_ins << endl;
+        //cout << cur_basefreq.prob << endl;
         pair<string, string> local_context = getLocalContext(cur_basefreq.refID, cur_basefreq.locus, left, right);
         
         if (local_context.first == "" || local_context.second == "") continue;

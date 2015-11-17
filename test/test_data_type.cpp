@@ -81,6 +81,33 @@ TEST_CASE( "Test Pileup2BaseFreq", "[data_type][hide]" ) {
     // strict test needed.
 }
 
-
+TEST_CASE("Compare and sort BaseFreq") {
+    BaseFreq basefreq_l;
+    BaseFreq basefreq_r;
+    
+    basefreq_l.refID = 0;
+    basefreq_r.refID = 1;
+    REQUIRE(basefreq_l <= basefreq_r);
+    REQUIRE(basefreq_l < basefreq_r);
+    REQUIRE(basefreq_r >= basefreq_l);
+    REQUIRE(basefreq_r > basefreq_l);
+    
+    basefreq_l.refID = 0;
+    basefreq_r.refID = 0;
+    basefreq_l.locus = 20;
+    basefreq_r.locus = 45;
+    REQUIRE(basefreq_l <= basefreq_r);
+    REQUIRE(basefreq_l < basefreq_r);
+    REQUIRE(basefreq_r >= basefreq_l);
+    REQUIRE(basefreq_r > basefreq_l);
+    
+    vector<BaseFreq> basefreq_vec;
+    basefreq_vec.push_back(basefreq_r);
+    basefreq_vec.push_back(basefreq_l);
+    sort(basefreq_vec.begin(), basefreq_vec.end());
+    REQUIRE(basefreq_vec[0].locus == basefreq_l.locus);
+    REQUIRE(basefreq_vec[1].locus == basefreq_r.locus);
+    
+}
 
 

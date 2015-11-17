@@ -63,6 +63,8 @@ public:
     //clear
     inline void clear() { err_context.clear(); }
        
+protected:
+    BaseFreq parseLocus(string & buf);
     
 protected:
     

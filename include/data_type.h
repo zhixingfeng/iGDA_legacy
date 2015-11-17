@@ -160,7 +160,7 @@ inline bool operator == (const Pileup & obj_Pileup_l, const Pileup & obj_Pileup_
     return true;
 }
 
-// print baseFreq
+// print BaseFreq
 template<class T>
 inline ostream & operator << (ostream & os, unordered_map<string, T> & base_freq) {
     typename unordered_map<string, T>::iterator it;
@@ -168,6 +168,31 @@ inline ostream & operator << (ostream & os, unordered_map<string, T> & base_freq
         os << it->first << ':' << it->second << ',';
     }
     return os;
+}
+
+// compare BaseFreq
+inline bool operator <= (const BaseFreq basefreq_l, const BaseFreq basefreq_r) {
+    if (basefreq_l.refID < basefreq_r.refID) return true;
+    if (basefreq_l.refID > basefreq_r.refID) return false;
+    return basefreq_l.locus <= basefreq_r.locus;
+}
+
+inline bool operator < (const BaseFreq basefreq_l, const BaseFreq basefreq_r) {
+    if (basefreq_l.refID < basefreq_r.refID) return true;
+    if (basefreq_l.refID > basefreq_r.refID) return false;
+    return basefreq_l.locus < basefreq_r.locus;
+}
+
+inline bool operator >= (const BaseFreq basefreq_l, const BaseFreq basefreq_r) {
+    if (basefreq_l.refID < basefreq_r.refID) return false;
+    if (basefreq_l.refID > basefreq_r.refID) return true;
+    return basefreq_l.locus >= basefreq_r.locus;
+}
+
+inline bool operator > (const BaseFreq basefreq_l, const BaseFreq basefreq_r) {
+    if (basefreq_l.refID < basefreq_r.refID) return false;
+    if (basefreq_l.refID > basefreq_r.refID) return true;
+    return basefreq_l.locus > basefreq_r.locus;
 }
 
 // get BaseFreq from Pileup
@@ -208,6 +233,7 @@ inline BaseFreq Pileup2BaseFreq (const Pileup & obj_Pileup) {
     
     return obj_BaseFreq;
 }
+
 
 
 #endif /* DATA_TYPE_H */
