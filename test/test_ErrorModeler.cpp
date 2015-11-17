@@ -49,6 +49,27 @@ TEST_CASE ("Test ErrorModelerHomo", "[ErrorModelerHomo][ErrorModeler]") {
     }
     fs_err_context_file.close();
     
-    //
+    // check converted BaseFreq
+    ifstream fs_check_baseprob = open_infile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.baseprob");
+    ifstream fs_check_baseprob_converted = open_infile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.err_context.baseprob");
+    string cur_line;
+    string cur_line_converted;
+    // ignore first two lines of fs_check_baseprob
+    getline(fs_check_baseprob, cur_line); getline(fs_check_baseprob, cur_line);
+    while(true) {
+        getline(fs_check_baseprob, cur_line);
+        getline(fs_check_baseprob_converted, cur_line_converted);
+        if (fs_check_baseprob.eof() || fs_check_baseprob_converted.eof()) break;
+        vector<string> buf = split(cur_line,',');
+        vector<string> buf_converted = split(cur_line_converted, ',');
+        sort(buf.begin(), buf.end());
+        sort(buf_converted.begin(), buf_converted.end());
+        REQUIRE(buf.size() == buf_converted.size());
+        for (int i=0; i<(int)buf.size(); i++) {
+            REQUIRE(buf[i] == buf_converted[i]);
+        }
+    }
     
+    fs_check_baseprob.close();
+    fs_check_baseprob_converted.close();    
 }
