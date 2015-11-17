@@ -17,7 +17,6 @@
 #define DATA_TYPE_H
 
 #include "stl.h"
-#include <vector>
 
 /* ----------------------- global data structure ----------------------------- */
 
@@ -194,6 +193,8 @@ inline bool operator > (const BaseFreq basefreq_l, const BaseFreq basefreq_r) {
     if (basefreq_l.refID > basefreq_r.refID) return true;
     return basefreq_l.locus > basefreq_r.locus;
 }
+
+
 
 // get BaseFreq from Pileup
 inline BaseFreq Pileup2BaseFreq (const Pileup & obj_Pileup) {

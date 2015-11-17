@@ -34,6 +34,8 @@ struct ErrorContextEffect {
     
     unordered_map<string, unordered_map<string, unordered_map<string, double> > > err_rate_mean_ins;
     unordered_map<string, unordered_map<string, unordered_map<string, double> > > err_rate_sd_ins;
+    
+    unordered_map<string, unordered_map<string, int> > total_cvg;
 };
 
 class ErrorModeler {
@@ -52,6 +54,7 @@ public:
     
     // calculate context effect of error rate or train the background model. 
     virtual void train(int left, int right) = 0;
+    void calErrorRateStat();
     
     // get results
     inline ErrorContextEffect getErrorContextEffect () { return err_context; }
@@ -59,6 +62,9 @@ public:
     // save and load. Warning: load will not erase existing err_context !!!!
     void save(string err_context_file);
     void load(string err_context_file);
+    
+    // save mean error rate 
+    void save_mean_err(string mean_err_file);
     
     //clear
     inline void clear() { err_context.clear(); }

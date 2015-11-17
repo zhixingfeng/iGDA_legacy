@@ -6,7 +6,7 @@
 #include "../include/catch.hpp"
 #include "../src/plugin/plugin.h"
 
-TEST_CASE ("Test ErrorModelerHomo", "[ErrorModelerHomo][ErrorModeler]") {
+TEST_CASE ("Test ErrorModelerHomo train(), save() and load()", "[ErrorModelerHomo][ErrorModeler]") {
     string pileupfile = "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup"; 
     string err_context_file = "./results/mixed_MSSA_78_ratio_0.05_B_1.bam.err";
     string err_context_basefreqfile = "./results/mixed_MSSA_78_ratio_0.05_B_1.bam.err_context.baseprob";
@@ -71,5 +71,26 @@ TEST_CASE ("Test ErrorModelerHomo", "[ErrorModelerHomo][ErrorModeler]") {
     }
     
     fs_check_baseprob.close();
-    fs_check_baseprob_converted.close();    
+    fs_check_baseprob_converted.close();   
+    
+    
+    
+}
+
+
+TEST_CASE ("Test ErrorModelerHomo save_mean_err()", "[ErrorModelerHomo][ErrorModeler]") {
+    string pileupfile = "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup"; 
+    string err_mean_file = "./results/mixed_MSSA_78_ratio_0.05_B_1.bam.err.mean"; 
+    
+    ErrorModelerHomo obj_ErrorModelerHomo;
+    obj_ErrorModelerHomo.setPileupFile(pileupfile);
+    PileupParserGDA obj_PileupParser;
+    obj_ErrorModelerHomo.setPileupParser(& obj_PileupParser);
+    
+    obj_ErrorModelerHomo.train();
+
+    obj_ErrorModelerHomo.calErrorRateStat();
+    
+    obj_ErrorModelerHomo.save_mean_err(err_mean_file);
+    obj_ErrorModelerHomo.save(err_mean_file + ".raw");
 }

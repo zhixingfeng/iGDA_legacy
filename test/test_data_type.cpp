@@ -111,3 +111,31 @@ TEST_CASE("Compare and sort BaseFreq") {
 }
 
 
+TEST_CASE("test insert elements into unordered_map") {
+    unordered_map<string, double> x;
+    x["test"]+=1;
+    x["test"]+=2;
+    REQUIRE(x["test"]==3);
+}
+
+/*TEST_CASE("Test the order of key in unordered_map") {
+    unordered_map<string, double> x;
+    map<string, double> y;
+    x["CGTAGC"] = 1; y["CGTAGC"] = 1;
+    x["GTCGTAGTC"] = 2; y["GTCGTAGTC"] = 2;
+    x["CGTAGTCT"] = 3; y["CGTAGTCT"] = 3;
+    x["AGTCGTA"] = 4; y["AGTCGTA"] = 4;
+    
+    unordered_map<string, double>::iterator it;
+    map<string, double>::iterator it_2;
+    for (it=x.begin(); it!=x.end(); it++) {
+        cout << it->first << endl;
+        
+    }
+    cout << endl;
+    for (it_2=y.begin(); it_2!=y.end(); it_2++) {
+        cout << it_2->first << endl;
+        
+    }
+}
+ */
