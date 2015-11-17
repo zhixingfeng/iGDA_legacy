@@ -13,9 +13,8 @@
 
 #ifndef FILE_H
 #define FILE_H
-#include <fstream>
-#include <string>
-using namespace std;
+#include "stl.h"
+
 inline ifstream open_infile(string filename){
     ifstream fs_infile(filename.c_str());
     if (!fs_infile.is_open()){
