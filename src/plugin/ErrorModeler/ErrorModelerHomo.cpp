@@ -34,7 +34,8 @@ void ErrorModelerHomo::train(int left, int right) {
     refgenome = ptr_PileupParser->getRefGenome(pileupfile);
     
     // calculate ErrorContextEffect
-    ifstream fs_pileupfile = open_infile(pileupfile);
+    ifstream fs_pileupfile;
+    open_infile(fs_pileupfile, pileupfile);
     ptr_PileupParser->setPileupFileStream(& fs_pileupfile);
     while (true) {
         ptr_PileupParser->readLine();

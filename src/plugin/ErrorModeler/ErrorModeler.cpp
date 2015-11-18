@@ -72,7 +72,7 @@ void ErrorModeler::save(string err_context_file) {
     unordered_map<string, unordered_map<string, vector<BaseFreq> > >::iterator it_i;
     unordered_map<string, vector<BaseFreq> >::iterator it_j;
     
-    ofstream fs_err_context_file = open_outfile(err_context_file);
+    ofstream fs_err_context_file; open_outfile(fs_err_context_file, err_context_file);
     
     for (it_i=err_context.data.begin(); it_i!=err_context.data.end(); it_i++) {
         for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); it_j++) {
@@ -89,7 +89,8 @@ void ErrorModeler::save(string err_context_file) {
 }
 
 void ErrorModeler::load(string err_context_file) {
-    ifstream fs_err_context_file = open_infile(err_context_file);
+    ifstream fs_err_context_file;
+    open_infile(fs_err_context_file, err_context_file);
     while(true) {
         string cur_line;
         getline(fs_err_context_file, cur_line);
@@ -127,7 +128,7 @@ void ErrorModeler::save_mean_err(string mean_err_file) {
     unordered_map<string, unordered_map<string, double> >::iterator it_j;
     unordered_map<string, double>::iterator it_k;
     
-    ofstream fs_mean_err_file = open_outfile(mean_err_file);
+    ofstream fs_mean_err_file; open_outfile(fs_mean_err_file, mean_err_file);
     if (err_context.err_rate_mean_ins.size() != err_context.err_rate_mean.size())
         throw runtime_error("Error in ErrorModeler::save_mean_err : unmatched size of err_rate_mean_ins and err_rate_mean.");
     

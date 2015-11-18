@@ -37,10 +37,10 @@ SCENARIO ("Test PileupParserGDA", "[PileupParser][PileupParserGDA]") {
         WHEN ("pointer ptr_fs_pileupfile is set") {
             THEN ("test Pileup and BaseFreq"){
                 // read and write pileup data
-                ifstream fs_pileup = open_infile(pileupfile_gda);
-                ofstream fs_pileup_out = open_outfile(pileupfile_gda_out);
-                ofstream fs_basefreq = open_outfile(basefreqfile_gda);
-                ofstream fs_baseprob = open_outfile(baseprobfile_gda);
+                ifstream fs_pileup; open_infile(fs_pileup, pileupfile_gda);
+                ofstream fs_pileup_out; open_outfile(fs_pileup_out, pileupfile_gda_out);
+                ofstream fs_basefreq; open_outfile(fs_basefreq, basefreqfile_gda);
+                ofstream fs_baseprob; open_outfile(fs_baseprob, baseprobfile_gda);
                 
                 obj_PileupParserGDA.setPileupFileStream(& fs_pileup);
                 while (true) {
@@ -65,8 +65,8 @@ SCENARIO ("Test PileupParserGDA", "[PileupParser][PileupParserGDA]") {
                 fs_baseprob.close();
                 
                 // check written file
-                ifstream fs_pileup_in = open_infile(pileupfile_gda_out);
-                fs_pileup = open_infile(pileupfile_gda);
+                ifstream fs_pileup_in; open_infile(fs_pileup_in, pileupfile_gda_out);
+                open_infile(fs_pileup, pileupfile_gda);
             
                 PileupParserGDA obj_PileupParserGDA_in( & fs_pileup_in);
                 while (true){
@@ -90,7 +90,7 @@ TEST_CASE("Test PileupParser::getRefGenome", "[getRefGenome]") {
     RefGenome refgenome = ptr_PileupParser->getRefGenome(pileupfile);
     
     string refgenomefile_ref = "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.refgenome.ref";
-    ifstream fs_refgenomefile_ref = open_infile(refgenomefile_ref);
+    ifstream fs_refgenomefile_ref; open_infile(fs_refgenomefile_ref, refgenomefile_ref);
     string refgenome_ref;
     getline(fs_refgenomefile_ref,refgenome_ref);
     fs_refgenomefile_ref.close();

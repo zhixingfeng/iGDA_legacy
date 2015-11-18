@@ -15,22 +15,20 @@
 #define FILE_H
 #include "stl.h"
 
-inline ifstream open_infile(string filename){
-    ifstream fs_infile(filename.c_str());
+inline void open_infile(ifstream &fs_infile, string filename){
+    fs_infile.open(filename.c_str());
     if (!fs_infile.is_open()){
         string err_msg = "Error: fail to open " + filename;
         throw runtime_error(err_msg);
     }
-    return fs_infile;
 }
 
-inline ofstream open_outfile(string filename){
-    ofstream fs_outfile(filename.c_str());
+inline void open_outfile(ofstream &fs_outfile, string filename){
+    fs_outfile.open(filename.c_str());
     if (!fs_outfile.is_open()){
         string err_msg = "Error: fail to open " + filename;
         throw runtime_error(err_msg);
     }
-    return fs_outfile;
 }
 
 #endif /* FILE_H */

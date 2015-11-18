@@ -57,9 +57,9 @@ TEST_CASE( "Test Pileup2BaseFreq", "[data_type][hide]" ) {
     string baseprobfile_gda = "./results/mixed_MSSA_78_ratio_0.05_B_1.bam.baseprob";
    
     // load pileup
-    ifstream fs_pileup = open_infile(pileupfile_gda);
-    ofstream fs_basefreq = open_outfile(basefreqfile_gda);
-    ofstream fs_baseprob = open_outfile(baseprobfile_gda);
+    ifstream fs_pileup; open_infile(fs_pileup, pileupfile_gda);
+    ofstream fs_basefreq; open_outfile(fs_basefreq, basefreqfile_gda);
+    ofstream fs_baseprob; open_outfile(fs_baseprob, baseprobfile_gda);
     
     PileupParserGDA obj_PileupParserGDA(& fs_pileup);
     

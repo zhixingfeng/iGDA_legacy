@@ -42,7 +42,7 @@ TEST_CASE ("Test ErrorModelerHomo train(), save() and load()", "[ErrorModelerHom
     }
     
     sort(basefreq_vec.begin(), basefreq_vec.end());
-    ofstream fs_err_context_file = open_outfile(err_context_basefreqfile);
+    ofstream fs_err_context_file; open_outfile(fs_err_context_file, err_context_basefreqfile);
     for (int i=0; i<(int)basefreq_vec.size(); i++){
         fs_err_context_file << basefreq_vec[i].prob_ins << endl;
         fs_err_context_file << basefreq_vec[i].prob << endl;
@@ -50,8 +50,10 @@ TEST_CASE ("Test ErrorModelerHomo train(), save() and load()", "[ErrorModelerHom
     fs_err_context_file.close();
     
     // check converted BaseFreq
-    ifstream fs_check_baseprob = open_infile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.baseprob");
-    ifstream fs_check_baseprob_converted = open_infile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.err_context.baseprob");
+    ifstream fs_check_baseprob;
+    open_infile(fs_check_baseprob, "./results/mixed_MSSA_78_ratio_0.05_B_1.bam.baseprob");
+    ifstream fs_check_baseprob_converted;
+    open_infile(fs_check_baseprob_converted, "./results/mixed_MSSA_78_ratio_0.05_B_1.bam.err_context.baseprob");
     string cur_line;
     string cur_line_converted;
     // ignore first two lines of fs_check_baseprob

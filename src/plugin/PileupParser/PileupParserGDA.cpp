@@ -129,7 +129,8 @@ void PileupParserGDA::calBaseFreq() {
 
 RefGenome PileupParserGDA::getRefGenome(string pileupfile) {
     RefGenome refgenome;
-    ifstream cur_fs_pileupfile = open_infile(pileupfile);
+    ifstream cur_fs_pileupfile;
+    open_infile(cur_fs_pileupfile, pileupfile);
     while(true) {
         string cur_line_ins;
         string cur_line;

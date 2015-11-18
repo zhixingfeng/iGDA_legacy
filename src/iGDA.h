@@ -45,7 +45,7 @@ public:
     inline void setPreCaller(PreCaller * a_PreCaller) { ptr_PreCaller = a_PreCaller; }
     
     // verification
-    inline void verifyPileupFile(){fs_pileupfile = open_infile(pileupfile); fs_pileupfile.close();}
+    inline void verifyPileupFile(){open_infile(fs_pileupfile, pileupfile); fs_pileupfile.close();}
     void verifyPlugin();
     
     // get signature of plugins
