@@ -14,7 +14,6 @@
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/PileupParser/PileupParser.h</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/iGDA.h</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/include/data_type.h</file>
-            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/Makefile</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/PreCaller/PreCaller.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/iGDA.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/ErrorModeler/ErrorModelerHomo.cpp</file>
@@ -28,14 +27,11 @@
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/PileupParser/PileupParser.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/include/catch.hpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/test/test_PileupParser.cpp</file>
-            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/test/test_iGDA.cpp</file>
-            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/include/headers.h</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/test/test_ErrorModeler.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/PreCaller/PreCallerSingle.h</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/test/test_file.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/PileupParser/PileupParserGDA.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/ErrorModeler/ErrorModeler.cpp</file>
-            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/include/utils.h</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/PreCaller/PreCallerMultiple.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/test/test_data_type.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/PreCaller/PreCaller.h</file>

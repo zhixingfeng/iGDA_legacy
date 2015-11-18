@@ -11,7 +11,7 @@
  * Created on November 11, 2015, 6:31 PM
  */
 
-#define CATCH_CONFIG_MAIN
+//#define CATCH_CONFIG_MAIN
 #include "../include/catch.hpp"
 #include "../src/iGDA.h"
 

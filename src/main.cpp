@@ -11,11 +11,23 @@
  * Created on November 11, 2015, 1:50 PM
  */
 
-//#define CATCH_CONFIG_MAIN
-//#include "../include/catch.hpp"
-//#include "../test/test.h"
 
-int main_dump() {
+#define CATCH_CONFIG_RUNNER
+#include "../include/catch.hpp"
+
+#ifndef _UNITTEST
+
+int main(int argc, char* argv[]) {
+    
     return 0;
 }
+
+#else
+
+int main(int argc, char* argv[]) {
+    int result = Catch::Session().run( argc, argv );
+    return result;
+}
+
+#endif
 
