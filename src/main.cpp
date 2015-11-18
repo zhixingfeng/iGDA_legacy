@@ -14,11 +14,26 @@
 
 #define CATCH_CONFIG_RUNNER
 #include "../include/catch.hpp"
+#include "../include/stl.h"
+#include "../src/tool/tool.h"
 
 #ifndef _UNITTEST
 
+void print_usage() {
+
+}
+
 int main(int argc, char* argv[]) {
-    
+    int name;
+    string salute;
+
+    GetOpt_pp ops(argc, argv);
+
+    ops >> Option('n', "name", name, 1);      /* the default name is 'world' */
+    ops >> Option("salute", salute, "Hello");         /* the default salute is 'Hello' */
+
+    std::cout << salute << " " << name << "!" << std::endl;
+
     return 0;
 }
 
