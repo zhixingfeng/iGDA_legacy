@@ -37,9 +37,14 @@ void ErrorModelerHomo::train(int left, int right) {
     ifstream fs_pileupfile;
     open_infile(fs_pileupfile, pileupfile);
     ptr_PileupParser->setPileupFileStream(& fs_pileupfile);
+    
+    int nlines = 0;
     while (true) {
         ptr_PileupParser->readLine();
         if (fs_pileupfile.eof()) break;
+        
+        nlines++; if (nlines % 1000 == 0) cout << "processed " << nlines << " loci\r";
+        
         
         ptr_PileupParser->calBaseFreq();
         
@@ -51,7 +56,9 @@ void ErrorModelerHomo::train(int left, int right) {
         if (local_context.first == "" || local_context.second == "") continue;
         
         err_context.data[local_context.first][local_context.second].push_back(cur_basefreq);
+        
     }
+    cout << "processed " << nlines << " loci" << endl;
     fs_pileupfile.close();
 }
 

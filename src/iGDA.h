@@ -33,8 +33,8 @@ public:
     inline void setPileupFile(string  a_pileupfile) {pileupfile = a_pileupfile; verifyPileupFile();}
     inline string getPileupFile(){return pileupfile;}
     
-    void trainErrorModel();
-    void loadErrorModel();
+    void trainErrorModel(string err_model_file);
+    void loadErrorModel(string err_model_file);
     
     void run();
     SeqFreq getSeqFreq();
