@@ -40,19 +40,19 @@ void ErrorModelerHomo::train(int left, int right) {
     
     int nlines = 0;
     while (true) {
+        
         ptr_PileupParser->readLine();
         if (fs_pileupfile.eof()) break;
         
         nlines++; if (nlines % 1000 == 0) cout << "processed " << nlines << " loci\r";
-        
+        //nlines++; cout << "processed " << nlines << " loci" << endl;
         
         ptr_PileupParser->calBaseFreq();
-        
         BaseFreq cur_basefreq = ptr_PileupParser->getBaseFreq();
         //cout << cur_basefreq.prob_ins << endl;
         //cout << cur_basefreq.prob << endl;
         pair<string, string> local_context = getLocalContext(cur_basefreq.refID, cur_basefreq.locus, left, right);
-        
+
         if (local_context.first == "" || local_context.second == "") continue;
         
         err_context.data[local_context.first][local_context.second].push_back(cur_basefreq);
@@ -73,6 +73,7 @@ pair<string, string> ErrorModelerHomo::getLocalContext(int refID, int locus, int
     // search to the left side
     while (true) {
         i_l--;
+        if (i_l < 0) return pair<string, string>("","");
         if (refgenome[refID][i_l] != refgenome[refID][i_l + 1]) k_l++;
         if (k_l > left) break;        
     }
@@ -81,6 +82,7 @@ pair<string, string> ErrorModelerHomo::getLocalContext(int refID, int locus, int
     // search to the right side
     while (true) {
         i_r++;
+        if (i_r >= (int)refgenome[refID].size()) return pair<string, string>("","");
         if (refgenome[refID][i_r] != refgenome[refID][i_r-1]) k_r++;
         if (k_r > right) break;
     }
