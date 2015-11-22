@@ -27,15 +27,15 @@ struct ErrorContextEffect {
         err_rate_mean_ins.clear(); err_rate_sd_ins.clear();
     }
     
-    unordered_map<string, unordered_map<string, vector<BaseFreq> > > data;
+    map<string, map<string, vector<BaseFreq> > > data;
     
-    unordered_map<string, unordered_map<string, unordered_map<string, double> > >  err_rate_mean;
-    unordered_map<string, unordered_map<string, unordered_map<string, double> > > err_rate_sd;
+    map<string, map<string, map<string, double> > >  err_rate_mean;
+    map<string, map<string, map<string, double> > > err_rate_sd;
     
-    unordered_map<string, unordered_map<string, unordered_map<string, double> > > err_rate_mean_ins;
-    unordered_map<string, unordered_map<string, unordered_map<string, double> > > err_rate_sd_ins;
+    map<string, map<string, map<string, double> > > err_rate_mean_ins;
+    map<string, map<string, map<string, double> > > err_rate_sd_ins;
     
-    unordered_map<string, unordered_map<string, int> > total_cvg;
+    map<string, map<string, int> > total_cvg;
 };
 
 class ErrorModeler {

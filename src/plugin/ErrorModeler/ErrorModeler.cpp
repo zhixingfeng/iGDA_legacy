@@ -27,16 +27,16 @@ ErrorModeler::ErrorModeler(const ErrorModeler& orig) {
 ErrorModeler::~ErrorModeler() {
 }
 void ErrorModeler::calErrorRateStat() {
-    unordered_map<string, unordered_map<string, vector<BaseFreq> > >::iterator it_i;
-    unordered_map<string, vector<BaseFreq> >::iterator it_j;
-    unordered_map<string, int>::iterator it_freq;
-    unordered_map<string, double>::iterator it_prob;
+    map<string, map<string, vector<BaseFreq> > >::iterator it_i;
+    map<string, vector<BaseFreq> >::iterator it_j;
+    map<string, int>::iterator it_freq;
+    map<string, double>::iterator it_prob;
     
     for (it_i=err_context.data.begin(); it_i!=err_context.data.end(); it_i++) {
         for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); it_j++) {
             // sum frequency of loci with the same context
-            unordered_map<string, double> cur_mean_ins;
-            unordered_map<string, double> cur_mean;
+            map<string, double> cur_mean_ins;
+            map<string, double> cur_mean;
             for (int i=0; i<(int) it_j->second.size(); i++) {
                 
                 
@@ -52,6 +52,7 @@ void ErrorModeler::calErrorRateStat() {
             }
             err_context.err_rate_mean_ins[it_i->first][it_j->first] = cur_mean_ins;
             err_context.err_rate_mean[it_i->first][it_j->first] = cur_mean;
+            //cout << err_context.total_cvg[it_i->first][it_j->first] << endl;
             
             // devide frequency by total coverage to get probability
             
@@ -69,8 +70,8 @@ void ErrorModeler::calErrorRateStat() {
 
 
 void ErrorModeler::save(string err_context_file) {
-    unordered_map<string, unordered_map<string, vector<BaseFreq> > >::iterator it_i;
-    unordered_map<string, vector<BaseFreq> >::iterator it_j;
+    map<string, map<string, vector<BaseFreq> > >::iterator it_i;
+    map<string, vector<BaseFreq> >::iterator it_j;
     
     ofstream fs_err_context_file; open_outfile(fs_err_context_file, err_context_file);
     
@@ -120,15 +121,17 @@ void ErrorModeler::load(string err_context_file) {
 }
 
 void ErrorModeler::save_mean_err(string mean_err_file) {
-    unordered_map<string, unordered_map<string, unordered_map<string, double> > >::iterator it_i_ins;
-    unordered_map<string, unordered_map<string, double> >::iterator it_j_ins;
-    unordered_map<string, double>::iterator it_k_ins;
+    map<string, map<string, map<string, double> > >::iterator it_i_ins;
+    map<string, map<string, double> >::iterator it_j_ins;
+    map<string, double>::iterator it_k_ins;
     
-    unordered_map<string, unordered_map<string, unordered_map<string, double> > >::iterator it_i;
-    unordered_map<string, unordered_map<string, double> >::iterator it_j;
-    unordered_map<string, double>::iterator it_k;
+    map<string, map<string, map<string, double> > >::iterator it_i;
+    map<string, map<string, double> >::iterator it_j;
+    map<string, double>::iterator it_k;
     
     ofstream fs_mean_err_file; open_outfile(fs_mean_err_file, mean_err_file);
+    
+    
     if (err_context.err_rate_mean_ins.size() != err_context.err_rate_mean.size())
         throw runtime_error("Error in ErrorModeler::save_mean_err : unmatched size of err_rate_mean_ins and err_rate_mean.");
     
@@ -137,18 +140,19 @@ void ErrorModeler::save_mean_err(string mean_err_file) {
     while ( it_i_ins != err_context.err_rate_mean_ins.end() && it_i != err_context.err_rate_mean.end() ) {
         if (it_i_ins->second.size() != it_i->second.size() || it_i_ins->first != it_i->first )
             throw runtime_error("Error in ErrorModeler::save_mean_err : unmatched size of err_rate_mean_ins and err_rate_mean.");
-        
+                
         it_j_ins = it_i_ins->second.begin();
         it_j = it_i->second.begin();
         while (it_j_ins != it_i_ins->second.end() && it_j != it_i->second.end() ) {
-            
+            if (it_j_ins->first != it_j->first)
+                throw runtime_error("Error in ErrorModeler::save_mean_err : it_j_ins->first != it_j->first.");
             fs_mean_err_file << it_i->first << "," << it_j->first << '\t';
             fs_mean_err_file << err_context.total_cvg[it_i->first][it_j->first] << '\t';
             for (it_k_ins=it_j_ins->second.begin(); it_k_ins!=it_j_ins->second.end(); it_k_ins++) {
                 fs_mean_err_file << it_k_ins->first << ':' << it_k_ins->second << ',';
             }
             fs_mean_err_file << '\t';
-            for (it_k=it_j->second.begin(); it_k!=it_j_ins->second.end(); it_k++) {
+            for (it_k=it_j->second.begin(); it_k!=it_j->second.end(); it_k++) {
                 fs_mean_err_file << it_k->first << ':' << it_k->second << ',';
             }
             

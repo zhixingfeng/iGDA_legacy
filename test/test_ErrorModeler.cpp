@@ -31,8 +31,8 @@ TEST_CASE ("Test ErrorModelerHomo train(), save() and load()", "[ErrorModelerHom
     ErrorContextEffect err_context = obj_ErrorModelerHomo.getErrorContextEffect();
     vector<BaseFreq> basefreq_vec;
     
-    unordered_map<string, unordered_map<string, vector<BaseFreq> > >::iterator it_i;
-    unordered_map<string, vector<BaseFreq> >::iterator it_j;
+    map<string, map<string, vector<BaseFreq> > >::iterator it_i;
+    map<string, vector<BaseFreq> >::iterator it_j;
     for (it_i=err_context.data.begin(); it_i!=err_context.data.end(); it_i++) {
         for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); it_j++) {
             for (int i=0; i<(int) it_j->second.size(); i++) {
@@ -94,5 +94,5 @@ TEST_CASE ("Test ErrorModelerHomo save_mean_err()", "[ErrorModelerHomo][ErrorMod
     obj_ErrorModelerHomo.calErrorRateStat();
     
     obj_ErrorModelerHomo.save_mean_err(err_mean_file);
-    obj_ErrorModelerHomo.save(err_mean_file + ".raw");
+    //obj_ErrorModelerHomo.save(err_mean_file + ".raw");
 }

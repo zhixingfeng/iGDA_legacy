@@ -93,7 +93,7 @@ void PileupParserGDA::calBaseFreq() {
     data_BaseFreq.cvg_ins = data_Pileup.cvg_ins;
     
     
-    unordered_map<string, int>::iterator it;
+    map<string, int>::iterator it;
     
     // get freq of insertion
     for (int i=0; i<(int) data_Pileup.readSeq_ins.size(); i++) {

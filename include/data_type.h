@@ -52,11 +52,11 @@ struct Pileup {
     
     vector<NtSeq> readSeq;
     vector<int> readID;
-    unordered_map<int, NtSeq> readSeq_group;
+    map<int, NtSeq> readSeq_group;
     
     vector<NtSeq> readSeq_ins;
     vector<int> readID_ins;
-    unordered_map<int, NtSeq> readSeq_group_ins;
+    map<int, NtSeq> readSeq_group_ins;
     
 };
 
@@ -80,16 +80,16 @@ struct BaseFreq {
     int cvg;
     int cvg_ins;
     
-    unordered_map<string, int> freq;
-    unordered_map<string, double> prob;
+    map<string, int> freq;
+    map<string, double> prob;
     
-    unordered_map<string, int> freq_ins;
-    unordered_map<string, double> prob_ins;
+    map<string, int> freq_ins;
+    map<string, double> prob_ins;
        
 };
 
 // define reference genome
-typedef unordered_map <int, string> RefGenome;
+typedef map <int, string> RefGenome;
 
 /* ----------------------- global functions ----------------------------- */
 
@@ -161,8 +161,8 @@ inline bool operator == (const Pileup & obj_Pileup_l, const Pileup & obj_Pileup_
 
 // print BaseFreq
 template<class T>
-inline ostream & operator << (ostream & os, unordered_map<string, T> & base_freq) {
-    typename unordered_map<string, T>::iterator it;
+inline ostream & operator << (ostream & os, map<string, T> & base_freq) {
+    typename map<string, T>::iterator it;
     for (it=base_freq.begin(); it!=base_freq.end(); ++it) {
         os << it->first << ':' << it->second << ',';
     }
@@ -200,7 +200,7 @@ inline bool operator > (const BaseFreq basefreq_l, const BaseFreq basefreq_r) {
 inline BaseFreq Pileup2BaseFreq (const Pileup & obj_Pileup) {
     BaseFreq obj_BaseFreq(obj_Pileup);
     
-    unordered_map<string, int>::iterator it;
+    map<string, int>::iterator it;
     
     // get freq of insertion
     for (int i=0; i<(int) obj_Pileup.readSeq_ins.size(); i++) {
