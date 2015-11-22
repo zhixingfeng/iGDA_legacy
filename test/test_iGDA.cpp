@@ -33,16 +33,21 @@ TEST_CASE( "Test getPileupFile", "[iGDA]" ) {
 TEST_CASE( "Test verifyPlugin", "[iGDA]" ) {
     iGDA gda;
     
-    //PileupParserGDA obj_PileupParserGDA;
+    PileupParserGDA obj_PileupParserGDA;
     PreCallerSingle obj_PreCallerSingle;
+    ErrorModelerHomo obj_ErrorModeler;
     
     REQUIRE_THROWS(gda.verifyPlugin());
-    //gda.setPileupParser(& obj_PileupParserGDA);
+    gda.setPileupParser(& obj_PileupParserGDA);
     
     REQUIRE_THROWS(gda.verifyPlugin());
     gda.setPreCaller(& obj_PreCallerSingle);
+   
+    REQUIRE_THROWS(gda.verifyPlugin());
+    gda.setErrorModeler(& obj_ErrorModeler);
     
     REQUIRE_NOTHROW(gda.verifyPlugin());
+    
 }
 
 
