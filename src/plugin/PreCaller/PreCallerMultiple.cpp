@@ -23,3 +23,6 @@ PreCallerMultiple::PreCallerMultiple(const PreCallerMultiple& orig) {
 PreCallerMultiple::~PreCallerMultiple() {
 }
 
+void PreCallerMultiple::callVar() {
+    
+}

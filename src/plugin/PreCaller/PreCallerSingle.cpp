@@ -23,3 +23,6 @@ PreCallerSingle::PreCallerSingle(const PreCallerSingle& orig) {
 PreCallerSingle::~PreCallerSingle() {
 }
 
+void PreCallerSingle::callVar() {
+    
+}

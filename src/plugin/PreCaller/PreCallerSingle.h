@@ -20,6 +20,8 @@ public:
     PreCallerSingle();
     PreCallerSingle(const PreCallerSingle& orig);
     virtual ~PreCallerSingle();
+    
+    void callVar();
 private:
 
 };

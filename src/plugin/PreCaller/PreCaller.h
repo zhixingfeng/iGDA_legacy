@@ -19,6 +19,11 @@
 #include "../ErrorModeler/ErrorModeler.h"
 #include "../ErrorModeler/ErrorModelerHomo.h"
 
+struct VarStat {
+    
+};
+
+
 class PreCaller {
 public:
     PreCaller();
@@ -29,6 +34,8 @@ public:
     void setPileupParser (PileupParser * a_PileupParser); 
     void setErrorModeler (ErrorModeler * a_ErrorModeler); 
     
+    virtual void callVar() = 0;
+    map<string, vector<VarStat> > getVar() {return varstat;} 
     string getSignature(){return signature;}
 protected:
     
@@ -36,6 +43,7 @@ protected:
     PileupParser * ptr_PileupParser;
     ErrorModeler * ptr_ErrorModeler;
     
+    map<string, vector<VarStat> > varstat;
     string signature;
 };
 

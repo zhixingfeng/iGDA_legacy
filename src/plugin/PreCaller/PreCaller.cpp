@@ -35,4 +35,6 @@ void PreCaller::setErrorModeler(ErrorModeler* a_ErrorModeler) {
     if (ptr_PileupParser == NULL)
         throw runtime_error("Error in PreCaller::setErrorModeler: ptr_PileupParser is NULL.");
     ptr_ErrorModeler = a_ErrorModeler;
+    ptr_ErrorModeler->setPileupFile(pileupfile);
+    ptr_ErrorModeler->setPileupParser(ptr_PileupParser);
 }

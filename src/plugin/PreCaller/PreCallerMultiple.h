@@ -21,6 +21,8 @@ public:
     PreCallerMultiple();
     PreCallerMultiple(const PreCallerMultiple& orig);
     virtual ~PreCallerMultiple();
+    
+    void callVar();
 private:
 
 };

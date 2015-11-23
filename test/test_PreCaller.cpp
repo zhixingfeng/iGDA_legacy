@@ -19,4 +19,5 @@ TEST_CASE("Test PreCaller setup resources", "[PreCaller]") {
     
     REQUIRE_NOTHROW( obj_PreCallerSingle.setPileupParser(& obj_PileupParserGDA) );
     REQUIRE_NOTHROW( obj_PreCallerSingle.setErrorModeler(& obj_ErrorModelerHomo)  );
+    
 }
