@@ -20,8 +20,11 @@
 #include "../ErrorModeler/ErrorModelerHomo.h"
 
 struct VarStat {
-    
+    double effect_size; // effect size can be defined as ratio between estimated proportion / expected proportion or anything else
+    int cvg; // coverage of locus. It is number of different molecules. CCS is ignored.
+    int cvg_ctrl; // coverage of the control sample. Total number of molecules with the same context.
 };
+
 
 
 class PreCaller {
@@ -35,7 +38,7 @@ public:
     void setErrorModeler (ErrorModeler * a_ErrorModeler); 
     
     virtual void callVar() = 0;
-    map<string, vector<VarStat> > getVar() {return varstat;} 
+    map<int, vector<VarStat> > getVar() {return varstat;} 
     string getSignature(){return signature;}
 protected:
     
@@ -43,7 +46,7 @@ protected:
     PileupParser * ptr_PileupParser;
     ErrorModeler * ptr_ErrorModeler;
     
-    map<string, vector<VarStat> > varstat;
+    map<int, vector<VarStat> > varstat;
     string signature;
 };
 

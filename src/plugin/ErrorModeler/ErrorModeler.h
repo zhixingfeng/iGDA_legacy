@@ -25,7 +25,11 @@ struct ErrorContextEffect {
         data.clear(); 
         err_rate_mean.clear(); err_rate_sd.clear();
         err_rate_mean_ins.clear(); err_rate_sd_ins.clear();
+        len_l = -1;
+        len_r = -1;
     }
+    int len_l; // length of the left context
+    int len_r; // length of the right context
     
     map<string, map<string, vector<BaseFreq> > > data;
     
@@ -72,7 +76,7 @@ public:
     void save_mean_err(string mean_err_file);
     
     //clear
-    inline void clear() { err_context.clear(); }
+    inline void clear() { err_context.clear(); err_context.len_l = -1; err_context.len_r = -1;}
        
 protected:
     BaseFreq parseLocus(string & buf);

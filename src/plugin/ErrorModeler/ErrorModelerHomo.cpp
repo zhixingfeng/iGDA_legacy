@@ -60,6 +60,9 @@ void ErrorModelerHomo::train(int left, int right) {
     }
     cout << "processed " << nlines << " loci" << endl;
     fs_pileupfile.close();
+    
+    err_context.len_l = left;
+    err_context.len_r = right;
 }
 
 

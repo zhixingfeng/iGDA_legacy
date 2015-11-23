@@ -27,7 +27,7 @@ TEST_CASE ("Test ErrorModelerHomo train(), save() and load()", "[ErrorModelerHom
     obj_ErrorModelerHomo.clear();
     obj_ErrorModelerHomo.load(err_context_file);
     
-    // converted ErrorContextEffect into 
+    // converted ErrorContextEffect into basefreq
     ErrorContextEffect err_context = obj_ErrorModelerHomo.getErrorContextEffect();
     vector<BaseFreq> basefreq_vec;
     
