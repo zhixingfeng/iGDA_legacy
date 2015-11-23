@@ -14,6 +14,8 @@
 #include "PreCaller.h"
 
 PreCaller::PreCaller() {
+    ptr_PileupParser = NULL;
+    ptr_ErrorModeler = NULL;
     signature = "PreCaller";
 }
 
@@ -23,3 +25,14 @@ PreCaller::PreCaller(const PreCaller& orig) {
 PreCaller::~PreCaller() {
 }
 
+void PreCaller::setPileupParser(PileupParser* a_PileupParser) {
+    if (pileupfile == "")
+        throw runtime_error("Error in PreCaller::setPileupParser: pileupfile is empty.");
+    ptr_PileupParser = a_PileupParser;
+}
+
+void PreCaller::setErrorModeler(ErrorModeler* a_ErrorModeler) {
+    if (ptr_PileupParser == NULL)
+        throw runtime_error("Error in PreCaller::setErrorModeler: ptr_PileupParser is NULL.");
+    ptr_ErrorModeler = a_ErrorModeler;
+}

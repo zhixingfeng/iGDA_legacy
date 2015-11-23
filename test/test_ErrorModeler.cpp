@@ -114,5 +114,5 @@ TEST_CASE ("Test ErrorModeler getLocalContext()", "[ErrorModeler]") {
     pair<string, string> context = obj_ErrorModeler.getLocalContext(0,100,1,1);
     REQUIRE(context.first == "AA");
     REQUIRE(context.second == "TA");
-    //cout << context.first <<','<<context.second << endl;
+
 }

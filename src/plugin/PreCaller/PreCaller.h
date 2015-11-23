@@ -14,6 +14,10 @@
 #ifndef PRECALLER_H
 #define PRECALLER_H
 #include "../../../include/headers.h"
+#include "../PileupParser/PileupParser.h"
+#include "../PileupParser/PileupParserGDA.h"
+#include "../ErrorModeler/ErrorModeler.h"
+#include "../ErrorModeler/ErrorModelerHomo.h"
 
 class PreCaller {
 public:
@@ -21,8 +25,17 @@ public:
     PreCaller(const PreCaller& orig);
     virtual ~PreCaller();
     
+    void setPileupfile (string a_pileupfile) {pileupfile = a_pileupfile;}
+    void setPileupParser (PileupParser * a_PileupParser); 
+    void setErrorModeler (ErrorModeler * a_ErrorModeler); 
+    
     string getSignature(){return signature;}
 protected:
+    
+    string pileupfile;
+    PileupParser * ptr_PileupParser;
+    ErrorModeler * ptr_ErrorModeler;
+    
     string signature;
 };
 

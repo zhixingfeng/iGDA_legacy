@@ -47,6 +47,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/tool/getopt_pp/getopt_pp.o \
 	${OBJECTDIR}/test/test_ErrorModeler.o \
 	${OBJECTDIR}/test/test_PileupParser.o \
+	${OBJECTDIR}/test/test_PreCaller.o \
 	${OBJECTDIR}/test/test_data_type.o \
 	${OBJECTDIR}/test/test_file.o \
 	${OBJECTDIR}/test/test_iGDA.o
@@ -135,6 +136,11 @@ ${OBJECTDIR}/test/test_PileupParser.o: test/test_PileupParser.cpp
 	${MKDIR} -p ${OBJECTDIR}/test
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/test/test_PileupParser.o test/test_PileupParser.cpp
+
+${OBJECTDIR}/test/test_PreCaller.o: test/test_PreCaller.cpp 
+	${MKDIR} -p ${OBJECTDIR}/test
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/test/test_PreCaller.o test/test_PreCaller.cpp
 
 ${OBJECTDIR}/test/test_data_type.o: test/test_data_type.cpp 
 	${MKDIR} -p ${OBJECTDIR}/test
