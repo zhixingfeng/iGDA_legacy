@@ -36,6 +36,7 @@ public:
     void trainErrorModel(string err_model_file);
     void loadErrorModel(string err_model_file);
     
+    void preCall();
     void run();
     SeqFreq getSeqFreq();
     

@@ -58,6 +58,7 @@ TEST_CASE ("Test ErrorModelerHomo train(), save() and load()", "[ErrorModelerHom
     string cur_line_converted;
     // ignore first two lines of fs_check_baseprob
     getline(fs_check_baseprob, cur_line); getline(fs_check_baseprob, cur_line);
+    getline(fs_check_baseprob, cur_line); getline(fs_check_baseprob, cur_line);
     while(true) {
         getline(fs_check_baseprob, cur_line);
         getline(fs_check_baseprob_converted, cur_line_converted);
@@ -95,4 +96,23 @@ TEST_CASE ("Test ErrorModelerHomo save_mean_err()", "[ErrorModelerHomo][ErrorMod
     
     obj_ErrorModelerHomo.save_mean_err(err_mean_file);
     //obj_ErrorModelerHomo.save(err_mean_file + ".raw");
+}
+
+
+TEST_CASE ("Test ErrorModeler getLocalContext()", "[ErrorModeler]") {
+    string pileupfile = "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup"; 
+    
+    PileupParserGDA obj_PileupParser;
+    ErrorModelerHomo obj_ErrorModeler;
+    
+    REQUIRE_THROWS(obj_ErrorModeler.getRefGenome());
+    obj_ErrorModeler.setPileupFile(pileupfile);
+    REQUIRE_THROWS(obj_ErrorModeler.getRefGenome());
+    obj_ErrorModeler.setPileupParser(& obj_PileupParser);
+    REQUIRE_THROWS(obj_ErrorModeler.getLocalContext(0,100,1,1));
+    obj_ErrorModeler.getRefGenome();
+    pair<string, string> context = obj_ErrorModeler.getLocalContext(0,100,1,1);
+    REQUIRE(context.first == "AA");
+    REQUIRE(context.second == "TA");
+    //cout << context.first <<','<<context.second << endl;
 }

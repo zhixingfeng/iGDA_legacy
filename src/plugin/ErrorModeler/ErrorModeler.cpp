@@ -26,6 +26,15 @@ ErrorModeler::ErrorModeler(const ErrorModeler& orig) {
 
 ErrorModeler::~ErrorModeler() {
 }
+
+void ErrorModeler::getRefGenome() {
+    if (pileupfile == "")
+        throw runtime_error("Error in ErrorModeler::getRefGenome: pileupfile is empty.");
+    if (ptr_PileupParser == NULL)
+        throw runtime_error("Error in ErrorModeler::getRefGenome: PileupParser has not been set up yet.");
+    refgenome = ptr_PileupParser->getRefGenome(pileupfile);
+}
+
 void ErrorModeler::calErrorRateStat() {
     map<string, map<string, vector<BaseFreq> > >::iterator it_i;
     map<string, vector<BaseFreq> >::iterator it_j;

@@ -148,8 +148,6 @@ RefGenome PileupParserGDA::getRefGenome(string pileupfile) {
         if (buf_ins[1][0] != '_' || buf[1][0] == '_')
             throw runtime_error ("Error in PileupParserGDA::getRefGenome : incorrect pileupfile format.");
         
-        //RefGenome::iterator it = refgenome.find(atoi(buf[0].c_str()));
-        //if (it == )
         refgenome[ atoi(buf[0].c_str()) ].push_back(buf[2][0]);
         
     }

@@ -96,6 +96,7 @@
         <ccTool>
           <standard>8</standard>
           <commandlineTool>g++</commandlineTool>
+          <commandLine>-D_UNITTEST</commandLine>
         </ccTool>
       </compileType>
       <item path="include/catch.hpp" ex="false" tool="3" flavor2="0">

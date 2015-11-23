@@ -54,6 +54,11 @@ public:
     
     // calculate context effect of error rate or train the background model. 
     virtual void train(int left, int right) = 0;
+    
+    void getRefGenome();
+    
+    virtual pair<string, string> getLocalContext(int refID, int locus, int left, int right) = 0; 
+    
     void calErrorRateStat();
     
     // get results

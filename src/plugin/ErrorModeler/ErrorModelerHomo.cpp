@@ -64,6 +64,8 @@ void ErrorModelerHomo::train(int left, int right) {
 
 
 pair<string, string> ErrorModelerHomo::getLocalContext(int refID, int locus, int left, int right) {
+    if (refgenome.size()==0)
+        throw runtime_error("Error in ErrorModelerHomo::getLocalContext: unable to find refgenome.");
     int i = locus - 1;
     if (i < 0 || i >= (int)refgenome[refID].size()) return pair<string, string>("","");
     
