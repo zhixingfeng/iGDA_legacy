@@ -65,6 +65,7 @@
         <itemPath>test/test_ErrorModeler.cpp</itemPath>
         <itemPath>test/test_PileupParser.cpp</itemPath>
         <itemPath>test/test_PreCaller.cpp</itemPath>
+        <itemPath>test/test_basic.cpp</itemPath>
         <itemPath>test/test_data_type.cpp</itemPath>
         <itemPath>test/test_file.cpp</itemPath>
         <itemPath>test/test_iGDA.cpp</itemPath>
@@ -196,6 +197,8 @@
       </item>
       <item path="test/test_PreCaller.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="test/test_basic.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="test/test_data_type.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="test/test_file.cpp" ex="false" tool="1" flavor2="0">
@@ -319,6 +322,8 @@
       <item path="test/test_PileupParser.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="test/test_PreCaller.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="test/test_basic.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="test/test_data_type.cpp" ex="false" tool="1" flavor2="0">
       </item>

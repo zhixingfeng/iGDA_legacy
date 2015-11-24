@@ -46,22 +46,21 @@ void ErrorModeler::calErrorRateStat() {
             // sum frequency of loci with the same context
             map<string, double> cur_mean_ins;
             map<string, double> cur_mean;
+            
             for (int i=0; i<(int) it_j->second.size(); i++) {
                 
-                
                 for (it_freq=it_j->second[i].freq_ins.begin(); it_freq!=it_j->second[i].freq_ins.end(); it_freq++) {
-                    
                     cur_mean_ins[it_freq->first] += it_freq->second;
+                    
                 }
                 for (it_freq=it_j->second[i].freq.begin(); it_freq!=it_j->second[i].freq.end(); it_freq++) {
                     cur_mean[it_freq->first] += it_freq->second;
                 }
-                //cout << it_i->first << ',' << it_j->first << '\t' << cur_mean << '\t' << it_j->second[i].freq.size() << endl;
                 err_context.total_cvg[it_i->first][it_j->first] += it_j->second[i].cvg;
             }
             err_context.err_rate_mean_ins[it_i->first][it_j->first] = cur_mean_ins;
             err_context.err_rate_mean[it_i->first][it_j->first] = cur_mean;
-            //cout << err_context.total_cvg[it_i->first][it_j->first] << endl;
+            
             
             // devide frequency by total coverage to get probability
             
@@ -75,6 +74,7 @@ void ErrorModeler::calErrorRateStat() {
             
         }
     }
+    //cout << err_context.err_rate_mean["AA"]["TA"] << endl;
 }
 
 
@@ -213,10 +213,12 @@ BaseFreq ErrorModeler::parseLocus(string& buf) {
     for (int i=0; i<(int)lev_3_rl.size(); i++) {
         vector<string> cur_buf = split(lev_3_rl[i], ':');
         basefreq.prob_ins[cur_buf[0]] = stod(cur_buf[1].c_str());
+        basefreq.freq_ins[cur_buf[0]] = int (stod(cur_buf[1].c_str()) * basefreq.cvg + 0.5);
     }
     for (int i=0; i<(int)lev_3_rr.size(); i++) {
         vector<string> cur_buf = split(lev_3_rr[i], ':');
         basefreq.prob[cur_buf[0]] = stod(cur_buf[1].c_str());
+        basefreq.freq[cur_buf[0]] = int (stod(cur_buf[1].c_str()) * basefreq.cvg + 0.5);
     }
     
     return basefreq;

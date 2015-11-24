@@ -116,3 +116,45 @@ TEST_CASE ("Test ErrorModeler getLocalContext()", "[ErrorModeler]") {
     REQUIRE(context.second == "TA");
 
 }
+
+
+TEST_CASE ("Test ErrorModelerHomo searchErrorContextEffect*() ", "[ErrorModelerSeach]") {
+    PileupParserGDA obj_PileupParser;
+    ErrorModelerHomo obj_ErrorModeler;
+    string pileupfile = "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup"; 
+    
+    obj_ErrorModeler.setPileupFile(pileupfile);
+    obj_ErrorModeler.setPileupParser(& obj_PileupParser);
+    obj_ErrorModeler.getRefGenome();
+    obj_ErrorModeler.load("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.err");
+    obj_ErrorModeler.calErrorRateStat();
+                
+    ErrorContextEffect err_context = obj_ErrorModeler.getErrorContextEffect();
+    cout << err_context.err_rate_mean["AA"]["TA"] << endl;
+    cout << err_context.total_cvg.size() << ',' << err_context.data.size() << endl;
+    
+    //map<string, map<string, double> >::iterator it;
+    
+    //for (it= err_context.err_rate_mean["AA"].begin(); it!=err_context.err_rate_mean["AA"].end(); it++)
+     //   cout << it->first << "," << it->second.size() << endl;
+    
+    
+       
+    pair<string, string> context = obj_ErrorModeler.getLocalContext(0, 100, 1, 1);
+    REQUIRE(context.first=="AA");
+    REQUIRE(context.second=="TA");
+    
+    vector<BaseFreq> basefreq = obj_ErrorModeler.searchErrorContextEffect(0, 100, 1, 1);
+    REQUIRE(basefreq.size() == 7);
+    REQUIRE(basefreq[0].prob_ins["C"] == Approx(0.0103093));
+    REQUIRE(basefreq[0].prob_ins["CT"] == Approx(0.00515464));
+    REQUIRE(basefreq[0].prob_ins["G"] == Approx(0.0206186));
+    REQUIRE(basefreq[0].prob_ins["T"] == Approx(0.0309278));
+    REQUIRE(basefreq[0].prob["-"] == Approx(0.0309278));
+    REQUIRE(basefreq[0].prob["C"] == Approx(0.00515464));
+    REQUIRE(basefreq[0].prob["T"] == Approx(0.963918));
+    
+    map<string, double> basefreq_mean = obj_ErrorModeler.searchErrorContextEffectMean(0, 100, 1, 1);
+    //cout << basefreq_mean.size();
+    
+}

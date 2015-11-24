@@ -97,3 +97,18 @@ pair<string, string> ErrorModelerHomo::getLocalContext(int refID, int locus, int
    
     return pair<string, string>(refgenome[refID].substr(i_l, i - i_l), refgenome[refID].substr(i, i_r - i + 1));
 }
+
+vector<BaseFreq> ErrorModelerHomo::searchErrorContextEffect(int refID, int locus, int left, int right) {
+    pair<string, string> context = getLocalContext(refID, locus, left, right);
+    return err_context.data[context.first][context.second];
+}
+
+map<string, double> ErrorModelerHomo::searchErrorContextEffectMean(int refID, int locus, int left, int right) {
+    pair<string, string> context = getLocalContext(refID, locus, left, right);
+    return err_context.err_rate_mean[context.first][context.second];
+}
+
+map<string, double> ErrorModelerHomo::searchErrorContextEffectMeanIns(int refID, int locus, int left, int right) {
+    pair<string, string> context = getLocalContext(refID, locus, left, right);
+    return err_context.err_rate_mean_ins[context.first][context.second];
+}

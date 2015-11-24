@@ -48,6 +48,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/test/test_ErrorModeler.o \
 	${OBJECTDIR}/test/test_PileupParser.o \
 	${OBJECTDIR}/test/test_PreCaller.o \
+	${OBJECTDIR}/test/test_basic.o \
 	${OBJECTDIR}/test/test_data_type.o \
 	${OBJECTDIR}/test/test_file.o \
 	${OBJECTDIR}/test/test_iGDA.o
@@ -141,6 +142,11 @@ ${OBJECTDIR}/test/test_PreCaller.o: test/test_PreCaller.cpp
 	${MKDIR} -p ${OBJECTDIR}/test
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/test/test_PreCaller.o test/test_PreCaller.cpp
+
+${OBJECTDIR}/test/test_basic.o: test/test_basic.cpp 
+	${MKDIR} -p ${OBJECTDIR}/test
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/test/test_basic.o test/test_basic.cpp
 
 ${OBJECTDIR}/test/test_data_type.o: test/test_data_type.cpp 
 	${MKDIR} -p ${OBJECTDIR}/test

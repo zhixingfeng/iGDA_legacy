@@ -14,6 +14,7 @@
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/PileupParser/PileupParser.h</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/iGDA.h</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/include/data_type.h</file>
+            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/test/test_PreCaller.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/PreCaller/PreCaller.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/tool/tool.h</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/iGDA.cpp</file>
@@ -31,6 +32,8 @@
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/test/test_PileupParser.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/test/test_iGDA.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/test/test_ErrorModeler.cpp</file>
+            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/include/headers.h</file>
+            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/PreCaller/PreCallerSingle.h</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/test/test_file.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/PileupParser/PileupParserGDA.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/ErrorModeler/ErrorModeler.cpp</file>

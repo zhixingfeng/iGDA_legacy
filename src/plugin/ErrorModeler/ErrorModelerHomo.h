@@ -24,6 +24,10 @@ public:
 
     void train(int left = 1, int right = 1);
     pair<string, string> getLocalContext(int refID, int locus, int left, int right); 
+
+    vector<BaseFreq> searchErrorContextEffect(int refID, int locus, int left, int right);
+    map<string, double> searchErrorContextEffectMean(int refID, int locus, int left, int right);
+    map<string, double> searchErrorContextEffectMeanIns(int refID, int locus, int left, int right);
 };
 
 #endif /* ERRORMODELERHOMO_H */

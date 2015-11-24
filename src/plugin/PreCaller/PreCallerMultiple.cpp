@@ -23,6 +23,6 @@ PreCallerMultiple::PreCallerMultiple(const PreCallerMultiple& orig) {
 PreCallerMultiple::~PreCallerMultiple() {
 }
 
-void PreCallerMultiple::callVar() {
+void PreCallerMultiple::callVar(int min_cvg) {
     
 }

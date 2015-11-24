@@ -30,6 +30,7 @@ void print_usage() {
 void print_usage_train() {
     cout << "igda train pileupfile outfile" << endl;
 }
+
 int main(int argc, char* argv[]) {
     if (argc == 1) { print_usage(); return 0; }
        

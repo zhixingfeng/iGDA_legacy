@@ -5,6 +5,14 @@
 #include "data_type.h"
 #include <ctype.h>
 #include <sstream>
+
+// test if a value is nan
+template<typename T>
+inline bool is_nan(T x) 
+{
+    return x!=x;
+}
+
 // find index of a string in a string vector (fisrt occurence only)
 template<typename T>
 inline int which(const vector<T> &data, const T query)

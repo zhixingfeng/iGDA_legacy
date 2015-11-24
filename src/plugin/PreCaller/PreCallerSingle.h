@@ -21,7 +21,7 @@ public:
     PreCallerSingle(const PreCallerSingle& orig);
     virtual ~PreCallerSingle();
     
-    void callVar();
+    void callVar(int min_cvg = 0);
 private:
 
 };

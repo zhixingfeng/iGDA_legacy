@@ -62,6 +62,9 @@ public:
     void getRefGenome();
     
     virtual pair<string, string> getLocalContext(int refID, int locus, int left, int right) = 0; 
+    virtual vector<BaseFreq> searchErrorContextEffect(int refID, int locus, int left, int right) = 0;
+    virtual map<string, double> searchErrorContextEffectMean(int refID, int locus, int left, int right) = 0;
+    virtual map<string, double> searchErrorContextEffectMeanIns(int refID, int locus, int left, int right) = 0;
     
     void calErrorRateStat();
     
