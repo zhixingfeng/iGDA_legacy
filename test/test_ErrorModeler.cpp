@@ -126,19 +126,10 @@ TEST_CASE ("Test ErrorModelerHomo searchErrorContextEffect*() ", "[ErrorModelerS
     obj_ErrorModeler.setPileupFile(pileupfile);
     obj_ErrorModeler.setPileupParser(& obj_PileupParser);
     obj_ErrorModeler.getRefGenome();
+    
     obj_ErrorModeler.load("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.err");
     obj_ErrorModeler.calErrorRateStat();
                 
-    ErrorContextEffect err_context = obj_ErrorModeler.getErrorContextEffect();
-    cout << err_context.err_rate_mean["AA"]["TA"] << endl;
-    cout << err_context.total_cvg.size() << ',' << err_context.data.size() << endl;
-    
-    //map<string, map<string, double> >::iterator it;
-    
-    //for (it= err_context.err_rate_mean["AA"].begin(); it!=err_context.err_rate_mean["AA"].end(); it++)
-     //   cout << it->first << "," << it->second.size() << endl;
-    
-    
        
     pair<string, string> context = obj_ErrorModeler.getLocalContext(0, 100, 1, 1);
     REQUIRE(context.first=="AA");
@@ -154,7 +145,21 @@ TEST_CASE ("Test ErrorModelerHomo searchErrorContextEffect*() ", "[ErrorModelerS
     REQUIRE(basefreq[0].prob["C"] == Approx(0.00515464));
     REQUIRE(basefreq[0].prob["T"] == Approx(0.963918));
     
+    map<string, double> basefreq_mean_ins = obj_ErrorModeler.searchErrorContextEffectMeanIns(0, 100, 1, 1);
     map<string, double> basefreq_mean = obj_ErrorModeler.searchErrorContextEffectMean(0, 100, 1, 1);
-    //cout << basefreq_mean.size();
+    int basefreq_cvg = obj_ErrorModeler.searchErrorContextEffectCvg(0, 100, 1, 1);
+    REQUIRE(basefreq_cvg == 1358);
+    REQUIRE( basefreq_mean_ins["C"] == Approx(0.0132548) );
+    REQUIRE( basefreq_mean_ins["CT"] == Approx(0.000736377) );
+    REQUIRE( basefreq_mean_ins["G"] == Approx(0.011782) );
+    REQUIRE( basefreq_mean_ins["GCC"] == Approx(0.000736377) );
+    REQUIRE( basefreq_mean_ins["GG"] == Approx(0.00147275) );
+    REQUIRE( basefreq_mean_ins["T"] == Approx(0.0434462) );
+    REQUIRE( basefreq_mean_ins["TT"] == Approx(0.00368189) );
+    REQUIRE( basefreq_mean["-"] == Approx(0.0294551) );
+    REQUIRE( basefreq_mean["A"] == Approx(.000736377) );
+    REQUIRE( basefreq_mean["C"] == Approx(0.00220913) );
+    REQUIRE( basefreq_mean["G"] == Approx(0.00515464) );
+    REQUIRE( basefreq_mean["T"] == Approx(0.962445) );
     
 }

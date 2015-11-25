@@ -112,3 +112,8 @@ map<string, double> ErrorModelerHomo::searchErrorContextEffectMeanIns(int refID,
     pair<string, string> context = getLocalContext(refID, locus, left, right);
     return err_context.err_rate_mean_ins[context.first][context.second];
 }
+
+int ErrorModelerHomo::searchErrorContextEffectCvg(int refID, int locus, int left, int right) {
+    pair<string, string> context = getLocalContext(refID, locus, left, right);
+    return err_context.total_cvg[context.first][context.second];
+}

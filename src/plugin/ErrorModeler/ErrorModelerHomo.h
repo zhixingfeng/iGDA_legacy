@@ -28,6 +28,7 @@ public:
     vector<BaseFreq> searchErrorContextEffect(int refID, int locus, int left, int right);
     map<string, double> searchErrorContextEffectMean(int refID, int locus, int left, int right);
     map<string, double> searchErrorContextEffectMeanIns(int refID, int locus, int left, int right);
+    int searchErrorContextEffectCvg(int refID, int locus, int left, int right);
 };
 
 #endif /* ERRORMODELERHOMO_H */

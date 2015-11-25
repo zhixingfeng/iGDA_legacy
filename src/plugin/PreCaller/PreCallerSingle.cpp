@@ -23,7 +23,7 @@ PreCallerSingle::PreCallerSingle(const PreCallerSingle& orig) {
 PreCallerSingle::~PreCallerSingle() {
 }
 
-void PreCallerSingle::callVar(int min_cvg) {
+void PreCallerSingle::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int len_r) {
     if (ptr_ErrorModeler == NULL)
         throw runtime_error("Error in PreCallerSingle::callVar: ptr_ErrorModeler is NULL.");
     if (err_context_file == "")
@@ -46,6 +46,15 @@ void PreCallerSingle::callVar(int min_cvg) {
             varstat[basefreq.refID].push_back( VarStat(NAN, NAN, basefreq.cvg, NAN, basefreq.locus) );
             continue;
         }
+        
+        // get frequency of control data
+        int basefreq_cvg = ptr_ErrorModeler->searchErrorContextEffectCvg(basefreq.refID, basefreq.locus, len_l, len_r);
+        if (basefreq_cvg < min_cvg_ctrl) {
+            varstat[basefreq.refID].push_back( VarStat(NAN, NAN, basefreq.cvg, NAN, basefreq.locus) );
+            continue;
+        }
+        map<string, double> basefreq_mean_ins = ptr_ErrorModeler->searchErrorContextEffectMeanIns(basefreq.refID, basefreq.locus, len_l, len_r);
+        map<string, double> basefreq_mean = ptr_ErrorModeler->searchErrorContextEffectMean(basefreq.refID, basefreq.locus, len_l, len_r);
         
         
         

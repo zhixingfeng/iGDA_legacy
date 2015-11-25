@@ -16,6 +16,8 @@
 #ifndef DATA_TYPE_H
 #define DATA_TYPE_H
 
+#define EPS 1e-16
+
 #include "stl.h"
 
 /* ----------------------- global data structure ----------------------------- */

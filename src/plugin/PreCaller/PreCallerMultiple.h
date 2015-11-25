@@ -22,7 +22,7 @@ public:
     PreCallerMultiple(const PreCallerMultiple& orig);
     virtual ~PreCallerMultiple();
     
-    void callVar(int min_cvg = 0);
+    void callVar(int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1);
 private:
 
 };
