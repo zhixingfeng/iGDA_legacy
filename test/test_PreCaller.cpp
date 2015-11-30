@@ -63,9 +63,45 @@ TEST_CASE("Test PreCallerSingle callVar()", "[PreCaller]") {
     
     obj_PreCallerSingle.callVar();
     map<int, vector<VarStat> > var_stat = obj_PreCallerSingle.getVar();
+    map<int, vector<VarStat> > var_stat_ins = obj_PreCallerSingle.getVar_ins();
+    map<int, vector<VarStat> > var_stat_del = obj_PreCallerSingle.getVar_del();
     
-    
+    map<int, vector<VarStat> >::iterator it;
+    ofstream fs_outfile; open_outfile(fs_outfile, "./results/mixed_MSSA_78_ratio_0.05_B_1.bam.var.match");
+    for (it=var_stat.begin(); it!=var_stat.end(); it++) 
+        for (int i=0; i<(int)it->second.size(); i++)
+            fs_outfile << it->second[i] << endl;
+    fs_outfile.close();
 }
 
-
+TEST_CASE("Test PreCaller calStat()", "[PreCaller]") {
+    PreCallerSingle obj_PreCallerSingle;
+    map<string, double> prob;
+    map<string, double> prob_ctrl;
+    prob["A"] = 1e-10;
+    prob["C"] = 0.15;
+    prob["G"] = 0.8;
+    prob["T"] = 0.05 - 1e-10;
+    prob["N"] = 0.01;
+            
+    prob_ctrl["A"] = 0;
+    prob_ctrl["C"] = 0.04;
+    prob_ctrl["G"] = 0.86;
+    prob_ctrl["T"] = 0.99e-16;
+    prob_ctrl["-"] = 0.1;
+    
+    VarStat stat (NAN, NAN, 104,1300,74658);
+    obj_PreCallerSingle.calStat(stat, prob, prob_ctrl);
+    REQUIRE(stat.cvg == 104);
+    REQUIRE(stat.cvg_ctrl == 1300);
+    REQUIRE(stat.locus == 74658);
+    REQUIRE(stat.effect_size == Approx(log(0.15/0.04)));
+    
+    REQUIRE(isnan(stat.log_prob_ratio["A"]));
+    REQUIRE(stat.log_prob_ratio["C"] == Approx(log(0.15 / 0.04)));
+    REQUIRE(stat.log_prob_ratio["G"] == Approx(log(0.8 / 0.86)));
+    REQUIRE(isnan(stat.log_prob_ratio["T"]));
+    REQUIRE(isnan(stat.log_prob_ratio["N"]));
+    
+}
 

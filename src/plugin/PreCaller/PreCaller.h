@@ -36,7 +36,13 @@ struct VarStat {
 
 };
 
-
+inline ostream & operator << (ostream & os, VarStat & obj_VarStat) {
+    os << obj_VarStat.locus << '\t' << obj_VarStat.effect_size << '\t' <<
+            obj_VarStat.p_value << '\t' << obj_VarStat.cvg << '\t' <<
+            obj_VarStat.cvg_ctrl << '\t';
+    os << obj_VarStat.log_prob_ratio;
+    return os;
+}
 
 class PreCaller {
 public:
@@ -50,10 +56,11 @@ public:
     
     void loadErrorModel (string err_context_file);
     virtual void callVar(int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1) = 0;
+    virtual void calStat(VarStat &stat, map<string, double> & prob, map<string, double> & prob_ctrl) = 0;
     
     map<int, vector<VarStat> > getVar() {return varstat;} 
-    
-    
+    map<int, vector<VarStat> > getVar_ins() {return varstat_ins;} 
+    map<int, vector<VarStat> > getVar_del() {return varstat_del;} 
     
     string getSignature(){return signature;}
 protected:
@@ -65,6 +72,8 @@ protected:
     
     //ErrorContextEffect err_context;
     map<int, vector<VarStat> > varstat;
+    map<int, vector<VarStat> > varstat_ins;
+    map<int, vector<VarStat> > varstat_del;
     
     string signature;
 };

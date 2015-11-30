@@ -51,7 +51,7 @@ TEST_CASE ("Test ErrorModelerHomo train(), save() and load()", "[ErrorModelerHom
     
     // check converted BaseFreq
     ifstream fs_check_baseprob;
-    open_infile(fs_check_baseprob, "./results/mixed_MSSA_78_ratio_0.05_B_1.bam.baseprob");
+    open_infile(fs_check_baseprob, "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.baseprob");
     ifstream fs_check_baseprob_converted;
     open_infile(fs_check_baseprob_converted, "./results/mixed_MSSA_78_ratio_0.05_B_1.bam.err_context.baseprob");
     string cur_line;

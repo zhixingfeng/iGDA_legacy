@@ -97,4 +97,45 @@ TEST_CASE("Test PileupParser::getRefGenome", "[getRefGenome]") {
 
     REQUIRE(refgenome[0] == refgenome_ref);
 }
-        
+
+TEST_CASE("Test PileupParser::getMatchProb() and getDelProb", "[PileupParser]") {
+    PileupParserGDA obj_PileupParserGDA;
+    map<string, double> prob;
+    prob["A"] = 0.025;
+    prob["G"] = 0.8;
+    prob["T"] = 0.01;
+    prob["-"] = 0.1;
+    prob["a"] = 0.065;
+    
+    // test normal cases
+    map<string, double> prob_m = obj_PileupParserGDA.getMatchProb(prob);
+    REQUIRE(prob_m.size() == 3);
+    REQUIRE(prob_m["A"] == Approx(0.025 / 0.835));
+    REQUIRE(prob_m["G"] == Approx(0.8 / 0.835));
+    REQUIRE(prob_m["T"] == Approx(0.01 / 0.835));
+    
+    prob_m = obj_PileupParserGDA.getMatchProb(prob, 'G');
+    REQUIRE(prob_m.size() == 2);
+    REQUIRE(prob_m["A"] == Approx(0.025 / 0.835));
+    REQUIRE(prob_m["T"] == Approx(0.01 / 0.835));
+
+    map<string, double> prob_d = obj_PileupParserGDA.getDelProb(prob);
+    REQUIRE(prob_d.size()==1);
+    REQUIRE(prob_d["-"] == 0.1);
+    
+    // test extreme cases
+    prob.clear();
+    prob["-"] = 0.935;
+    prob["a"] = 0.065;
+    prob_m = obj_PileupParserGDA.getMatchProb(prob, 'G');
+    REQUIRE(prob_m.size()==0);
+    
+    prob.clear();
+    prob["A"] = 0.025;
+    prob["G"] = 0.9;
+    prob["T"] = 0.01;
+    prob["a"] = 0.065;
+    prob_d = obj_PileupParserGDA.getDelProb(prob);
+    REQUIRE(prob_d.size()==0);
+}
+
