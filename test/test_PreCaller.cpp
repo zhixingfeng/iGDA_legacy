@@ -62,16 +62,9 @@ TEST_CASE("Test PreCallerSingle callVar()", "[PreCaller]") {
     obj_PreCallerSingle.loadErrorModel("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.err");
     
     obj_PreCallerSingle.callVar();
-    map<int, vector<VarStat> > var_stat = obj_PreCallerSingle.getVar();
-    map<int, vector<VarStat> > var_stat_ins = obj_PreCallerSingle.getVar_ins();
-    map<int, vector<VarStat> > var_stat_del = obj_PreCallerSingle.getVar_del();
     
-    map<int, vector<VarStat> >::iterator it;
-    ofstream fs_outfile; open_outfile(fs_outfile, "./results/mixed_MSSA_78_ratio_0.05_B_1.bam.var.match");
-    for (it=var_stat.begin(); it!=var_stat.end(); it++) 
-        for (int i=0; i<(int)it->second.size(); i++)
-            fs_outfile << it->second[i] << endl;
-    fs_outfile.close();
+    obj_PreCallerSingle.writeVar("./results/mixed_MSSA_78_ratio_0.05_B_1.bam");
+    
 }
 
 TEST_CASE("Test PreCaller calStat()", "[PreCaller]") {

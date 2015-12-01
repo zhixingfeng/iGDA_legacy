@@ -47,3 +47,24 @@ void PreCaller::loadErrorModel(string a_err_context_file) {
     ptr_ErrorModeler->calErrorRateStat();
 }
 
+void PreCaller::writeVar(string out_prefix) {
+    ofstream fs_out; open_outfile(fs_out, out_prefix + ".var.match");
+    map<int, vector<VarStat> >::iterator it;
+    for (it=varstat.begin(); it!=varstat.end(); it++) 
+        for (int i=0; i<(int)it->second.size(); i++)
+            fs_out << it->second[i] << endl;
+    fs_out.close();
+
+    open_outfile(fs_out, out_prefix + ".var.ins");
+    for (it=varstat_ins.begin(); it!=varstat_ins.end(); it++) 
+        for (int i=0; i<(int)it->second.size(); i++)
+            fs_out << it->second[i] << endl;
+    fs_out.close();
+    
+    open_outfile(fs_out, out_prefix + ".var.del");
+    for (it=varstat_del.begin(); it!=varstat_del.end(); it++) 
+        for (int i=0; i<(int)it->second.size(); i++)
+            fs_out << it->second[i] << endl;
+    fs_out.close();
+    
+}

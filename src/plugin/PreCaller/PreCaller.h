@@ -62,6 +62,8 @@ public:
     map<int, vector<VarStat> > getVar_ins() {return varstat_ins;} 
     map<int, vector<VarStat> > getVar_del() {return varstat_del;} 
     
+    void writeVar(string out_prefix);
+    
     string getSignature(){return signature;}
 protected:
     
