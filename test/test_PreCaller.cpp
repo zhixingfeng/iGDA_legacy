@@ -11,9 +11,9 @@ TEST_CASE("Test default constructor of VarStat", "[PreCaller]") {
     VarStat varstat;
     REQUIRE(varstat.cvg == -1);
     REQUIRE(varstat.cvg_ctrl == -1);
-    REQUIRE(isnan(varstat.effect_size));
+    REQUIRE(std::isnan(varstat.effect_size));
     REQUIRE(varstat.locus == -1);
-    REQUIRE(isnan(varstat.p_value));
+    REQUIRE(std::isnan(varstat.p_value));
 }
 
 TEST_CASE("Test constructor of VarStat", "[PreCaller]") {
@@ -90,11 +90,11 @@ TEST_CASE("Test PreCaller calStat()", "[PreCaller]") {
     REQUIRE(stat.locus == 74658);
     REQUIRE(stat.effect_size == Approx(log(0.15/0.04)));
     
-    REQUIRE(isnan(stat.log_prob_ratio["A"]));
+    REQUIRE(std::isnan(stat.log_prob_ratio["A"]));
     REQUIRE(stat.log_prob_ratio["C"] == Approx(log(0.15 / 0.04)));
     REQUIRE(stat.log_prob_ratio["G"] == Approx(log(0.8 / 0.86)));
-    REQUIRE(isnan(stat.log_prob_ratio["T"]));
-    REQUIRE(isnan(stat.log_prob_ratio["N"]));
+    REQUIRE(std::isnan(stat.log_prob_ratio["T"]));
+    REQUIRE(std::isnan(stat.log_prob_ratio["N"]));
     
 }
 
