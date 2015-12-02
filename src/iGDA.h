@@ -14,6 +14,7 @@
 #ifndef IGDA_H
 #define IGDA_H
 #include "./plugin/plugin.h"
+#include "../include/headers.h"
 
 // SeqFreq is used for store the output of iGDA. 
 // The most important output is joint probability of sequences.
@@ -34,16 +35,16 @@ public:
     inline string getPileupFile(){return pileupfile;}
     
     void trainErrorModel(string err_model_file);
-    void loadErrorModel(string err_model_file);
+    void loadErrorModel(string a_err_model_file);
     
-    void preCall();
+    void preCall(string out_prefix, int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1);
     void run();
     SeqFreq getSeqFreq();
     
     // setup plugins
     inline void setPileupParser(PileupParser * a_PileupParser) { ptr_PileupParser = a_PileupParser; }
-    inline void setErrorModeler(ErrorModeler * a_ErrorModeler) {ptr_ErrorModeler = a_ErrorModeler;}
-    inline void setPreCaller(PreCaller * a_PreCaller) { ptr_PreCaller = a_PreCaller; }
+    void setErrorModeler(ErrorModeler * a_ErrorModeler);
+    void setPreCaller(PreCaller * a_PreCaller); 
     
     // verification
     inline void verifyPileupFile(){open_infile(fs_pileupfile, pileupfile); fs_pileupfile.close();}
@@ -60,6 +61,9 @@ protected:
     string pileupfile;
     ifstream fs_pileupfile;
 
+    // error model file
+    string err_model_file;
+    
     // results
     SeqFreq seqfreq;
     

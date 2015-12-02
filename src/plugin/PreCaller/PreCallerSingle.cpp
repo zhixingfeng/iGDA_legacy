@@ -24,12 +24,17 @@ PreCallerSingle::~PreCallerSingle() {
 }
 
 void PreCallerSingle::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int len_r) {
-    if (ptr_ErrorModeler == NULL)
-        throw runtime_error("Error in PreCallerSingle::callVar: ptr_ErrorModeler is NULL.");
+    if (pileupfile == "")
+        throw runtime_error("Error in PreCaller::callVar: pileupfile is empty.");
     if (err_context_file == "")
         throw runtime_error("Error in PreCallerSingle::callVar: err_context_file is empty.");
-                
+    if (ptr_PileupParser == NULL)
+        throw runtime_error("Error in PreCaller::callVar: ptr_PileupParser is NULL.");
+    if (ptr_ErrorModeler == NULL)
+        throw runtime_error("Error in PreCallerSingle::callVar: ptr_ErrorModeler is NULL.");
+    
     // reference genome
+    ptr_ErrorModeler->setPileupFile(pileupfile);
     ptr_ErrorModeler->getRefGenome();
     
     // scan the pileupfile 
@@ -42,15 +47,20 @@ void PreCallerSingle::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int len_
         // get frequency of current locus
         ptr_PileupParser->calBaseFreq();
         BaseFreq basefreq = ptr_PileupParser->getBaseFreq();
+        int basefreq_ctrl_cvg = ptr_ErrorModeler->searchErrorContextEffectCvg(basefreq.refID, basefreq.locus, len_l, len_r);
+        
         if (basefreq.cvg < min_cvg) {
-            varstat[basefreq.refID].push_back( VarStat(NAN, NAN, basefreq.cvg, NAN, basefreq.locus) );
+            varstat[basefreq.refID].push_back( VarStat(NAN, NAN, basefreq.cvg, basefreq_ctrl_cvg, basefreq.locus) );
+            varstat_ins[basefreq.refID].push_back( VarStat(NAN, NAN, basefreq.cvg, basefreq_ctrl_cvg, basefreq.locus) );
+            varstat_del[basefreq.refID].push_back( VarStat(NAN, NAN, basefreq.cvg, basefreq_ctrl_cvg, basefreq.locus) );
             continue;
         }
         
         // get frequency of control data
-        int basefreq_ctrl_cvg = ptr_ErrorModeler->searchErrorContextEffectCvg(basefreq.refID, basefreq.locus, len_l, len_r);
         if (basefreq_ctrl_cvg < min_cvg_ctrl) {
             varstat[basefreq.refID].push_back( VarStat(NAN, NAN, basefreq.cvg, basefreq_ctrl_cvg, basefreq.locus) );
+            varstat_ins[basefreq.refID].push_back( VarStat(NAN, NAN, basefreq.cvg, basefreq_ctrl_cvg, basefreq.locus) );
+            varstat_del[basefreq.refID].push_back( VarStat(NAN, NAN, basefreq.cvg, basefreq_ctrl_cvg, basefreq.locus) );
             continue;
         }
         map<string, double> basefreq_ctrl_mean_ins = ptr_ErrorModeler->searchErrorContextEffectMeanIns(basefreq.refID, basefreq.locus, len_l, len_r);

@@ -41,7 +41,7 @@ TEST_CASE("Test PreCaller setup resources", "[PreCaller]") {
     PileupParserGDA obj_PileupParserGDA;
     ErrorModelerHomo obj_ErrorModelerHomo;
     
-    REQUIRE_THROWS(obj_PreCallerSingle.setPileupParser(& obj_PileupParserGDA));
+    //REQUIRE_THROWS(obj_PreCallerSingle.setPileupParser(& obj_PileupParserGDA));
     obj_PreCallerSingle.setPileupfile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
     REQUIRE_THROWS(obj_PreCallerSingle.setErrorModeler(& obj_ErrorModelerHomo));
     

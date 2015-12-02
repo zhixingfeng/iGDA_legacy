@@ -99,6 +99,7 @@ void ErrorModeler::save(string err_context_file) {
 }
 
 void ErrorModeler::load(string err_context_file) {
+    err_context.clear();
     ifstream fs_err_context_file;
     open_infile(fs_err_context_file, err_context_file);
     while(true) {
@@ -115,9 +116,7 @@ void ErrorModeler::load(string err_context_file) {
         vector<string> context = split(buf[0],',');
         if (context.size() != 2) 
             throw runtime_error("Error in ErrorModeler::load : size of context != 2");
-        
-        //cout << context[0]<<','<<context[1] << endl;
-        
+                
         // parse BaseFreq of each locus
         vector<BaseFreq> basefreq_vec;
         for (int i=1; i < (int)buf.size(); i++) {

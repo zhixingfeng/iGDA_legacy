@@ -41,17 +41,19 @@ TEST_CASE( "Test verifyPlugin", "[iGDA]" ) {
     gda.setPileupParser(& obj_PileupParserGDA);
     
     REQUIRE_THROWS(gda.verifyPlugin());
+    gda.setErrorModeler(& obj_ErrorModeler);
+    
+    REQUIRE_THROWS(gda.verifyPlugin());
     gda.setPreCaller(& obj_PreCallerSingle);
    
-    REQUIRE_THROWS(gda.verifyPlugin());
-    gda.setErrorModeler(& obj_ErrorModeler);
+    
     
     REQUIRE_NOTHROW(gda.verifyPlugin());
     
 }
 
 
-TEST_CASE( "Test signature of plugins", "[iGDA]" ) {
+/*TEST_CASE( "Test signature of plugins", "[iGDA]" ) {
     iGDA gda;
     
     // PileupParser
@@ -69,10 +71,31 @@ TEST_CASE( "Test signature of plugins", "[iGDA]" ) {
     gda.setPreCaller(& obj_PreCallerMultiple);
     REQUIRE(gda.getSigPreCaller() == "PreCallerMultiple");
     
+}*/
+
+
+
+TEST_CASE("Test iGDA::preCall()") {
+    iGDA gda;
+    PileupParserGDA obj_PileupParserGDA;
+    ErrorModelerHomo obj_ErrorModelerHomo;
+    PreCallerSingle obj_PreCallerSingle;
+
+    REQUIRE_THROWS( gda.setErrorModeler(& obj_ErrorModelerHomo) );
+    REQUIRE_THROWS( gda.setPreCaller(& obj_PreCallerSingle) );
+    
+    gda.setPileupParser(& obj_PileupParserGDA);
+    REQUIRE_THROWS( gda.setPreCaller(& obj_PreCallerSingle) );
+    
+    gda.setErrorModeler(& obj_ErrorModelerHomo);
+    gda.setPreCaller(& obj_PreCallerSingle);
+    
+    REQUIRE_THROWS(gda.preCall("./results/mixed_MSSA_78_ratio_0.05_B_1.bam"));
+    
+    gda.setPileupFile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
+    REQUIRE_THROWS(gda.preCall("./results/mixed_MSSA_78_ratio_0.05_B_1.bam"));
+    
+    gda.loadErrorModel("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.err");
+    gda.preCall("./results/mixed_MSSA_78_ratio_0.05_B_1.bam", 1, 1, 1, 1);
 }
-
-
-
-//tests to be continued after run() is completed.
-
 
