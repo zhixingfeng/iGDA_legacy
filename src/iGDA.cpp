@@ -56,7 +56,6 @@ void iGDA::trainErrorModel(string err_model_file) {
         
     // train background model error rate 
     ptr_ErrorModeler->setPileupFile(pileupfile);
-    //ptr_ErrorModeler->setPileupParser(ptr_PileupParser);
     ptr_ErrorModeler->train(1,1);
     ptr_ErrorModeler->save(err_model_file);
     ptr_ErrorModeler->calErrorRateStat();

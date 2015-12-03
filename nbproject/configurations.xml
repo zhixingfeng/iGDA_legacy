@@ -51,6 +51,32 @@
           <itemPath>src/plugin/plugin.h</itemPath>
         </logicalFolder>
         <logicalFolder name="tool" displayName="tool" projectFiles="true">
+          <logicalFolder name="tclap" displayName="tclap" projectFiles="true">
+            <itemPath>src/tool/tclap/Arg.h</itemPath>
+            <itemPath>src/tool/tclap/ArgException.h</itemPath>
+            <itemPath>src/tool/tclap/ArgTraits.h</itemPath>
+            <itemPath>src/tool/tclap/CmdLine.h</itemPath>
+            <itemPath>src/tool/tclap/CmdLineInterface.h</itemPath>
+            <itemPath>src/tool/tclap/CmdLineOutput.h</itemPath>
+            <itemPath>src/tool/tclap/Constraint.h</itemPath>
+            <itemPath>src/tool/tclap/DocBookOutput.h</itemPath>
+            <itemPath>src/tool/tclap/HelpVisitor.h</itemPath>
+            <itemPath>src/tool/tclap/IgnoreRestVisitor.h</itemPath>
+            <itemPath>src/tool/tclap/MultiArg.h</itemPath>
+            <itemPath>src/tool/tclap/MultiSwitchArg.h</itemPath>
+            <itemPath>src/tool/tclap/OptionalUnlabeledTracker.h</itemPath>
+            <itemPath>src/tool/tclap/StandardTraits.h</itemPath>
+            <itemPath>src/tool/tclap/StdOutput.h</itemPath>
+            <itemPath>src/tool/tclap/SwitchArg.h</itemPath>
+            <itemPath>src/tool/tclap/UnlabeledMultiArg.h</itemPath>
+            <itemPath>src/tool/tclap/UnlabeledValueArg.h</itemPath>
+            <itemPath>src/tool/tclap/ValueArg.h</itemPath>
+            <itemPath>src/tool/tclap/ValuesConstraint.h</itemPath>
+            <itemPath>src/tool/tclap/VersionVisitor.h</itemPath>
+            <itemPath>src/tool/tclap/Visitor.h</itemPath>
+            <itemPath>src/tool/tclap/XorHandler.h</itemPath>
+            <itemPath>src/tool/tclap/ZshCompletionOutput.h</itemPath>
+          </logicalFolder>
           <itemPath>src/tool/tool.h</itemPath>
         </logicalFolder>
         <itemPath>src/iGDA.cpp</itemPath>
@@ -94,6 +120,7 @@
         <ccTool>
           <standard>8</standard>
           <commandlineTool>g++</commandlineTool>
+          <commandLine>-I ./src/tool/</commandLine>
         </ccTool>
       </compileType>
       <item path="include/catch.hpp" ex="false" tool="3" flavor2="0">
@@ -179,6 +206,60 @@
             flavor2="0">
       </item>
       <item path="src/plugin/plugin.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/Arg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/ArgException.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/ArgTraits.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/CmdLine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/CmdLineInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/CmdLineOutput.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/Constraint.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/DocBookOutput.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/HelpVisitor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/IgnoreRestVisitor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/MultiArg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/MultiSwitchArg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/OptionalUnlabeledTracker.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/tool/tclap/StandardTraits.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/StdOutput.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/SwitchArg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/UnlabeledMultiArg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/UnlabeledValueArg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/ValueArg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/ValuesConstraint.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/VersionVisitor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/Visitor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/XorHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/ZshCompletionOutput.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/tool/tool.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -301,6 +382,60 @@
             flavor2="0">
       </item>
       <item path="src/plugin/plugin.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/Arg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/ArgException.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/ArgTraits.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/CmdLine.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/CmdLineInterface.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/CmdLineOutput.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/Constraint.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/DocBookOutput.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/HelpVisitor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/IgnoreRestVisitor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/MultiArg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/MultiSwitchArg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/OptionalUnlabeledTracker.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/tool/tclap/StandardTraits.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/StdOutput.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/SwitchArg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/UnlabeledMultiArg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/UnlabeledValueArg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/ValueArg.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/ValuesConstraint.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/VersionVisitor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/Visitor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/XorHandler.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/tclap/ZshCompletionOutput.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/tool/tool.h" ex="false" tool="3" flavor2="0">
       </item>
