@@ -44,7 +44,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCallerMultiple.o \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o \
-	${OBJECTDIR}/src/tool/getopt_pp/getopt_pp.o \
 	${OBJECTDIR}/test/test_ErrorModeler.o \
 	${OBJECTDIR}/test/test_PileupParser.o \
 	${OBJECTDIR}/test/test_PreCaller.o \
@@ -122,11 +121,6 @@ ${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o: src/plugin/PreCaller/PreCal
 	${MKDIR} -p ${OBJECTDIR}/src/plugin/PreCaller
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o src/plugin/PreCaller/PreCallerSingle.cpp
-
-${OBJECTDIR}/src/tool/getopt_pp/getopt_pp.o: src/tool/getopt_pp/getopt_pp.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src/tool/getopt_pp
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tool/getopt_pp/getopt_pp.o src/tool/getopt_pp/getopt_pp.cpp
 
 ${OBJECTDIR}/test/test_ErrorModeler.o: test/test_ErrorModeler.cpp 
 	${MKDIR} -p ${OBJECTDIR}/test

@@ -51,10 +51,6 @@
           <itemPath>src/plugin/plugin.h</itemPath>
         </logicalFolder>
         <logicalFolder name="tool" displayName="tool" projectFiles="true">
-          <logicalFolder name="getopt_pp" displayName="getopt_pp" projectFiles="true">
-            <itemPath>src/tool/getopt_pp/getopt_pp.cpp</itemPath>
-            <itemPath>src/tool/getopt_pp/getopt_pp.h</itemPath>
-          </logicalFolder>
           <itemPath>src/tool/tool.h</itemPath>
         </logicalFolder>
         <itemPath>src/iGDA.cpp</itemPath>
@@ -184,10 +180,6 @@
       </item>
       <item path="src/plugin/plugin.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/tool/getopt_pp/getopt_pp.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/tool/getopt_pp/getopt_pp.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/tool/tool.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="test/test_ErrorModeler.cpp" ex="false" tool="1" flavor2="0">
@@ -309,10 +301,6 @@
             flavor2="0">
       </item>
       <item path="src/plugin/plugin.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/tool/getopt_pp/getopt_pp.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/tool/getopt_pp/getopt_pp.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/tool/tool.h" ex="false" tool="3" flavor2="0">
       </item>
