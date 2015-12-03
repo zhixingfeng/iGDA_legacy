@@ -16,10 +16,7 @@
 #include "../include/catch.hpp"
 #include "../src/tool/tool.h"
 #include "iGDA.h"
-#include "tool/tclap/ValueArg.h"
-#include "tool/tclap/CmdLine.h"
 
-#include <tclap/CmdLine.h>
 
 #ifndef _UNITTEST
 
