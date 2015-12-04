@@ -10,10 +10,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/ErrorModeler/ErrorModeler.cpp</file>
+            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/tool/tool.h</file>
+            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/iGDA.h</file>
+            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/test/test_PreCaller.cpp</file>
+            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/test/test_iGDA.cpp</file>
+            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/iGDA.cpp</file>
+            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/test/test_ErrorModeler.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/main.cpp</file>
-            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/ErrorModeler/ErrorModelerHomo.cpp</file>
             <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/PreCaller/PreCallerSingle.cpp</file>
+            <file>file:/Users/zhixingfeng/NetBeansProjects/iGDA/src/plugin/PreCaller/PreCaller.cpp</file>
         </group>
     </open-files>
 </project-private>
