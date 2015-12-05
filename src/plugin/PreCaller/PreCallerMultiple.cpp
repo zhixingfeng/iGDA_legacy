@@ -27,6 +27,3 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
     
 }
 
-void PreCallerMultiple::calStat(VarStat& stat, map<string,double>& prob, map<string,double>& prob_ctrl) {
-    
-}

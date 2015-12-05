@@ -89,28 +89,6 @@ void PreCallerSingle::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int len_
     fs_pileupfile.close();
 }
 
-void PreCallerSingle::calStat(VarStat& stat, map<string,double>& prob, map<string,double>& prob_ctrl) {
-    stat.log_prob_ratio.clear();
-    map<string,double>::iterator it;
-    map<string,double>::iterator it_ctrl;
-    
-    stat.effect_size = log(EPS);
-    for (it=prob.begin(); it!=prob.end(); it++) {
-        it_ctrl = prob_ctrl.find(it->first);
-        if (it_ctrl == prob_ctrl.end()) {
-            stat.log_prob_ratio[it->first] = NAN; 
-            continue;
-        }
-        if (it_ctrl->second < EPS) {
-            stat.log_prob_ratio[it->first] = NAN; 
-            continue;
-        }
-        stat.log_prob_ratio[it->first] = log(it->second / it_ctrl->second);
-        if (stat.log_prob_ratio[it->first] > stat.effect_size)
-            stat.effect_size = stat.log_prob_ratio[it->first];
-    }
-}
-
 
 
 

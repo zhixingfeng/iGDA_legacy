@@ -21,8 +21,8 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux
-CND_DLIB_EXT=so
+CND_PLATFORM=GNU-MacOSX
+CND_DLIB_EXT=dylib
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -57,8 +57,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-I ./src/tool/
-CXXFLAGS=-I ./src/tool/
+CCFLAGS=-I ./src/tool/ -D_UNITTEST
+CXXFLAGS=-I ./src/tool/ -D_UNITTEST
 
 # Fortran Compiler Flags
 FFLAGS=

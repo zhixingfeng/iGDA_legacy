@@ -22,7 +22,7 @@ public:
     virtual ~PreCallerSingle();
     
     void callVar(int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1);
-    void calStat(VarStat &stat, map<string, double> & prob, map<string, double> & prob_ctrl);
+    //void calStat(VarStat &stat, map<string, double> & prob, map<string, double> & prob_ctrl);
     
 private:
 

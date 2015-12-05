@@ -34,12 +34,6 @@ void print_usage_train() {
     cout << "igda train pileupfile outfile" << endl;
 }
 
-void print_usage_precall() {
-    cout << "igda precall -m <method> pileupfile error_model_file out_prefix" << endl;
-    cout << "-m 0 : single locus method" << endl;
-    cout << "-m 1 : multiple loci method" << endl;
-}
-
 
 int main(int argc, char* argv[]) {
     if (argc == 1) { print_usage(); return 0; }
@@ -56,6 +50,7 @@ int main(int argc, char* argv[]) {
     PileupParserGDA obj_PileupParserGDA;
     ErrorModelerHomo obj_ErrorModelerHomo; 
     PreCallerSingle obj_PreCallerSingle;
+    PreCallerMultiple obj_PreCallerMultiple;
     
     if (argc >= 2) {
         if (strcmp(argv[1],"train")==0) {
@@ -89,22 +84,24 @@ int main(int argc, char* argv[]) {
                 UnlabeledValueArg<string> outprefixArg("outprefix", "prefix of output files", true, "", "outprefix", cmd);
                 
                 cmd.parse(argv2);
-
+                
+                gda.setPileupFile(pileupfileArg.getValue());
+                        
+                gda.setPileupParser(& obj_PileupParserGDA);
+                gda.setErrorModeler(& obj_ErrorModelerHomo);
+                        
                 switch (mArg.getValue()) {
                     case 0:
                         cout << "precall using single locus method." << endl;
-                        gda.setPileupFile(pileupfileArg.getValue());
-                        
-                        gda.setPileupParser(& obj_PileupParserGDA);
-                        gda.setErrorModeler(& obj_ErrorModelerHomo);
                         gda.setPreCaller(& obj_PreCallerSingle);
-                        
                         gda.loadErrorModel(errfileArg.getValue());
-                        
                         gda.preCall(outprefixArg.getValue(), vArg.getValue(), cArg.getValue(), lArg.getValue(), rArg.getValue());
                         break;
                     case 1:
                         cout << "precall using multiple loci method." << endl;
+                        gda.setPreCaller(& obj_PreCallerMultiple);
+                        gda.loadErrorModel(errfileArg.getValue());
+                        gda.preCall(outprefixArg.getValue(), vArg.getValue(), cArg.getValue(), lArg.getValue(), rArg.getValue());
                         break;
                     default:
                         cerr << "Error: Invalid argument. -m should be 0 or 1" << endl;

@@ -120,7 +120,7 @@
         <ccTool>
           <standard>8</standard>
           <commandlineTool>g++</commandlineTool>
-          <commandLine>-I ./src/tool/</commandLine>
+          <commandLine>-I ./src/tool/ -D_UNITTEST</commandLine>
         </ccTool>
       </compileType>
       <item path="include/catch.hpp" ex="false" tool="3" flavor2="0">
