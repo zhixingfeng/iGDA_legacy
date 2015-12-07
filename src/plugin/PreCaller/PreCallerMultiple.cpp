@@ -14,6 +14,7 @@
 #include "PreCallerMultiple.h"
 
 PreCallerMultiple::PreCallerMultiple() {
+    readlen = 1000;
     signature = "PreCallerMultiple";
 }
 
@@ -24,6 +25,22 @@ PreCallerMultiple::~PreCallerMultiple() {
 }
 
 void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int len_r) {
+    if (pileupfile == "")
+        throw runtime_error("Error in PreCallerMultiple::callVar: pileupfile is empty.");
+    if (err_context_file == "")
+        throw runtime_error("Error in PreCallerMultiple::callVar: err_context_file is empty.");
+    if (ptr_PileupParser == NULL)
+        throw runtime_error("Error in PreCallerMultiple::callVar: ptr_PileupParser is NULL.");
+    if (ptr_ErrorModeler == NULL)
+        throw runtime_error("Error in PreCallerMultiple::callVar: ptr_ErrorModeler is NULL.");
+    
     
 }
 
+void PreCallerMultiple::calJointProb() {
+    if (pileupfile == "")
+        throw runtime_error("Error in PreCallerMultiple::calJointProb: pileupfile is empty.");
+    if (ptr_PileupParser == NULL)
+        throw runtime_error("Error in PreCallerMultiple::calJointProb: ptr_PileupParser is NULL.");
+    
+}

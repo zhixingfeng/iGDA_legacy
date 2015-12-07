@@ -25,11 +25,11 @@ PreCallerSingle::~PreCallerSingle() {
 
 void PreCallerSingle::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int len_r) {
     if (pileupfile == "")
-        throw runtime_error("Error in PreCaller::callVar: pileupfile is empty.");
+        throw runtime_error("Error in PreCallerSingle::callVar: pileupfile is empty.");
     if (err_context_file == "")
         throw runtime_error("Error in PreCallerSingle::callVar: err_context_file is empty.");
     if (ptr_PileupParser == NULL)
-        throw runtime_error("Error in PreCaller::callVar: ptr_PileupParser is NULL.");
+        throw runtime_error("Error in PreCallerSingle::callVar: ptr_PileupParser is NULL.");
     if (ptr_ErrorModeler == NULL)
         throw runtime_error("Error in PreCallerSingle::callVar: ptr_ErrorModeler is NULL.");
     

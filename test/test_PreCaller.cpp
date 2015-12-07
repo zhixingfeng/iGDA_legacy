@@ -94,7 +94,10 @@ TEST_CASE("Test PreCaller calStat()", "[PreCaller]") {
     REQUIRE(stat.log_prob_ratio["C"] == Approx(log(0.15 / 0.04)));
     REQUIRE(stat.log_prob_ratio["G"] == Approx(log(0.8 / 0.86)));
     REQUIRE(std::isnan(stat.log_prob_ratio["T"]));
-    REQUIRE(std::isnan(stat.log_prob_ratio["N"]));
-    
+    REQUIRE(std::isnan(stat.log_prob_ratio["N"]));    
 }
+
+
+
+
 

@@ -22,10 +22,17 @@ public:
     PreCallerMultiple(const PreCallerMultiple& orig);
     virtual ~PreCallerMultiple();
     
+    void setReadLen(int a_readlen) { readlen = a_readlen; }
     void callVar(int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1);
    
-private:
+    void calJointProb ();
+    void saveJointProb (string outfile);
+    void loadJointProb (string infile);
 
+private:
+    map<int, map<int, double> > jprob;
+    int readlen;
+    
 };
 
 #endif /* PRECALLERMULTIPLE_H */
