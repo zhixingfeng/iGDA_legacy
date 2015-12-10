@@ -29,6 +29,8 @@ TEST_CASE("Test query non-existing key of map") {
    
     map<string, double> y;
     REQUIRE(y["nonexistings"] == 0);
+    map<string, int> z;
+    REQUIRE(z["nonexistings"] == 0);
 }
 
 TEST_CASE ("Test EPS") {

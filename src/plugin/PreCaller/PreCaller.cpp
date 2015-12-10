@@ -14,6 +14,7 @@
 #include "PreCaller.h"
 
 PreCaller::PreCaller() {
+    pileupfile = "";
     ptr_PileupParser = NULL;
     ptr_ErrorModeler = NULL;
     signature = "PreCaller";
@@ -87,3 +88,5 @@ void PreCaller::calStat(VarStat& stat, map<string,double>& prob, map<string,doub
             stat.effect_size = stat.log_prob_ratio[it->first];
     }
 }
+
+

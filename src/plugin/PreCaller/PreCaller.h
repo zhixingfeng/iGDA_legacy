@@ -56,7 +56,6 @@ public:
     
     void loadErrorModel (string err_context_file);
     virtual void callVar(int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1) = 0;
-    //virtual void callVar(int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1, int read_len=1000) = 0;
     void calStat(VarStat &stat, map<string, double> & prob, map<string, double> & prob_ctrl);
     
     map<int, vector<VarStat> > getVar() {return varstat;} 
@@ -65,7 +64,13 @@ public:
     
     void writeVar(string out_prefix);
     
+    //void calMarginalProb();
+    //map<int, map<string,double> > getMarginalProb() {return mprob;}
+    //void saveMarginalProb(string out_prefix);
+    //void loadMarginalProb(string in_prefix);
+    
     string getSignature(){return signature;}
+    
 protected:
     
     string pileupfile;
@@ -77,6 +82,8 @@ protected:
     map<int, vector<VarStat> > varstat;
     map<int, vector<VarStat> > varstat_ins;
     map<int, vector<VarStat> > varstat_del;
+    
+    //map<int, map<string,double> > mprob;
     
     string signature;
 };

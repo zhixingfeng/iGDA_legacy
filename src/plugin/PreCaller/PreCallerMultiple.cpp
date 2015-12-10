@@ -42,5 +42,29 @@ void PreCallerMultiple::calJointProb() {
         throw runtime_error("Error in PreCallerMultiple::calJointProb: pileupfile is empty.");
     if (ptr_PileupParser == NULL)
         throw runtime_error("Error in PreCallerMultiple::calJointProb: ptr_PileupParser is NULL.");
+    ifstream fs_pileupfile; open_infile(fs_pileupfile, pileupfile);
+    ptr_PileupParser->setPileupFileStream(& fs_pileupfile);
+    
+    deque <Pileup> buf;
+    while (true) {
+        // read line
+        ptr_PileupParser->readLine();
+        if (fs_pileupfile.eof()) break;
+        
+        // fill buffer and keep its size == readlen
+        buf.push_back(ptr_PileupParser->getPileup());
+        if (buf.size() > readlen)
+            buf.pop_front();
+        
+        // scan buf to calculate joint probability
+        
+    }
+    
+    // check if readlen is larger than genome size
+    if (buf.size() < readlen) 
+        throw runtime_error("Error in PreCallerMultiple::calJointProb: readlen is larger than genome size.");
+    
+    fs_pileupfile.close();
+    
     
 }
