@@ -13,6 +13,8 @@
 
 #include "PreCallerMultiple.h"
 
+
+
 PreCallerMultiple::PreCallerMultiple() {
     readlen = 1000;
     signature = "PreCallerMultiple";
@@ -51,20 +53,55 @@ void PreCallerMultiple::calJointProb() {
         ptr_PileupParser->readLine();
         if (fs_pileupfile.eof()) break;
         
-        // fill buffer and keep its size == readlen
+        // group pileup, fill buffer and keep its size == readlen
+        ptr_PileupParser->groupPileup();
         buf.push_back(ptr_PileupParser->getPileup());
-        if (buf.size() > readlen)
+        if (buf.size() > readlen){
             buf.pop_front();
-        
+        }
         // scan buf to calculate joint probability
-        
+        if (buf.size() == readlen)
+            scanBuf(buf, false);
     }
     
-    // check if readlen is larger than genome size
-    if (buf.size() < readlen) 
-        throw runtime_error("Error in PreCallerMultiple::calJointProb: readlen is larger than genome size.");
+    // scan the last buf pairwisely.
+    scanBuf(buf, true);
+    
     
     fs_pileupfile.close();
     
     
+}
+
+void PreCallerMultiple::scanBuf(deque<Pileup>& buf, bool is_pairwise) {
+    if (is_pairwise){
+        for (int i=0;i<(int)buf.size()-1;i++) {
+            for (int j=i+1;j<(int)buf.size();j++) {
+                count(buf[i], buf[j]);
+            }
+        }
+    }else {
+        
+    }
+}
+void PreCallerMultiple::count(Pileup& pu_x, Pileup& pu_y) {
+    if (pu_x.refID != pu_y.refID) return;
+    if (pu_x.locus == pu_y.locus) 
+        throw runtime_error("Error in PreCallerMultiple::count(): duplicated locus.");
+    map<int, NtSeq>::iterator it;
+    
+    // match vs match 
+    for (int i=0; i<(int)pu_x.readID.size(); i++){
+        it = pu_y.readSeq_group.find(pu_x.readID[i]);
+        if (it == pu_y.readSeq_group.end()) continue;
+        jprob[pu_x.refID][pu_x.locus][pu_y.locus].freq_mm[NtSeq2Str(pu_x.readSeq[i])][NtSeq2Str(it->second)] ++;
+        jprob[pu_x.refID][pu_x.locus][pu_y.locus].cvg ++;
+    }
+    
+}
+
+void PreCallerMultiple::saveJointProb(string outfile) {
+    ofstream fs_outfile; open_outfile(fs_outfile, outfile);
+    
+    fs_outfile.close();
 }

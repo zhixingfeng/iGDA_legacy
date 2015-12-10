@@ -7,6 +7,9 @@
 #include "../include/catch.hpp"
 #include "../src/plugin/plugin.h"
 
+
+
+
 TEST_CASE("Test default constructor of VarStat", "[PreCaller]") {
     VarStat varstat;
     REQUIRE(varstat.cvg == -1);
@@ -103,11 +106,14 @@ TEST_CASE("test PreCallerMultiple::calJointProb()") {
     PileupParserGDA obj_PileupParserGDA;
     ErrorModelerHomo obj_ErrorModelerHomo;
     
-    obj_PreCallerMultiple.setPileupfile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
+    obj_PreCallerMultiple.setPileupfile("./data/test_scanBuf.pileup");
     obj_PreCallerMultiple.setPileupParser(& obj_PileupParserGDA);
     obj_PreCallerMultiple.setErrorModeler(& obj_ErrorModelerHomo);
     
     obj_PreCallerMultiple.calJointProb();
+    JointProbChr x = obj_PreCallerMultiple.getJointProb();
+    cout << x;
+    //cout << obj_PreCallerMultiple.getJointProb();
 }
 
 

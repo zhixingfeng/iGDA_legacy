@@ -34,6 +34,8 @@ public:
         
     virtual RefGenome getRefGenome (string pileupfile) = 0;
     
+    void groupPileup();
+    
     // get frequency of A, C, G, T only, remove reverse strand  
     map<string, double> getMatchProb(map<string, double> &prob, char refseq=' ');
     

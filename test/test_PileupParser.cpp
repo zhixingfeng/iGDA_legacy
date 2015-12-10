@@ -139,3 +139,41 @@ TEST_CASE("Test PileupParser::getMatchProb() and getDelProb", "[PileupParser]") 
     REQUIRE(prob_d.size()==0);
 }
 
+TEST_CASE("Test PileupParser::groupPileup()", "PileupParser") {
+    string pileupfile = "./data/test_scanBuf.pileup";
+    string outfile = "./results/test_scanBuf_group.pileup";
+    map<int, NtSeq>::iterator it;
+    PileupParserGDA obj_PileupParserGDA;
+    
+    // read pileup file and group reads and write grouped read into file 
+    ifstream fs_pileupfile; open_infile(fs_pileupfile, pileupfile);
+    obj_PileupParserGDA.setPileupFileStream(&fs_pileupfile);
+    ofstream fs_outfile; open_outfile(fs_outfile, outfile); 
+    
+    while(true) {
+        obj_PileupParserGDA.readLine();
+        if(fs_pileupfile.eof()) break;
+        obj_PileupParserGDA.groupPileup();
+        Pileup pu = obj_PileupParserGDA.getPileup();
+        
+        fs_outfile << pu.refID <<"\t_" << pu.locus <<'\t' << pu.refSeq << '\t' << pu.cvg_ins << '\t';
+        for (it = pu.readSeq_group_ins.begin();it!=pu.readSeq_group_ins.end(); it++)
+            fs_outfile << NtSeq2Str(it->second) << ',';
+        fs_outfile << '\t';
+        for (it = pu.readSeq_group_ins.begin();it!=pu.readSeq_group_ins.end(); it++)
+            fs_outfile << it->first << ',';
+        fs_outfile << endl;
+        
+        fs_outfile << pu.refID <<"\t" << pu.locus <<'\t' << pu.refSeq << '\t' << pu.cvg << '\t';
+        for (it = pu.readSeq_group.begin();it!=pu.readSeq_group.end(); it++)
+            fs_outfile << NtSeq2Str(it->second) << ',';
+        fs_outfile << '\t';
+        for (it = pu.readSeq_group.begin();it!=pu.readSeq_group.end(); it++)
+            fs_outfile << it->first << ',';
+        fs_outfile << endl;
+    }
+    fs_pileupfile.close();
+    fs_outfile.close();
+    
+    // read group pileup and validate
+}

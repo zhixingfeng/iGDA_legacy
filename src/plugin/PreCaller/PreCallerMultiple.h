@@ -16,18 +16,47 @@
 
 #include "PreCaller.h" 
 
+// define data structure 
 struct JointProb {
-    JointProb (): cvg(0), prob_del(0) {}
-    map<string, map<string, double> > prob;
-    map<string, map<string, double> > prob_ins;
-    double prob_del;
+    JointProb (): cvg(0) {}
+    map<string, map<string, double> > freq_mm;
+    map<string, map<string, double> > freq_mi;
+    map<string, map<string, double> > freq_im;
+    map<string, map<string, double> > freq_ii;
+    
+    map<string, map<string, double> > prob_mm;
+    map<string, map<string, double> > prob_mi;
+    map<string, map<string, double> > prob_im;
+    map<string, map<string, double> > prob_ii;
     
     int cvg;
 };
 
 typedef map<int, map<int, JointProb> > JointProbVec;
 typedef map<int, map<int, map<int, JointProb> > > JointProbChr;
-        
+
+inline ostream & operator << (ostream & os,  JointProbVec & jprobvec) {
+    JointProbVec::iterator it_i;
+    map<int, JointProb>::iterator it_j;
+    for (it_i=jprobvec.begin(); it_i!=jprobvec.end(); ++it_i){
+        for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); ++it_j){
+            os << it_i->first << ',' << it_j->first << '\t';
+            os << it_j->second.freq_mm << endl;
+        }
+    }
+    return os;
+}
+
+inline ostream & operator << (ostream & os,  JointProbChr & jprobchr) {
+    JointProbChr::iterator it;
+    for (it=jprobchr.begin(); it!=jprobchr.end(); ++it){
+        os << it->first << '\t' << it->second;
+    }
+    return os;
+}
+
+
+// define class
 class PreCallerMultiple : public PreCaller {
 public:
     PreCallerMultiple();
@@ -39,9 +68,14 @@ public:
    
     void calJointProb();
     JointProbChr getJointProb() {return jprob;}
-    void saveJointProb (string outprefix);
-    void loadJointProb (string inprefix);
+    void saveJointProb (string outfile);
+    void loadJointProb (string infile);
 
+    void scanBuf (deque <Pileup> & buf, bool is_pairwise=false);
+    
+private:
+    void count(Pileup &pu_x, Pileup & pu_y);
+    
 private:
     JointProbChr jprob;
     

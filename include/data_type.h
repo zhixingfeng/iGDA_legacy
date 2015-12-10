@@ -165,9 +165,20 @@ inline bool operator == (const Pileup & obj_Pileup_l, const Pileup & obj_Pileup_
 template<class T>
 inline ostream & operator << (ostream & os, map<string, T> & base_freq) {
     typename map<string, T>::iterator it;
-    for (it=base_freq.begin(); it!=base_freq.end(); ++it) {
+    for (it=base_freq.begin(); it!=base_freq.end(); ++it) 
         os << it->first << ':' << it->second << ',';
-    }
+    return os;
+}
+
+template<class T>
+inline ostream & operator << (ostream & os, map<string, map<string, T> > & base_freq) {
+    typename map<string, map<string, T> >::iterator it_i;
+    typename map<string, T>::iterator it_j;
+    
+    for (it_i=base_freq.begin(); it_i!=base_freq.end(); ++it_i) 
+        for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); ++it_j)
+            os << it_i->first << '&' << it_j->first <<':' << it_j->second << ',';
+    
     return os;
 }
 

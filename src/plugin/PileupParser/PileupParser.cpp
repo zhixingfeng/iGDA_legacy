@@ -24,6 +24,19 @@ PileupParser::PileupParser(const PileupParser& orig) {
 PileupParser::~PileupParser() {
 }
 
+void PileupParser::groupPileup() {
+    if (data_Pileup.readID_ins.size() != data_Pileup.readSeq_ins.size())
+        throw runtime_error("Error in PileupParser::groupPileup(): unequal size of readID_ins and readSeq_ins");
+    if (data_Pileup.readID.size() != data_Pileup.readSeq.size())
+        throw runtime_error("Error in PileupParser::groupPileup(): unequal size of readID and readSeq");
+    
+    for (int i=0; i<(int)data_Pileup.readID_ins.size(); i++)
+        data_Pileup.readSeq_group_ins[data_Pileup.readID_ins[i]] = data_Pileup.readSeq_ins[i];
+    for (int i=0; i<(int)data_Pileup.readID.size(); i++) 
+        data_Pileup.readSeq_group[data_Pileup.readID[i]] = data_Pileup.readSeq[i];
+    
+}
+
 map<string, double> PileupParser::getMatchProb(map<string,double>& prob, char refseq) {
     map<string, double> prob_m;
     
