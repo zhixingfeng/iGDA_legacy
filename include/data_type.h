@@ -182,6 +182,7 @@ inline ostream & operator << (ostream & os, map<string, map<string, T> > & base_
     return os;
 }
 
+
 // compare BaseFreq
 inline bool operator <= (const BaseFreq basefreq_l, const BaseFreq basefreq_r) {
     if (basefreq_l.refID < basefreq_r.refID) return true;

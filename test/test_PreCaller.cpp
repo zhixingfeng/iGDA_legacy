@@ -113,7 +113,6 @@ TEST_CASE("test PreCallerMultiple::calJointProb()") {
     obj_PreCallerMultiple.calJointProb();
     JointProbChr x = obj_PreCallerMultiple.getJointProb();
     cout << x;
-    //cout << obj_PreCallerMultiple.getJointProb();
 }
 
 

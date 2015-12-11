@@ -12,8 +12,20 @@
  */
 
 #include "PreCallerMultiple.h"
+void JointProb::calProb() {
+    freq2Prob(this->prob_mm);
+    freq2Prob(this->prob_mi);
+    freq2Prob(this->prob_im);
+    freq2Prob(this->prob_ii);
+}
 
-
+void JointProb::freq2Prob(map<string,map<string,double> >& prob){
+    map<string, map<string, double> >::iterator it_i;
+    map<string, double>::iterator it_j;
+    for (it_i=prob.begin(); it_i!=prob.end(); ++it_i)
+        for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); ++it_j)
+            it_j->second /= this->cvg;
+}
 
 PreCallerMultiple::PreCallerMultiple() {
     readlen = 1000;
@@ -90,14 +102,36 @@ void PreCallerMultiple::count(Pileup& pu_x, Pileup& pu_y) {
         throw runtime_error("Error in PreCallerMultiple::count(): duplicated locus.");
     map<int, NtSeq>::iterator it;
     
-    // match vs match 
+    // pu_x is match 
     for (int i=0; i<(int)pu_x.readID.size(); i++){
+        // match vs match
         it = pu_y.readSeq_group.find(pu_x.readID[i]);
-        if (it == pu_y.readSeq_group.end()) continue;
-        jprob[pu_x.refID][pu_x.locus][pu_y.locus].freq_mm[NtSeq2Str(pu_x.readSeq[i])][NtSeq2Str(it->second)] ++;
-        jprob[pu_x.refID][pu_x.locus][pu_y.locus].cvg ++;
+        if (it != pu_y.readSeq_group.end()) {
+            jprob[pu_x.refID][pu_x.locus][pu_y.locus].prob_mm[NtSeq2Str(pu_x.readSeq[i])][NtSeq2Str(it->second)] ++;
+            jprob[pu_x.refID][pu_x.locus][pu_y.locus].cvg ++;
+        }
+        // match vs insertion
+        it = pu_y.readSeq_group_ins.find(pu_x.readID[i]);
+        if (it != pu_y.readSeq_group_ins.end()) 
+            jprob[pu_x.refID][pu_x.locus][pu_y.locus].prob_mi[NtSeq2Str(pu_x.readSeq[i])][NtSeq2Str(it->second)] ++;
+        
     }
     
+    
+    // pu_x is insertion 
+    for (int i=0; i<(int)pu_x.readID_ins.size(); i++){
+        // insertion vs match
+        it = pu_y.readSeq_group.find(pu_x.readID_ins[i]);
+        if (it != pu_y.readSeq_group.end()) 
+            jprob[pu_x.refID][pu_x.locus][pu_y.locus].prob_im[NtSeq2Str(pu_x.readSeq_ins[i])][NtSeq2Str(it->second)] ++;
+
+        // insertion vs insertion
+        it = pu_y.readSeq_group_ins.find(pu_x.readID_ins[i]);
+        if (it != pu_y.readSeq_group_ins.end())
+            jprob[pu_x.refID][pu_x.locus][pu_y.locus].prob_ii[NtSeq2Str(pu_x.readSeq_ins[i])][NtSeq2Str(it->second)] ++;
+    }
+    
+    jprob[pu_x.refID][pu_x.locus][pu_y.locus].calProb();
 }
 
 void PreCallerMultiple::saveJointProb(string outfile) {

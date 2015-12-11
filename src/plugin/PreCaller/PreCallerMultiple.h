@@ -19,10 +19,7 @@
 // define data structure 
 struct JointProb {
     JointProb (): cvg(0) {}
-    map<string, map<string, double> > freq_mm;
-    map<string, map<string, double> > freq_mi;
-    map<string, map<string, double> > freq_im;
-    map<string, map<string, double> > freq_ii;
+    void calProb();
     
     map<string, map<string, double> > prob_mm;
     map<string, map<string, double> > prob_mi;
@@ -30,30 +27,72 @@ struct JointProb {
     map<string, map<string, double> > prob_ii;
     
     int cvg;
+private:
+    void freq2Prob(map<string, map<string, double> > &prob);
 };
 
 typedef map<int, map<int, JointProb> > JointProbVec;
-typedef map<int, map<int, map<int, JointProb> > > JointProbChr;
+typedef map<int, JointProbVec> JointProbChr;
 
 inline ostream & operator << (ostream & os,  JointProbVec & jprobvec) {
     JointProbVec::iterator it_i;
     map<int, JointProb>::iterator it_j;
     for (it_i=jprobvec.begin(); it_i!=jprobvec.end(); ++it_i){
         for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); ++it_j){
-            os << it_i->first << ',' << it_j->first << '\t';
-            os << it_j->second.freq_mm << endl;
+            os << it_i->first << ',' << it_j->first << '\t' << it_j->second.cvg << '\t';
+            if (it_j->second.prob_mm.size() > 0)
+                os << it_j->second.prob_mm << '\t';
+            else
+                os << "NA" << '\t';
+            if (it_j->second.prob_mi.size() > 0)
+                os << it_j->second.prob_mi << '\t';
+            else 
+                os << "NA" << '\t';
+            if (it_j->second.prob_im.size() > 0)
+                os << it_j->second.prob_im << '\t';
+            else
+                os << "NA" << '\t';
+            if (it_j->second.prob_ii.size() > 0)
+                os << it_j->second.prob_ii << endl;
+            else
+                os << "NA" << endl;
         }
     }
     return os;
 }
 
 inline ostream & operator << (ostream & os,  JointProbChr & jprobchr) {
-    JointProbChr::iterator it;
-    for (it=jprobchr.begin(); it!=jprobchr.end(); ++it){
-        os << it->first << '\t' << it->second;
+    JointProbChr::iterator it_k;
+    JointProbVec::iterator it_i;
+    map<int, JointProb>::iterator it_j;
+    for (it_k=jprobchr.begin(); it_k!=jprobchr.end(); ++it_k){
+        for (it_i=it_k->second.begin(); it_i!=it_k->second.end(); ++it_i){
+            for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); ++it_j){
+                os << it_k->first << '\t' << it_i->first << ',' << it_j->first << '\t';
+                os << it_j->second.cvg << '\t';
+                
+                if (it_j->second.prob_mm.size() > 0)
+                    os << it_j->second.prob_mm << '\t';
+                else
+                    os << "NA" << '\t';
+                if (it_j->second.prob_mi.size() > 0)
+                    os << it_j->second.prob_mi << '\t';
+                else 
+                    os << "NA" << '\t';
+                if (it_j->second.prob_im.size() > 0)
+                    os << it_j->second.prob_im << '\t';
+                else
+                    os << "NA" << '\t';
+                if (it_j->second.prob_ii.size() > 0)
+                    os << it_j->second.prob_ii << endl;
+                else
+                    os << "NA" << endl;
+            }
+        }
     }
     return os;
 }
+
 
 
 // define class
