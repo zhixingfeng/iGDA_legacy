@@ -51,6 +51,33 @@
           <itemPath>src/plugin/plugin.h</itemPath>
         </logicalFolder>
         <logicalFolder name="tool" displayName="tool" projectFiles="true">
+          <logicalFolder name="hashlibpp" displayName="hashlibpp" projectFiles="true">
+            <itemPath>src/tool/hashlibpp/hashlibpp.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_exception.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_hashwrapper.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_md5.cpp</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_md5.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_md5wrapper.cpp</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_md5wrapper.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha1.cpp</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha1.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha1wrapper.cpp</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha1wrapper.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha256.cpp</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha256.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha256wrapper.cpp</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha256wrapper.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha2ext.cpp</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha2ext.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha2mac.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha384wrapper.cpp</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha384wrapper.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha512wrapper.cpp</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_sha512wrapper.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_types.h</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_wrapperfactory.cpp</itemPath>
+            <itemPath>src/tool/hashlibpp/hl_wrapperfactory.h</itemPath>
+          </logicalFolder>
           <logicalFolder name="tclap" displayName="tclap" projectFiles="true">
             <itemPath>src/tool/tclap/Arg.h</itemPath>
             <itemPath>src/tool/tclap/ArgException.h</itemPath>
@@ -120,7 +147,7 @@
         <ccTool>
           <standard>8</standard>
           <commandlineTool>g++</commandlineTool>
-          <commandLine>-I ./src/tool/ -D_UNITTEST</commandLine>
+          <commandLine>-I ./src/tool/ -I ./src/tool/hashlibpp -D_UNITTEST</commandLine>
         </ccTool>
       </compileType>
       <item path="include/catch.hpp" ex="false" tool="3" flavor2="0">
@@ -206,6 +233,92 @@
             flavor2="0">
       </item>
       <item path="src/plugin/plugin.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hashlibpp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_exception.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_hashwrapper.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_md5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_md5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_md5wrapper.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_md5wrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha1.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha1wrapper.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha1wrapper.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha256.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha256.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha256wrapper.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha256wrapper.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha2ext.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha2ext.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha2mac.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha384wrapper.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha384wrapper.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha512wrapper.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha512wrapper.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_wrapperfactory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_wrapperfactory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/tool/tclap/Arg.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -382,6 +495,92 @@
             flavor2="0">
       </item>
       <item path="src/plugin/plugin.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hashlibpp.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_exception.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_hashwrapper.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_md5.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_md5.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_md5wrapper.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_md5wrapper.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha1.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha1wrapper.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha1wrapper.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha256.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha256.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha256wrapper.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha256wrapper.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha2ext.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha2ext.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha2mac.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha384wrapper.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha384wrapper.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha512wrapper.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_sha512wrapper.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_types.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_wrapperfactory.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/tool/hashlibpp/hl_wrapperfactory.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="src/tool/tclap/Arg.h" ex="false" tool="3" flavor2="0">
       </item>

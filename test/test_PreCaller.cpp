@@ -6,7 +6,7 @@
 
 #include "../include/catch.hpp"
 #include "../src/plugin/plugin.h"
-
+#include "../src/tool/tool.h"
 
 
 
@@ -110,9 +110,33 @@ TEST_CASE("test PreCallerMultiple::calJointProb()") {
     obj_PreCallerMultiple.setPileupParser(& obj_PileupParserGDA);
     obj_PreCallerMultiple.setErrorModeler(& obj_ErrorModelerHomo);
     
+    // using default read length, which is much larger than genome size
     obj_PreCallerMultiple.calJointProb();
-    JointProbChr x = obj_PreCallerMultiple.getJointProb();
-    cout << x;
+    obj_PreCallerMultiple.saveJointProb("./results/test_scanBuf.jprob");
+    
+    // set read length to 4
+    obj_PreCallerMultiple.setReadLen(4);
+    obj_PreCallerMultiple.calJointProb();
+    obj_PreCallerMultiple.saveJointProb("./results/test_scanBuf_readlen_4.jprob");
+    
+    // compare the results
+    hashwrapper *myWrapper = new md5wrapper();
+    REQUIRE(myWrapper->getHashFromFile("./results/test_scanBuf.jprob") == myWrapper->getHashFromFile("./results/test_scanBuf_readlen_4.jprob"));
+    
+    
+    // test larger pileupfile 
+    obj_PreCallerMultiple.setPileupfile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
+    obj_PreCallerMultiple.setReadLen(10000);
+    obj_PreCallerMultiple.calJointProb();
+    obj_PreCallerMultiple.saveJointProb("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.jprob");
+    
+    obj_PreCallerMultiple.setReadLen(1000);
+    obj_PreCallerMultiple.calJointProb();
+    obj_PreCallerMultiple.saveJointProb("./results/mixed_MSSA_78_ratio_0.05_B_1.bam_readlen_1000.jprob");
+    
+    REQUIRE(myWrapper->getHashFromFile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.jprob")==
+            myWrapper->getHashFromFile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam_readlen_1000.jprob") );
+    delete myWrapper;
 }
 
 

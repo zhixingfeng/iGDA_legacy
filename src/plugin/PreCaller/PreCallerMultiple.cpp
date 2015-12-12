@@ -56,6 +56,8 @@ void PreCallerMultiple::calJointProb() {
         throw runtime_error("Error in PreCallerMultiple::calJointProb: pileupfile is empty.");
     if (ptr_PileupParser == NULL)
         throw runtime_error("Error in PreCallerMultiple::calJointProb: ptr_PileupParser is NULL.");
+    jprob.clear();
+    
     ifstream fs_pileupfile; open_infile(fs_pileupfile, pileupfile);
     ptr_PileupParser->setPileupFileStream(& fs_pileupfile);
     
@@ -75,25 +77,27 @@ void PreCallerMultiple::calJointProb() {
         if (buf.size() == readlen)
             scanBuf(buf, false);
     }
-    
+    //cout << "jprob done" << endl;
     // scan the last buf pairwisely.
+    if (buf.size() == readlen) buf.pop_front();
+    
     scanBuf(buf, true);
     
-    
     fs_pileupfile.close();
-    
-    
+   
 }
 
 void PreCallerMultiple::scanBuf(deque<Pileup>& buf, bool is_pairwise) {
     if (is_pairwise){
-        for (int i=0;i<(int)buf.size()-1;i++) {
+        for (int i=0; i<(int)buf.size()-1; i++) {
             for (int j=i+1;j<(int)buf.size();j++) {
                 count(buf[i], buf[j]);
             }
         }
     }else {
-        
+        for (int i=1; i<(int)buf.size(); i++) {
+            count(buf[0], buf[i]);
+        }
     }
 }
 void PreCallerMultiple::count(Pileup& pu_x, Pileup& pu_y) {
@@ -136,6 +140,6 @@ void PreCallerMultiple::count(Pileup& pu_x, Pileup& pu_y) {
 
 void PreCallerMultiple::saveJointProb(string outfile) {
     ofstream fs_outfile; open_outfile(fs_outfile, outfile);
-    
+    fs_outfile << this->jprob;
     fs_outfile.close();
 }

@@ -3,6 +3,8 @@
 
 
 
-#include <tclap/CmdLine.h>        
+#include <tclap/CmdLine.h>      
+#include <hashlibpp.h>
+
         
 #endif

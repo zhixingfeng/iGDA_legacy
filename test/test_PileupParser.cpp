@@ -14,7 +14,7 @@
 
 #include "../include/catch.hpp"
 #include "../src/plugin/plugin.h"
-
+#include "../src/tool/tool.h"
    
 SCENARIO ("Test PileupParserGDA", "[PileupParser][PileupParserGDA]") {
     string pileupfile_gda = "./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup"; 
@@ -67,7 +67,11 @@ SCENARIO ("Test PileupParserGDA", "[PileupParser][PileupParserGDA]") {
                 // check written file
                 ifstream fs_pileup_in; open_infile(fs_pileup_in, pileupfile_gda_out);
                 open_infile(fs_pileup, pileupfile_gda);
-            
+                
+                hashwrapper *myWrapper = new md5wrapper();
+                REQUIRE(myWrapper->getHashFromFile(pileupfile_gda) == myWrapper->getHashFromFile(pileupfile_gda_out));
+                delete myWrapper;
+                
                 PileupParserGDA obj_PileupParserGDA_in( & fs_pileup_in);
                 while (true){
                     bool is_end = obj_PileupParserGDA.readLine();

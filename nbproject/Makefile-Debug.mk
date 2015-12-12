@@ -44,6 +44,16 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCaller.o \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCallerMultiple.o \
 	${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o \
+	${OBJECTDIR}/src/tool/hashlibpp/hl_md5.o \
+	${OBJECTDIR}/src/tool/hashlibpp/hl_md5wrapper.o \
+	${OBJECTDIR}/src/tool/hashlibpp/hl_sha1.o \
+	${OBJECTDIR}/src/tool/hashlibpp/hl_sha1wrapper.o \
+	${OBJECTDIR}/src/tool/hashlibpp/hl_sha256.o \
+	${OBJECTDIR}/src/tool/hashlibpp/hl_sha256wrapper.o \
+	${OBJECTDIR}/src/tool/hashlibpp/hl_sha2ext.o \
+	${OBJECTDIR}/src/tool/hashlibpp/hl_sha384wrapper.o \
+	${OBJECTDIR}/src/tool/hashlibpp/hl_sha512wrapper.o \
+	${OBJECTDIR}/src/tool/hashlibpp/hl_wrapperfactory.o \
 	${OBJECTDIR}/test/test_ErrorModeler.o \
 	${OBJECTDIR}/test/test_PileupParser.o \
 	${OBJECTDIR}/test/test_PreCaller.o \
@@ -57,8 +67,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-I ./src/tool/ -D_UNITTEST
-CXXFLAGS=-I ./src/tool/ -D_UNITTEST
+CCFLAGS=-I ./src/tool/ -I ./src/tool/hashlibpp -D_UNITTEST
+CXXFLAGS=-I ./src/tool/ -I ./src/tool/hashlibpp -D_UNITTEST
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -121,6 +131,56 @@ ${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o: src/plugin/PreCaller/PreCal
 	${MKDIR} -p ${OBJECTDIR}/src/plugin/PreCaller
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/plugin/PreCaller/PreCallerSingle.o src/plugin/PreCaller/PreCallerSingle.cpp
+
+${OBJECTDIR}/src/tool/hashlibpp/hl_md5.o: src/tool/hashlibpp/hl_md5.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/tool/hashlibpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tool/hashlibpp/hl_md5.o src/tool/hashlibpp/hl_md5.cpp
+
+${OBJECTDIR}/src/tool/hashlibpp/hl_md5wrapper.o: src/tool/hashlibpp/hl_md5wrapper.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/tool/hashlibpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tool/hashlibpp/hl_md5wrapper.o src/tool/hashlibpp/hl_md5wrapper.cpp
+
+${OBJECTDIR}/src/tool/hashlibpp/hl_sha1.o: src/tool/hashlibpp/hl_sha1.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/tool/hashlibpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tool/hashlibpp/hl_sha1.o src/tool/hashlibpp/hl_sha1.cpp
+
+${OBJECTDIR}/src/tool/hashlibpp/hl_sha1wrapper.o: src/tool/hashlibpp/hl_sha1wrapper.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/tool/hashlibpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tool/hashlibpp/hl_sha1wrapper.o src/tool/hashlibpp/hl_sha1wrapper.cpp
+
+${OBJECTDIR}/src/tool/hashlibpp/hl_sha256.o: src/tool/hashlibpp/hl_sha256.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/tool/hashlibpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tool/hashlibpp/hl_sha256.o src/tool/hashlibpp/hl_sha256.cpp
+
+${OBJECTDIR}/src/tool/hashlibpp/hl_sha256wrapper.o: src/tool/hashlibpp/hl_sha256wrapper.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/tool/hashlibpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tool/hashlibpp/hl_sha256wrapper.o src/tool/hashlibpp/hl_sha256wrapper.cpp
+
+${OBJECTDIR}/src/tool/hashlibpp/hl_sha2ext.o: src/tool/hashlibpp/hl_sha2ext.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/tool/hashlibpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tool/hashlibpp/hl_sha2ext.o src/tool/hashlibpp/hl_sha2ext.cpp
+
+${OBJECTDIR}/src/tool/hashlibpp/hl_sha384wrapper.o: src/tool/hashlibpp/hl_sha384wrapper.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/tool/hashlibpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tool/hashlibpp/hl_sha384wrapper.o src/tool/hashlibpp/hl_sha384wrapper.cpp
+
+${OBJECTDIR}/src/tool/hashlibpp/hl_sha512wrapper.o: src/tool/hashlibpp/hl_sha512wrapper.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/tool/hashlibpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tool/hashlibpp/hl_sha512wrapper.o src/tool/hashlibpp/hl_sha512wrapper.cpp
+
+${OBJECTDIR}/src/tool/hashlibpp/hl_wrapperfactory.o: src/tool/hashlibpp/hl_wrapperfactory.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/tool/hashlibpp
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tool/hashlibpp/hl_wrapperfactory.o src/tool/hashlibpp/hl_wrapperfactory.cpp
 
 ${OBJECTDIR}/test/test_ErrorModeler.o: test/test_ErrorModeler.cpp 
 	${MKDIR} -p ${OBJECTDIR}/test
