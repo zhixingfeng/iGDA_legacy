@@ -62,11 +62,15 @@ void PreCallerMultiple::calJointProb() {
     ptr_PileupParser->setPileupFileStream(& fs_pileupfile);
     
     deque <Pileup> buf;
+    //int nlines = 0;
     while (true) {
         // read line
         ptr_PileupParser->readLine();
         if (fs_pileupfile.eof()) break;
         
+        // count number of lines
+        //nlines ++;
+        //if (nlines % 100==0) cout << "calculate joint probability: " << nlines << '\r';
         // group pileup, fill buffer and keep its size == readlen
         ptr_PileupParser->groupPileup();
         buf.push_back(ptr_PileupParser->getPileup());
@@ -77,7 +81,7 @@ void PreCallerMultiple::calJointProb() {
         if (buf.size() == readlen)
             scanBuf(buf, false);
     }
-    //cout << "jprob done" << endl;
+    //cout << "calculate joint probability: " << nlines << endl;
     // scan the last buf pairwisely.
     if (buf.size() == readlen) buf.pop_front();
     
@@ -142,4 +146,46 @@ void PreCallerMultiple::saveJointProb(string outfile) {
     ofstream fs_outfile; open_outfile(fs_outfile, outfile);
     fs_outfile << this->jprob;
     fs_outfile.close();
+}
+
+void PreCallerMultiple::loadJointProb(string infile) {
+    ifstream fs_infile; open_infile(fs_infile, infile);
+    this->jprob.clear();
+    string buf;
+    while(true) {
+        getline(fs_infile, buf);
+        if (fs_infile.eof()) break;
+        vector<string> buf_list = split(buf,'\t');
+        if (buf_list.size() != 7)
+            throw runtime_error("Error in PreCallerMultiple::loadJointProb(): incorrect format, buf size is not 7.");
+        
+        int refID = atoi(buf_list[0].c_str());
+        vector<string> locus_str = split(buf_list[1],',');
+        if (locus_str.size() != 2)
+            throw runtime_error("Error in PreCallerMultiple::loadJointProb(): incorrect format, buf[1] size is not 2.");
+        int locus_l = atoi(locus_str[0].c_str());
+        int locus_r = atoi(locus_str[1].c_str());
+        this->jprob[refID][locus_l][locus_r].cvg = atoi(buf_list[2].c_str());
+        this->parseJointProb(this->jprob[refID][locus_l][locus_r].prob_mm, buf_list[3]);
+        this->parseJointProb(this->jprob[refID][locus_l][locus_r].prob_mi, buf_list[4]);
+        this->parseJointProb(this->jprob[refID][locus_l][locus_r].prob_im, buf_list[5]);
+        this->parseJointProb(this->jprob[refID][locus_l][locus_r].prob_ii, buf_list[6]);
+    }
+    
+    fs_infile.close();
+}
+
+void PreCallerMultiple::parseJointProb(map<string,map<string,double> >& prob, string& str) {
+    if (str=="NA") return;
+    vector<string> str_list = split(str,',');
+    for (int i=0; (int)i<str_list.size(); i++) {
+        vector<string> str_1 = split(str_list[i], ':');
+        if (str_1.size() != 2)
+            throw runtime_error("Error in PreCallerMultiple::parseJointProb(): str_1 size is not 2");
+        vector<string> str_2 = split(str_1[0],'&');
+        if(str_2.size()!=2)
+            throw runtime_error("Error in PreCallerMultiple::parseJointProb(): str_2 size is not 2");
+        prob[str_2[0]][str_2[1]] = atof(str_1[1].c_str());
+    }
+    
 }

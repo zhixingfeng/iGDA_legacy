@@ -100,7 +100,7 @@ TEST_CASE("Test PreCaller calStat()", "[PreCaller]") {
     REQUIRE(std::isnan(stat.log_prob_ratio["N"]));    
 }
 
-TEST_CASE("test PreCallerMultiple::calJointProb()") {
+TEST_CASE("test PreCallerMultiple::calJointProb()","[hide][PreCallerMultiple]") {
     PreCallerMultiple obj_PreCallerMultiple;
     
     PileupParserGDA obj_PileupParserGDA;
@@ -139,5 +139,14 @@ TEST_CASE("test PreCallerMultiple::calJointProb()") {
     delete myWrapper;
 }
 
+TEST_CASE("test PreCallerMultiple::loadJointProb()") {
+    PreCallerMultiple obj_PreCallerMultiple;
+   
+    obj_PreCallerMultiple.loadJointProb("./data/test_scanBuf.jprob");
+    obj_PreCallerMultiple.saveJointProb("./results/test_scanBuf.jprob.loaded");
+    hashwrapper *myWrapper = new md5wrapper();
+    REQUIRE(myWrapper->getHashFromFile("./data/test_scanBuf.jprob") == myWrapper->getHashFromFile("./results/test_scanBuf.jprob.loaded"));
+    delete myWrapper;
+}
 
 

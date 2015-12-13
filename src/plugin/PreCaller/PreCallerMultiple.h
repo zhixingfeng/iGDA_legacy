@@ -114,7 +114,7 @@ public:
     
 private:
     void count(Pileup &pu_x, Pileup & pu_y);
-    
+    void parseJointProb(map<string, map<string, double> > &prob, string & str);
 private:
     JointProbChr jprob;
     
