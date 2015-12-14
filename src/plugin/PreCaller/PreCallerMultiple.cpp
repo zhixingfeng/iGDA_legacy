@@ -106,8 +106,8 @@ void PreCallerMultiple::scanBuf(deque<Pileup>& buf, bool is_pairwise) {
 }
 void PreCallerMultiple::count(Pileup& pu_x, Pileup& pu_y) {
     if (pu_x.refID != pu_y.refID) return;
-    if (pu_x.locus == pu_y.locus) 
-        throw runtime_error("Error in PreCallerMultiple::count(): duplicated locus.");
+    if (pu_x.locus >= pu_y.locus) 
+        throw runtime_error("Error in PreCallerMultiple::count(): pu_x.locus >= pu_y.locus.");
     map<int, NtSeq>::iterator it;
     
     // pu_x is match 
@@ -122,9 +122,7 @@ void PreCallerMultiple::count(Pileup& pu_x, Pileup& pu_y) {
         it = pu_y.readSeq_group_ins.find(pu_x.readID[i]);
         if (it != pu_y.readSeq_group_ins.end()) 
             jprob[pu_x.refID][pu_x.locus][pu_y.locus].prob_mi[NtSeq2Str(pu_x.readSeq[i])][NtSeq2Str(it->second)] ++;
-        
     }
-    
     
     // pu_x is insertion 
     for (int i=0; i<(int)pu_x.readID_ins.size(); i++){

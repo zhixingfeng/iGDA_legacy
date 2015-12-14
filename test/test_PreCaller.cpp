@@ -146,6 +146,11 @@ TEST_CASE("test PreCallerMultiple::loadJointProb()") {
     obj_PreCallerMultiple.saveJointProb("./results/test_scanBuf.jprob.loaded");
     hashwrapper *myWrapper = new md5wrapper();
     REQUIRE(myWrapper->getHashFromFile("./data/test_scanBuf.jprob") == myWrapper->getHashFromFile("./results/test_scanBuf.jprob.loaded"));
+   
+    
+    //obj_PreCallerMultiple.loadJointProb("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.jprob");
+    //obj_PreCallerMultiple.saveJointProb("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.jprob.loaded");
+    //REQUIRE(myWrapper->getHashFromFile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.jprob") == myWrapper->getHashFromFile("./results/test_scanBuf.jprob.loaded"));
     delete myWrapper;
 }
 

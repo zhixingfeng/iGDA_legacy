@@ -109,12 +109,14 @@ public:
     JointProbChr getJointProb() {return jprob;}
     void saveJointProb (string outfile);
     void loadJointProb (string infile);
-
-    void scanBuf (deque <Pileup> & buf, bool is_pairwise=false);
+    
+    void calCondProb();
     
 private:
+    void scanBuf (deque <Pileup> & buf, bool is_pairwise=false);
     void count(Pileup &pu_x, Pileup & pu_y);
     void parseJointProb(map<string, map<string, double> > &prob, string & str);
+    
 private:
     JointProbChr jprob;
     
