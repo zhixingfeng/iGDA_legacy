@@ -36,3 +36,53 @@ TEST_CASE("Test query non-existing key of map") {
 TEST_CASE ("Test EPS") {
     REQUIRE(EPS == 1e-16);
 }
+
+
+// performance test
+TEST_CASE ("compare iteration of map vs vector", "[hide]") {
+    int B = 1000;
+    map<int, map<int, double> > x;
+    vector<vector<double> > y;
+    
+    int t_s, t_e;
+    
+    // insertion to map
+    t_s = clock();
+    for (int i=0; i<B; i++)
+        for (int j=0; j<B; j++)
+            x[i][j] = i+j;
+    t_e = clock();
+    cout << "map insertion time: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+    // insertion to vector
+    t_s = clock();
+    for (int i=0; i<B; i++){
+        vector<double> tmp;
+        for (int j=0; j<B; j++)
+            tmp.push_back(i + j);
+        y.push_back(tmp);
+    }
+    t_e = clock();
+    cout << "vector insertion time: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+    // access map
+    t_s = clock();
+    for (int i=0; i<B; i++)
+        for (int j=0; j<B; j++)
+            double z = x[i][j];
+    t_e = clock();
+    cout << "map access time: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+ 
+    // access vector
+    t_s = clock();
+    for (int i=0; i<B; i++)
+        for (int j=0; j<B; j++)
+            double z = y[i][j];
+    t_e = clock();
+    cout << "vector access time: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+}
+
+
+
+
+

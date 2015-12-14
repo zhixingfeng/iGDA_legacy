@@ -191,9 +191,24 @@ void PreCallerMultiple::parseJointProb(map<string,map<string,double> >& prob, st
     
 }
 
-double PreCallerMultiple::calMaxCondProb(int refID, int locus_l, int locus_r, int min_cvg, char refSeq) {
-    JointProb cur_jprob = jprob[refID][locus_l][locus_r];
-    if (cur_jprob.cvg < min_cvg) return NAN;
+pair<double, double> PreCallerMultiple::calMaxCondProb(JointProb &prob, char refSeq, int min_cvg, bool is_norm){
+    if (prob.cvg < min_cvg) return pair<double, double>(NAN,NAN);
     
+    pair<double, double> rl(log(EPS), log(EPS));
+    
+    map<string, map<string, double> >::iterator it_i;
+    map<string, double>::iterator it_j;
+    
+    // match vs match  
+    for (it_i=prob.prob_mm.begin(); it_i!=prob.prob_mm.end(); ++it_i) {
+        double cur_mprob_j = 0;
+        for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); ++it_j) {
+            cur_mprob_j += it_j->second;
+        }
+        
+    }
     
 }
+
+
+

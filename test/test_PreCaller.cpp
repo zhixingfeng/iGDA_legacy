@@ -159,5 +159,6 @@ TEST_CASE("test PreCallerMultiple::calMaxCondProb()") {
     PreCallerMultiple obj_PreCallerMultiple;
     obj_PreCallerMultiple.loadJointProb("./data/test_scanBuf.jprob");
     
-    obj_PreCallerMultiple.calMaxCondProb(0,1,2,'C');
+    JointProbChr jprob = obj_PreCallerMultiple.getJointProb();
+    obj_PreCallerMultiple.calMaxCondProb(jprob[0][1][2], 'C');
 }
