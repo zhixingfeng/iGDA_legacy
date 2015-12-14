@@ -100,7 +100,7 @@ TEST_CASE("Test PreCaller calStat()", "[PreCaller]") {
     REQUIRE(std::isnan(stat.log_prob_ratio["N"]));    
 }
 
-TEST_CASE("test PreCallerMultiple::calJointProb()","[hide][PreCallerMultiple]") {
+TEST_CASE("test PreCallerMultiple::calJointProb()","[PreCallerMultiple]") {
     PreCallerMultiple obj_PreCallerMultiple;
     
     PileupParserGDA obj_PileupParserGDA;
@@ -125,7 +125,7 @@ TEST_CASE("test PreCallerMultiple::calJointProb()","[hide][PreCallerMultiple]") 
     
     
     // test larger pileupfile 
-    obj_PreCallerMultiple.setPileupfile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
+    /*obj_PreCallerMultiple.setPileupfile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
     obj_PreCallerMultiple.setReadLen(10000);
     obj_PreCallerMultiple.calJointProb();
     obj_PreCallerMultiple.saveJointProb("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.jprob");
@@ -136,6 +136,7 @@ TEST_CASE("test PreCallerMultiple::calJointProb()","[hide][PreCallerMultiple]") 
     
     REQUIRE(myWrapper->getHashFromFile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.jprob")==
             myWrapper->getHashFromFile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam_readlen_1000.jprob") );
+    */
     delete myWrapper;
 }
 
@@ -154,4 +155,9 @@ TEST_CASE("test PreCallerMultiple::loadJointProb()") {
     delete myWrapper;
 }
 
-
+TEST_CASE("test PreCallerMultiple::calMaxCondProb()") {
+    PreCallerMultiple obj_PreCallerMultiple;
+    obj_PreCallerMultiple.loadJointProb("./data/test_scanBuf.jprob");
+    
+    obj_PreCallerMultiple.calMaxCondProb(0,1,2,'C');
+}

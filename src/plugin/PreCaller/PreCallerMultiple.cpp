@@ -138,6 +138,9 @@ void PreCallerMultiple::count(Pileup& pu_x, Pileup& pu_y) {
     }
     
     jprob[pu_x.refID][pu_x.locus][pu_y.locus].calProb();
+    
+    // make the matrix symetric
+    jprob[pu_x.refID][pu_y.locus][pu_x.locus] = jprob[pu_x.refID][pu_x.locus][pu_y.locus];
 }
 
 void PreCallerMultiple::saveJointProb(string outfile) {
@@ -185,5 +188,12 @@ void PreCallerMultiple::parseJointProb(map<string,map<string,double> >& prob, st
             throw runtime_error("Error in PreCallerMultiple::parseJointProb(): str_2 size is not 2");
         prob[str_2[0]][str_2[1]] = atof(str_1[1].c_str());
     }
+    
+}
+
+double PreCallerMultiple::calMaxCondProb(int refID, int locus_l, int locus_r, int min_cvg, char refSeq) {
+    JointProb cur_jprob = jprob[refID][locus_l][locus_r];
+    if (cur_jprob.cvg < min_cvg) return NAN;
+    
     
 }

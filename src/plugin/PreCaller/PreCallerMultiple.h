@@ -110,7 +110,8 @@ public:
     void saveJointProb (string outfile);
     void loadJointProb (string infile);
     
-    void calCondProb();
+    double calMaxCondProb(int refID, int locus_l, int locus_r, int min_cvg=1, char refSeq='X');
+    //double calMaxCondProb(map<int, JointProb>::iterator &it, int min_cvg=1, char refSeq='X'); 
     
 private:
     void scanBuf (deque <Pileup> & buf, bool is_pairwise=false);

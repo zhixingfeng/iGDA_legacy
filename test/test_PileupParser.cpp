@@ -102,7 +102,7 @@ TEST_CASE("Test PileupParser::getRefGenome", "[getRefGenome]") {
     REQUIRE(refgenome[0] == refgenome_ref);
 }
 
-TEST_CASE("Test PileupParser::getMatchProb() and getDelProb", "[PileupParser]") {
+TEST_CASE("Test PileupParser::getMatchProb(), getDelProb(), getNorefProb()", "[PileupParser]") {
     PileupParserGDA obj_PileupParserGDA;
     map<string, double> prob;
     prob["A"] = 0.025;
