@@ -189,3 +189,6 @@ TEST_CASE("test PileupParserGDA::checkFormat()") {
     REQUIRE(PileupParserGDA::checkFormat("./data/wrong_format_3.pileup") == false);
     REQUIRE(PileupParserGDA::checkFormat("./data/wrong_format_4.pileup") == false);
 }
+
+
+
