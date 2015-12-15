@@ -154,6 +154,27 @@ RefGenome PileupParserGDA::getRefGenome(string pileupfile) {
     return refgenome;
 }
 
+int PileupParserGDA::getMaxMolID(string pileupfile) {
+    int max_mol_id = -1;
+    ifstream fs_pileupfile; open_infile(fs_pileupfile, pileupfile);
+    this->setPileupFileStream(&fs_pileupfile);
+    while(true) {
+        this->readLine();
+        if (fs_pileupfile.eof()) break;
+        
+        Pileup pu = this->getPileup();
+        
+        if (pu.readID.size() > 0)
+            if (pu.readID.back() > max_mol_id) max_mol_id = pu.readID.back();
+        if (pu.readID_ins.size() > 0)
+            if (pu.readID_ins.back() > max_mol_id) max_mol_id = pu.readID_ins.back();
+    }
+    fs_pileupfile.close();
+    if (max_mol_id < 0)
+        throw runtime_error("Error in PileupParserGDA::getMaxMolID(): fail to get max mol ID.");
+    
+    return max_mol_id;
+}
 
 bool PileupParserGDA::checkFormat(string pileupfile) {
     ifstream fs_pileupfile; open_infile(fs_pileupfile, pileupfile);
@@ -228,5 +249,6 @@ bool PileupParserGDA::checkFormat(string pileupfile) {
         prev_locus = locus;
     }
     fs_pileupfile.close();
+    
     return true;
 }

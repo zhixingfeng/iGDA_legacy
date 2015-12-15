@@ -18,6 +18,10 @@
 
 #define EPS 1e-16
 
+#ifndef MAX_NMOL
+    #define MAX_NMOL 10000000
+#endif
+
 #include "stl.h"
 
 /* ----------------------- global data structure ----------------------------- */
@@ -39,12 +43,14 @@ typedef vector<NtBase> NtSeq;
 // define data structure of pileup of a locus
 struct Pileup {
     
-    Pileup() : refID(-1), locus(-1), refSeq ('X'), cvg(-1), cvg_ins(-1) {}
+    Pileup() : refID(-1), locus(-1), refSeq ('X'), cvg(-1), cvg_ins(-1), offset(0), offset_ins(0) {}
     Pileup(int refID, int locus, char refSeq, int cvg, int cvg_ins) : 
-        refID(refID), locus(locus), refSeq (refSeq), cvg(cvg), cvg_ins(cvg_ins) {}
+        refID(refID), locus(locus), refSeq (refSeq), cvg(cvg), cvg_ins(cvg_ins) {
+            offset = 0; offset_ins = 0;
+    }
     void clear() {
-        readSeq.clear(); readID.clear(); readSeq_group.clear();
-        readSeq_ins.clear(); readID_ins.clear(); readSeq_group_ins.clear();
+        readSeq.clear(); readID.clear(); readSeq_vec.clear();
+        readSeq_ins.clear(); readID_ins.clear(); readSeq_vec_ins.clear();
     }
     int refID;
     int locus;
@@ -54,12 +60,15 @@ struct Pileup {
     
     vector<NtSeq> readSeq;
     vector<int> readID;
-    map<int, NtSeq> readSeq_group;
+    //map<int, NtSeq> readSeq_group;
+    vector<string> readSeq_vec;
+    int offset;
     
     vector<NtSeq> readSeq_ins;
     vector<int> readID_ins;
-    map<int, NtSeq> readSeq_group_ins;
-    
+    //map<int, NtSeq> readSeq_group_ins;
+    vector<string> readSeq_vec_ins;
+    int offset_ins;
 };
 
 // define base frequency of 
@@ -144,8 +153,8 @@ inline bool operator == (const Pileup & obj_Pileup_l, const Pileup & obj_Pileup_
     if (obj_Pileup_l.readSeq.size() != obj_Pileup_r.readSeq.size()) return false;
     if (obj_Pileup_l.readID_ins.size() != obj_Pileup_r.readID_ins.size()) return false;
     if (obj_Pileup_l.readID.size() != obj_Pileup_r.readID.size()) return false;
-    if (obj_Pileup_l.readSeq_group_ins.size() != obj_Pileup_r.readSeq_group_ins.size()) return false;
-    if (obj_Pileup_l.readSeq_group.size() != obj_Pileup_r.readSeq_group.size()) return false;
+    if (obj_Pileup_l.readSeq_vec_ins.size() != obj_Pileup_r.readSeq_vec_ins.size()) return false;
+    if (obj_Pileup_l.readSeq_vec.size() != obj_Pileup_r.readSeq_vec.size()) return false;
     
     for (int i=0; i<(int)obj_Pileup_l.readSeq_ins.size(); i++) 
         if (NtSeq2Str(obj_Pileup_l.readSeq_ins[i]) != NtSeq2Str(obj_Pileup_r.readSeq_ins[i])) return false;
@@ -249,7 +258,10 @@ inline BaseFreq Pileup2BaseFreq (const Pileup & obj_Pileup) {
     return obj_BaseFreq;
 }
 
-
+// encode and decode DNA sequences
+//int encodeDNA() {
+    
+//}
 
 #endif /* DATA_TYPE_H */
 

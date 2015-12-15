@@ -34,6 +34,9 @@ public:
         
     virtual RefGenome getRefGenome (string pileupfile) = 0;
     
+    virtual int getMaxMolID(string pileupfile) = 0;
+    virtual bool checkFormat(string pileupfile) = 0; 
+    
     void groupPileup();
     
     // get frequency of A, C, G, T only, remove reverse strand  

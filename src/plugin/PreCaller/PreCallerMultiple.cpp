@@ -33,6 +33,7 @@ PreCallerMultiple::PreCallerMultiple() {
 }
 
 PreCallerMultiple::PreCallerMultiple(const PreCallerMultiple& orig) {
+    
 }
 
 PreCallerMultiple::~PreCallerMultiple() {
@@ -48,5 +49,17 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
     if (ptr_ErrorModeler == NULL)
         throw runtime_error("Error in PreCallerMultiple::callVar: ptr_ErrorModeler is NULL.");
     
+    // check format of pileupfile and 
+    ptr_PileupParser->checkFormat(pileupfile);
+    int n_mol = ptr_PileupParser->getMaxMolID(pileupfile);
+    if (n_mol > MAX_NMOL){
+        cerr << "nmol is " << n_mol << endl;
+        throw runtime_error("Number of molecule is larger than MAX_NMOL. Recompile the source by adding -DMAX_NMOL with a lager number (Warning: larger RAM needed).");
+    }
+    
+    // initialize reference vector of ID to seq map
+    vector<string> IDmap(n_mol, "");
+    
+    // 
     
 }

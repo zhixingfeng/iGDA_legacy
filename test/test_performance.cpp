@@ -113,3 +113,71 @@ TEST_CASE("compare map and vector to store joint prob","[hide]") {
     t_e = clock();
     cout << "map access time: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
 }
+
+TEST_CASE("vector iterator vs []") {
+    int B = 1000000;
+    vector<double> x(B,0);
+    // using []
+    int t_s = clock();
+    for (int i=0; i<x.size(); i++)
+        double z = x[i];
+    int t_e = clock();
+    cout << "vector iteration using [i] i++: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+    t_s = clock();
+    for (int i=0; i<x.size(); ++i)
+        double z = x[i];
+    t_e = clock();
+    cout << "vector iteration using [i] ++i: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+    // use iterator
+    t_s = clock();
+    vector<double>::iterator it;
+    for (it=x.begin(); it!=x.end(); ++it){
+        double z = *it;
+    }
+    t_e = clock();
+    cout << "vector iteration using iterator ++it: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+   
+    t_s = clock();
+    for (it=x.begin(); it!=x.end(); it++){
+        double z = *it;
+    }
+    t_e = clock();
+    cout << "vector iteration using iterator it++: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+}
+
+TEST_CASE("test double vs int incremental") {
+    int B = 10000;
+    
+    // int 
+    int t_s = clock();
+    int x = 0;
+    for (int i=0; i<B; i++)
+        ++x;
+    int t_e = clock();
+    cout << "int incremental: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+    // double
+    t_s = clock();
+    double y = 0;
+    for (int i=0; i<B; i++)
+        ++y;
+    t_e = clock();
+    cout << "double incremental: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+}
+
+TEST_CASE("test encoding DNA") {
+    cout << "A: " << ('A'& 7) << endl;
+    cout << "C: " << ('C'& 7) << endl;
+    cout << "G: " << ('G'& 7) << endl;
+    cout << "T: " << ('T'& 7) << endl;
+    cout << "-: " << ('-'& 7) << endl;
+}
+
+TEST_CASE("test RAM usage of IDmap") {
+    vector<string> IDmap(MAX_NMOL, "N");
+    cout << "RAM of IDmap(MAX_NMOL, \"N\") is " << IDmap.size()*sizeof(IDmap[0]) / double(1000000)<< " Mb" << endl;
+}

@@ -143,7 +143,7 @@ TEST_CASE("Test PileupParser::getMatchProb(), getDelProb(), getNorefProb()", "[P
     REQUIRE(prob_d.size()==0);
 }
 
-TEST_CASE("Test PileupParser::groupPileup()", "PileupParser") {
+/*TEST_CASE("Test PileupParser::groupPileup()", "PileupParser") {
     string pileupfile = "./data/test_scanBuf.pileup";
     string outfile = "./results/test_scanBuf_group.pileup";
     map<int, NtSeq>::iterator it;
@@ -180,17 +180,31 @@ TEST_CASE("Test PileupParser::groupPileup()", "PileupParser") {
     fs_outfile.close();
     
     // read group pileup and validate
-}
+}*/
 
 TEST_CASE("test PileupParserGDA::checkFormat()") {
-    REQUIRE(PileupParserGDA::checkFormat("./data/test_scanBuf.pileup") == true);
-    REQUIRE(PileupParserGDA::checkFormat("./data/wrong_format_1.pileup") == false);
-    REQUIRE(PileupParserGDA::checkFormat("./data/wrong_format_2.pileup") == false);
-    REQUIRE(PileupParserGDA::checkFormat("./data/wrong_format_3.pileup") == false);
-    REQUIRE(PileupParserGDA::checkFormat("./data/wrong_format_4.pileup") == false);
-    REQUIRE(PileupParserGDA::checkFormat("./data/wrong_format_5.pileup") == false);
-    REQUIRE(PileupParserGDA::checkFormat("./data/wrong_format_6.pileup") == false);
+    PileupParserGDA obj_PileupParserGDA;
+    REQUIRE(obj_PileupParserGDA.checkFormat("./data/test_scanBuf.pileup") == true);
+    REQUIRE(obj_PileupParserGDA.checkFormat("./data/wrong_format_1.pileup") == false);
+    REQUIRE(obj_PileupParserGDA.checkFormat("./data/wrong_format_2.pileup") == false);
+    REQUIRE(obj_PileupParserGDA.checkFormat("./data/wrong_format_3.pileup") == false);
+    REQUIRE(obj_PileupParserGDA.checkFormat("./data/wrong_format_4.pileup") == false);
+    REQUIRE(obj_PileupParserGDA.checkFormat("./data/wrong_format_5.pileup") == false);
+    REQUIRE(obj_PileupParserGDA.checkFormat("./data/wrong_format_6.pileup") == false);
+    
+    REQUIRE(obj_PileupParserGDA.checkFormat("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup") == true);
+    
 }
 
+TEST_CASE("test PileupParserGDA::getMaxMolID()") {
+    PileupParserGDA obj_PileupParserGDA;
+    int t_s,t_e;
+    t_s = clock();
+    REQUIRE(obj_PileupParserGDA.getMaxMolID("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup") == 193);
+    t_e = clock();
+    cout << "getMaxMolID() time: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    REQUIRE(obj_PileupParserGDA.getMaxMolID("./data/test_scanBuf.pileup") == 6);
+    
+}
 
 

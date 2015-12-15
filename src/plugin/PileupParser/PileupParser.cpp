@@ -30,10 +30,10 @@ void PileupParser::groupPileup() {
     if (data_Pileup.readID.size() != data_Pileup.readSeq.size())
         throw runtime_error("Error in PileupParser::groupPileup(): unequal size of readID and readSeq");
     
-    for (int i=0; i<(int)data_Pileup.readID_ins.size(); i++)
-        data_Pileup.readSeq_group_ins[data_Pileup.readID_ins[i]] = data_Pileup.readSeq_ins[i];
-    for (int i=0; i<(int)data_Pileup.readID.size(); i++) 
-        data_Pileup.readSeq_group[data_Pileup.readID[i]] = data_Pileup.readSeq[i];
+    //for (int i=0; i<(int)data_Pileup.readID_ins.size(); i++)
+    //    data_Pileup.readSeq_group_ins[data_Pileup.readID_ins[i]] = data_Pileup.readSeq_ins[i];
+    //for (int i=0; i<(int)data_Pileup.readID.size(); i++) 
+    //    data_Pileup.readSeq_group[data_Pileup.readID[i]] = data_Pileup.readSeq[i];
     
 }
 

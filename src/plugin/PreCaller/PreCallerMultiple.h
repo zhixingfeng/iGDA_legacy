@@ -61,7 +61,6 @@ private:
     
 private:
     JointProbChr jprob;
-    
     int readlen;
     
 };

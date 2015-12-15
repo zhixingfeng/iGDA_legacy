@@ -101,3 +101,17 @@ TEST_CASE("Test PreCaller calStat()", "[PreCaller]") {
 }
 
 
+TEST_CASE("test PreCallerMultiple::callVar()") {
+    PreCallerMultiple obj_PreCallerMultiple;
+    
+    PileupParserGDA obj_PileupParserGDA;
+    ErrorModelerHomo obj_ErrorModelerHomo;
+    obj_PreCallerMultiple.setPileupParser(& obj_PileupParserGDA);
+    obj_PreCallerMultiple.setErrorModeler(& obj_ErrorModelerHomo);
+    
+    obj_PreCallerMultiple.setPileupfile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
+    obj_PreCallerMultiple.loadErrorModel("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.err");
+    
+    
+    obj_PreCallerMultiple.callVar(1, 1, 1, 1);
+}
