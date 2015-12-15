@@ -39,7 +39,7 @@ TEST_CASE ("Test EPS") {
 
 
 // performance test
-TEST_CASE ("compare iteration of map vs vector", "[hide]") {
+TEST_CASE ("compare iteration of map vs vector","[hide]") {
     int B = 1000;
     map<int, map<int, double> > x;
     vector<vector<double> > y;
@@ -65,6 +65,17 @@ TEST_CASE ("compare iteration of map vs vector", "[hide]") {
     t_e = clock();
     cout << "vector insertion time: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
     
+    // insertion to vector pre-located
+    t_s = clock();
+    vector<vector<double> > yy(B, vector<double>(B,0));
+    //cout << yy.size() << ',' << yy[0].size() << endl;
+    for (int i=0; i<B; i++)
+        for (int j=0; j<B; j++)
+            yy[i][j] = i + j;
+    
+    t_e = clock();
+    cout << "vector insertion time (pre-located): " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
     // access map
     t_s = clock();
     for (int i=0; i<B; i++)
@@ -80,6 +91,8 @@ TEST_CASE ("compare iteration of map vs vector", "[hide]") {
             double z = y[i][j];
     t_e = clock();
     cout << "vector access time: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+    
 }
 
 

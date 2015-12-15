@@ -181,3 +181,11 @@ TEST_CASE("Test PileupParser::groupPileup()", "PileupParser") {
     
     // read group pileup and validate
 }
+
+TEST_CASE("test PileupParserGDA::checkFormat()") {
+    REQUIRE(PileupParserGDA::checkFormat("./data/test_scanBuf.pileup") == true);
+    REQUIRE(PileupParserGDA::checkFormat("./data/wrong_format_1.pileup") == false);
+    REQUIRE(PileupParserGDA::checkFormat("./data/wrong_format_2.pileup") == false);
+    REQUIRE(PileupParserGDA::checkFormat("./data/wrong_format_3.pileup") == false);
+    REQUIRE(PileupParserGDA::checkFormat("./data/wrong_format_4.pileup") == false);
+}

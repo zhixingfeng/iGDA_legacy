@@ -23,6 +23,8 @@ public:
     PileupParserGDA(ifstream * a_ptr_fs_pileupfile) : PileupParser(a_ptr_fs_pileupfile) { }
     virtual ~PileupParserGDA();
     
+    static bool checkFormat(string pileupfile); 
+    
     bool readLine();
     
     void calBaseFreq();
