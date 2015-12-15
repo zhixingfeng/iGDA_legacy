@@ -23,60 +23,6 @@ PileupParserGDA::PileupParserGDA(const PileupParserGDA& orig) {
 PileupParserGDA::~PileupParserGDA() {
 }
 
-bool PileupParserGDA::checkFormat(string pileupfile) {
-    ifstream fs_pileupfile; open_infile(fs_pileupfile, pileupfile);
-    int prev_refID = -1;
-    int prev_locus = 0;
-    bool is_start;
-    while(true) {
-        string line_ins;
-        string line;
-        getline(fs_pileupfile, line_ins);
-        getline(fs_pileupfile, line);
-        if (fs_pileupfile.eof()) break;
-        vector<string> line_ins_list = split(line_ins, '\t');
-        vector<string> line_list = split(line, '\t');
-        
-        // check number of columns
-        if ((line_ins_list.size()!=4 && line_ins_list.size()!=6) || (line_list.size()!=4 && line_list.size()!=6)){
-            cerr << "number of columns is not 4 or 6" << endl;
-            return false;
-        }
-        
-        // check if two lines match 
-        int refID_ins = atoi(line_ins_list[0].c_str());
-        int refID = atoi(line_list[0].c_str());
-        int locus_ins = atoi(line_ins_list[1].substr(1,line_ins_list[1].size()-1).c_str());
-        int locus = atoi(line_list[1].c_str());
-        if (refID_ins != refID || locus_ins != locus) {
-            cerr << "two lines not match" << endl;
-            return false;
-        }
-        
-        // check if the current locus is the start locus
-        if (refID != prev_refID)
-            is_start = true;
-        else
-            is_start = false;
-        
-        // check if locus start from 1
-        if (is_start && locus!=1) {
-            cerr << "chr " << refID << ": locus is not start from 1" << endl;
-            return false;
-        }
-        
-        // check if locus is continous 
-        if (!is_start && locus != prev_locus + 1) {
-            cerr << "chr " << refID <<  ", " << locus << ": locus is not continous" << endl;
-            return false;
-        }
-        
-        prev_refID = refID;
-        prev_locus = locus;
-    }
-    fs_pileupfile.close();
-    return true;
-}
 
 bool PileupParserGDA::readLine() {
     if (ptr_fs_pileupfile == NULL)
@@ -206,4 +152,81 @@ RefGenome PileupParserGDA::getRefGenome(string pileupfile) {
     }
     cur_fs_pileupfile.close();
     return refgenome;
+}
+
+
+bool PileupParserGDA::checkFormat(string pileupfile) {
+    ifstream fs_pileupfile; open_infile(fs_pileupfile, pileupfile);
+    int prev_refID = -1;
+    int prev_locus = 0;
+    bool is_start;
+    while(true) {
+        string line_ins;
+        string line;
+        getline(fs_pileupfile, line_ins);
+        getline(fs_pileupfile, line);
+        if (fs_pileupfile.eof()) break;
+        vector<string> line_ins_list = split(line_ins, '\t');
+        vector<string> line_list = split(line, '\t');
+        
+        // check number of columns
+        if ((line_ins_list.size()!=4 && line_ins_list.size()!=6) || (line_list.size()!=4 && line_list.size()!=6)){
+            cerr << "number of columns is not 4 or 6" << endl;
+            return false;
+        }
+        
+        // check if two lines match 
+        int refID_ins = atoi(line_ins_list[0].c_str());
+        int refID = atoi(line_list[0].c_str());
+        int locus_ins = atoi(line_ins_list[1].substr(1,line_ins_list[1].size()-1).c_str());
+        int locus = atoi(line_list[1].c_str());
+        if (refID_ins != refID || locus_ins != locus) {
+            cerr << "two lines not match" << endl;
+            return false;
+        }
+        
+        // check if the current locus is the start locus
+        if (refID != prev_refID)
+            is_start = true;
+        else
+            is_start = false;
+        
+        // check if locus start from 1
+        if (is_start && locus!=1) {
+            cerr << "chr " << refID << ": locus is not start from 1" << endl;
+            return false;
+        }
+        
+        // check if locus is continous 
+        if (!is_start && locus != prev_locus + 1) {
+            cerr << "chr " << refID <<  ", " << locus << ": locus is not continous" << endl;
+            return false;
+        }
+        
+        // check if molecule number is increasing
+        if (line_ins_list.size() == 6) {
+            vector<string> id_list = split(line_ins_list[5],',');
+            for (int i=0; i<(int)(id_list.size()-1); i++) {
+                if (atoi(id_list[i].c_str()) >= atoi(id_list[i+1].c_str())){
+                    cerr << "chr " << refID <<  ", " << locus << "(ins): molecule ID is not increasing." << endl;
+                    return false;
+                }
+            }
+        }
+        
+        if (line_list.size() == 6) {
+            vector<string> id_list = split(line_list[5],',');
+            for (int i=0; i<(int)(id_list.size()-1); i++) {
+                if (atoi(id_list[i].c_str()) >= atoi(id_list[i+1].c_str())){
+                    cerr << "chr " << refID <<  ", " << locus << ": molecule ID is not increasing." << endl;
+                    return false;
+                }
+            }
+        }
+        
+        prev_refID = refID;
+        prev_locus = locus;
+    }
+    fs_pileupfile.close();
+    return true;
 }

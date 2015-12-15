@@ -118,6 +118,7 @@
         <itemPath>test/test_data_type.cpp</itemPath>
         <itemPath>test/test_file.cpp</itemPath>
         <itemPath>test/test_iGDA.cpp</itemPath>
+        <itemPath>test/test_performance.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -390,6 +391,8 @@
       </item>
       <item path="test/test_iGDA.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="test/test_performance.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -651,6 +654,8 @@
       <item path="test/test_file.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="test/test_iGDA.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="test/test_performance.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>

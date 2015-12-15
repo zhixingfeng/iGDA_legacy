@@ -32,9 +32,39 @@ private:
     void freq2Prob(map<string, map<string, double> > &prob);
 };
 
-typedef map<int, map<int, JointProb> > JointProbVec;
+typedef vector<vector<JointProb> > JointProbVec;
 typedef map<int, JointProbVec> JointProbChr;
 
+
+// define class
+class PreCallerMultiple : public PreCaller {
+public:
+    PreCallerMultiple();
+    PreCallerMultiple(const PreCallerMultiple& orig);
+    virtual ~PreCallerMultiple();
+    
+    void setReadLen(int a_readlen) { readlen = a_readlen; }
+    void callVar(int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1);
+   
+    void calJointProb();
+    JointProbChr getJointProb() {return jprob;}
+    void saveJointProb (string outfile);
+    void loadJointProb (string infile);
+    
+   
+    pair<double, double> calMaxCondProb(JointProb &prob, char refSeq='X', int min_cvg=1, bool is_norm=false); // first is match, second is ins
+    
+private:
+    void scanBuf (deque <Pileup> & buf, bool is_pairwise=false);
+    void count(Pileup &pu_x, Pileup & pu_y);
+    void parseJointProb(map<string, map<string, double> > &prob, string & str);
+    
+private:
+    JointProbChr jprob;
+    
+    int readlen;
+    
+};
 
 #endif /* PRECALLERMULTIPLE_H */
 

@@ -12,4 +12,41 @@
  */
 
 #include "PreCallerMultiple.h"
+void JointProb::calProb() {
+    freq2Prob(this->prob_mm);
+    freq2Prob(this->prob_mi);
+    freq2Prob(this->prob_im);
+    freq2Prob(this->prob_ii);
+}
 
+void JointProb::freq2Prob(map<string,map<string,double> >& prob){
+    map<string, map<string, double> >::iterator it_i;
+    map<string, double>::iterator it_j;
+    for (it_i=prob.begin(); it_i!=prob.end(); ++it_i)
+        for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); ++it_j)
+            it_j->second /= this->cvg;
+}
+
+PreCallerMultiple::PreCallerMultiple() {
+    readlen = 1000;
+    signature = "PreCallerMultiple";
+}
+
+PreCallerMultiple::PreCallerMultiple(const PreCallerMultiple& orig) {
+}
+
+PreCallerMultiple::~PreCallerMultiple() {
+}
+
+void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int len_r) {
+    if (pileupfile == "")
+        throw runtime_error("Error in PreCallerMultiple::callVar: pileupfile is empty.");
+    if (err_context_file == "")
+        throw runtime_error("Error in PreCallerMultiple::callVar: err_context_file is empty.");
+    if (ptr_PileupParser == NULL)
+        throw runtime_error("Error in PreCallerMultiple::callVar: ptr_PileupParser is NULL.");
+    if (ptr_ErrorModeler == NULL)
+        throw runtime_error("Error in PreCallerMultiple::callVar: ptr_ErrorModeler is NULL.");
+    
+    
+}

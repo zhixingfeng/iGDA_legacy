@@ -60,7 +60,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/test/test_basic.o \
 	${OBJECTDIR}/test/test_data_type.o \
 	${OBJECTDIR}/test/test_file.o \
-	${OBJECTDIR}/test/test_iGDA.o
+	${OBJECTDIR}/test/test_iGDA.o \
+	${OBJECTDIR}/test/test_performance.o
 
 
 # C Compiler Flags
@@ -216,6 +217,11 @@ ${OBJECTDIR}/test/test_iGDA.o: test/test_iGDA.cpp
 	${MKDIR} -p ${OBJECTDIR}/test
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/test/test_iGDA.o test/test_iGDA.cpp
+
+${OBJECTDIR}/test/test_performance.o: test/test_performance.cpp 
+	${MKDIR} -p ${OBJECTDIR}/test
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/test/test_performance.o test/test_performance.cpp
 
 # Subprojects
 .build-subprojects:
