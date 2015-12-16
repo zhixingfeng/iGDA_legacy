@@ -169,7 +169,7 @@ TEST_CASE("test double vs int incremental") {
     cout << "double incremental: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
 }
 
-TEST_CASE("test encoding DNA") {
+TEST_CASE("test encoding DNA", "[hide]") {
     cout << "A: " << ('A'& 7) << endl;
     cout << "C: " << ('C'& 7) << endl;
     cout << "G: " << ('G'& 7) << endl;
@@ -181,3 +181,55 @@ TEST_CASE("test RAM usage of IDmap") {
     vector<string> IDmap(MAX_NMOL, "N");
     cout << "RAM of IDmap(MAX_NMOL, \"N\") is " << IDmap.size()*sizeof(IDmap[0]) / double(1000000)<< " Mb" << endl;
 }
+
+TEST_CASE("deque vs vector access speed") {
+    int B = 10000;
+    deque<double> x;
+    vector<double> y;
+    int t_s, t_e;
+    
+    // push_back deque
+    t_s = clock();
+    for (int i=0; i<B; i++)
+        x.push_back(i);
+    t_e = clock();
+    cout << "deque push_back: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+    // push_back vector
+    t_s = clock();
+    for (int i=0; i<B; i++)
+        y.push_back(i);
+    t_e = clock();
+    cout << "vector push_back: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+    // access deque
+    t_s = clock();
+    for (int i=0; i<B; i++)
+        double z = x[i];
+    t_e = clock();
+    cout << "deque access: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+    // access vector 
+    t_s = clock();
+    for (int i=0; i<B; i++)
+        double z = y[i];
+    t_e = clock();
+    cout << "vector access: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+    // pop front deque
+    t_s = clock();
+    while(x.size()>0)
+        x.pop_front();
+    t_e = clock();
+    cout << "deque pop_front: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+
+    t_s = clock();
+    while(y.size()>0)
+        y.erase(y.begin());
+    t_e = clock();
+    cout << "vector pop_front: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+}
+
+
+

@@ -26,6 +26,9 @@ struct VarStat {
         effect_size(effect_size), p_value(p_value), cvg(cvg), cvg_ctrl(cvg_ctrl), locus(locus){}
     
     double effect_size; // effect size can be defined as log-ratio between maximum estimated proportion / expected proportion or anything else
+    double log_ratio;
+    double jprob;
+    
     double p_value; // p-value 
     
     int cvg; // coverage of locus. It is number of different molecules. CCS is ignored.

@@ -173,7 +173,7 @@ int PileupParserGDA::getMaxMolID(string pileupfile) {
     if (max_mol_id < 0)
         throw runtime_error("Error in PileupParserGDA::getMaxMolID(): fail to get max mol ID.");
     
-    return max_mol_id;
+    return max_mol_id ;
 }
 
 bool PileupParserGDA::checkFormat(string pileupfile) {
