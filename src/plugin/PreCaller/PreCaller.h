@@ -54,6 +54,7 @@ public:
     virtual ~PreCaller();
     
     void setPileupfile (string a_pileupfile) {pileupfile = a_pileupfile;}
+    void setOutprefix (string a_outprefix) {outprefix = a_outprefix;}
     void setPileupParser (PileupParser * a_PileupParser); 
     void setErrorModeler (ErrorModeler * a_ErrorModeler); 
     
@@ -78,6 +79,8 @@ protected:
     
     string pileupfile;
     string err_context_file;
+    string outprefix;
+    
     PileupParser * ptr_PileupParser;
     ErrorModeler * ptr_ErrorModeler;
     

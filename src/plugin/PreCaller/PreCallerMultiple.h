@@ -28,16 +28,49 @@ struct BaseMap {
 struct JointProb {
     JointProb (): cvg(0) {}
     void calProb();
+    void calCondProb();
     
     map<string, map<string, double> > prob_mm;
     map<string, map<string, double> > prob_mi;
     map<string, map<string, double> > prob_im;
     map<string, map<string, double> > prob_ii;
     
+    map<string, map<string, double> > prob_mm_rev;
+    map<string, map<string, double> > prob_mi_rev;
+    map<string, map<string, double> > prob_im_rev;
+    map<string, map<string, double> > prob_ii_rev;
+    
     int cvg;
     
 private:
-    void freq2Prob(map<string, map<string, double> > &prob);
+    void freq2prob(map<string, map<string, double> > &prob);
+    void jprob2cprob(map<string, map<string, double> > &prob);
+};
+
+// define class
+class PreCallerMultiple : public PreCaller {
+public:
+    PreCallerMultiple();
+    PreCallerMultiple(const PreCallerMultiple& orig);
+    virtual ~PreCallerMultiple();
+    
+    void setReadLen(int a_readlen) { readlen = a_readlen; }
+    
+    void callVar(int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1);
+   
+    void calJointProb(string jprobfile);
+    
+    void readJointProb (ifstream &fs_jprobfile, int &refID, int &locus_l, int &locus_r, JointProb &cur_jprob);
+    
+private:
+    void scanBuf (vector<BaseMap> &IDmap_ins, vector<BaseMap> &IDmap, deque <Pileup> & buf, ofstream &fs_jprobfile, bool is_pairwise=false);
+    void count(vector<BaseMap> &IDmap_ins, vector<BaseMap> &IDmap, Pileup& pu_x, Pileup & pu_y, ofstream &fs_jprobfile);
+    void setIDmap(vector<BaseMap> &IDmap_ins,vector<BaseMap> &IDmap, Pileup & pu);
+    void parseJointProb(map<string, map<string, double> > &prob, string & str);
+    
+private:
+    
+    int readlen;
 };
 
 inline ostream & operator << (ostream & os,  JointProb & cur_jprob) {
@@ -63,34 +96,6 @@ inline ostream & operator << (ostream & os,  JointProb & cur_jprob) {
     return os;
 }
 
-// define class
-class PreCallerMultiple : public PreCaller {
-public:
-    PreCallerMultiple();
-    PreCallerMultiple(const PreCallerMultiple& orig);
-    virtual ~PreCallerMultiple();
-    
-    void setReadLen(int a_readlen) { readlen = a_readlen; }
-    void callVar(int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1);
-   
-    void calJointProb(string jprobfile);
-    void saveJointProb (string outfile);
-    void loadJointProb (string infile);
-    
-   
-    pair<double, double> calMaxCondProb(JointProb &prob, char refSeq='X', int min_cvg=1, bool is_norm=false); // first is match, second is ins
-    
-private:
-    void scanBuf (vector<BaseMap> &IDmap_ins, vector<BaseMap> &IDmap, deque <Pileup> & buf, ofstream &fs_jprobfile, bool is_pairwise=false);
-    void count(vector<BaseMap> &IDmap_ins, vector<BaseMap> &IDmap, Pileup& pu_x, Pileup & pu_y, ofstream &fs_jprobfile);
-    void setIDmap(vector<BaseMap> &IDmap_ins,vector<BaseMap> &IDmap, Pileup & pu);
-    void parseJointProb(map<string, map<string, double> > &prob, string & str);
-    
-private:
-    
-    int readlen;
-    
-};
 
 #endif /* PRECALLERMULTIPLE_H */
 

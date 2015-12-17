@@ -113,7 +113,7 @@ TEST_CASE("test PreCallerMultiple::callVar()") {
     obj_PreCallerMultiple.loadErrorModel("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.err");
     
     
-    obj_PreCallerMultiple.callVar(1, 1, 1, 1);
+    //obj_PreCallerMultiple.callVar(1, 1, 1, 1);
 }
 
 TEST_CASE("test PreCallerMultiple::calJointProb()","[PreCallerMultiple]") {
@@ -122,37 +122,58 @@ TEST_CASE("test PreCallerMultiple::calJointProb()","[PreCallerMultiple]") {
     PileupParserGDA obj_PileupParserGDA;
     ErrorModelerHomo obj_ErrorModelerHomo;
     
-    //obj_PreCallerMultiple.setPileupfile("./data/test_scanBuf.pileup");
-    obj_PreCallerMultiple.setPileupfile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
+    obj_PreCallerMultiple.setPileupfile("./data/test_scanBuf.pileup");
     obj_PreCallerMultiple.setPileupParser(& obj_PileupParserGDA);
     obj_PreCallerMultiple.setErrorModeler(& obj_ErrorModelerHomo);
     
     // using default read length, which is much larger than genome size
-    obj_PreCallerMultiple.calJointProb("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.jprob");
-    //obj_PreCallerMultiple.calJointProb("./results/test_scanBuf.jprob");
+    obj_PreCallerMultiple.calJointProb("./results/test_scanBuf.cprob");
     
     // set read length to 4
-    //obj_PreCallerMultiple.setReadLen(4);
-    //obj_PreCallerMultiple.calJointProb();
-    //obj_PreCallerMultiple.saveJointProb("./results/test_scanBuf_readlen_4.jprob");
+    obj_PreCallerMultiple.setReadLen(4);
+    obj_PreCallerMultiple.calJointProb("./results/test_scanBuf_readlen_4.cprob");
     
     // compare the results
-    //hashwrapper *myWrapper = new md5wrapper();
-    //REQUIRE(myWrapper->getHashFromFile("./results/test_scanBuf.jprob") == myWrapper->getHashFromFile("./results/test_scanBuf_readlen_4.jprob"));
+    hashwrapper *myWrapper = new md5wrapper();
+    REQUIRE(myWrapper->getHashFromFile("./results/test_scanBuf.cprob.sorted") == myWrapper->getHashFromFile("./results/test_scanBuf_readlen_4.cprob.sorted"));
     
     
     // test larger pileupfile 
-    /*obj_PreCallerMultiple.setPileupfile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
+    obj_PreCallerMultiple.setPileupfile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
     obj_PreCallerMultiple.setReadLen(10000);
-    obj_PreCallerMultiple.calJointProb();
-    obj_PreCallerMultiple.saveJointProb("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.jprob");
+    obj_PreCallerMultiple.calJointProb("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.cprob");
     
     obj_PreCallerMultiple.setReadLen(1000);
-    obj_PreCallerMultiple.calJointProb();
-    obj_PreCallerMultiple.saveJointProb("./results/mixed_MSSA_78_ratio_0.05_B_1.bam_readlen_1000.jprob");
+    obj_PreCallerMultiple.calJointProb("./results/mixed_MSSA_78_ratio_0.05_B_1.bam_readlen_1000.cprob");
     
-    REQUIRE(myWrapper->getHashFromFile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.jprob")==
-            myWrapper->getHashFromFile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam_readlen_1000.jprob") );
-    */
-    //delete myWrapper;
+    REQUIRE(myWrapper->getHashFromFile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.cprob.sorted")==
+            myWrapper->getHashFromFile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam_readlen_1000.cprob.sorted") );
+    
+    delete myWrapper;
 }
+
+TEST_CASE("test PreCallerMultiple::readJointProb()") {
+    string jprobfile = "./data/test_scanBuf.cprob.sorted";
+    string outifle = "./results/test_scanBuf.cprob.sorted.loaded";
+    
+    ifstream fs_jprobfile; open_infile(fs_jprobfile, jprobfile);
+    ofstream fs_outfile; open_outfile(fs_outfile, outifle);
+    PreCallerMultiple obj_PreCallerMultiple;
+    
+    while (true) {
+        int refID, locus_l, locus_r;
+        JointProb cur_jprob;
+        obj_PreCallerMultiple.readJointProb(fs_jprobfile, refID, locus_l, locus_r, cur_jprob);
+        if (fs_jprobfile.eof()) break;
+        fs_outfile << refID << '\t' << locus_l << '\t' << locus_r << '\t' << cur_jprob.cvg << '\t';
+        fs_outfile << cur_jprob << endl;
+    }
+    fs_jprobfile.close();
+    fs_outfile.close();
+    
+    hashwrapper *myWrapper = new md5wrapper();
+    REQUIRE(myWrapper->getHashFromFile("./data/test_scanBuf.cprob.sorted") == myWrapper->getHashFromFile("./results/test_scanBuf.cprob.sorted.loaded"));
+    delete myWrapper;
+}
+
+

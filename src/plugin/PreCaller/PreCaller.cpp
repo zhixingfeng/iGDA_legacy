@@ -15,6 +15,7 @@
 
 PreCaller::PreCaller() {
     pileupfile = "";
+    outprefix = "";
     ptr_PileupParser = NULL;
     ptr_ErrorModeler = NULL;
     signature = "PreCaller";
