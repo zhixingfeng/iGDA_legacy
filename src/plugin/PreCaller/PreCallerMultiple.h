@@ -58,39 +58,42 @@ public:
     
     void callVar(int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1);
    
-    void calJointProb(string jprobfile);
+    void calCondProb(string cprobfile);
     
-    void readJointProb (ifstream &fs_jprobfile, int &refID, int &locus_l, int &locus_r, JointProb &cur_jprob);
+    
+    void readCondProb (ifstream &fs_cprobfile, int &refID, int &locus_l, int &locus_r, string &refSeq, int &mcvg, JointProb &cur_cprob);
     
 private:
-    void scanBuf (vector<BaseMap> &IDmap_ins, vector<BaseMap> &IDmap, deque <Pileup> & buf, ofstream &fs_jprobfile, bool is_pairwise=false);
-    void count(vector<BaseMap> &IDmap_ins, vector<BaseMap> &IDmap, Pileup& pu_x, Pileup & pu_y, ofstream &fs_jprobfile);
+    void scanBuf (vector<BaseMap> &IDmap_ins, vector<BaseMap> &IDmap, deque <Pileup> & buf, ofstream &fs_cprobfile, bool is_pairwise=false);
+    void count(vector<BaseMap> &IDmap_ins, vector<BaseMap> &IDmap, Pileup& pu_x, Pileup & pu_y, ofstream &fs_cprobfile);
     void setIDmap(vector<BaseMap> &IDmap_ins,vector<BaseMap> &IDmap, Pileup & pu);
-    void parseJointProb(map<string, map<string, double> > &prob, string & str);
+    void parseCondProb(map<string, map<string, double> > &prob, string & str);
     
+    double calProbRatio(map<string,map<string,double> >& prob, map<string,double> & prob_ctrl, string &refSeq);
+
 private:
     
     int readlen;
 };
 
-inline ostream & operator << (ostream & os,  JointProb & cur_jprob) {
-    if (cur_jprob.prob_mm.size() > 0)
-        os << cur_jprob.prob_mm << '\t';
+inline ostream & operator << (ostream & os,  JointProb & cur_cprob) {
+    if (cur_cprob.prob_mm.size() > 0)
+        os << cur_cprob.prob_mm << '\t';
     else
         os << "NA" << '\t';
     
-    if (cur_jprob.prob_mi.size() > 0)
-        os << cur_jprob.prob_mi << '\t';
+    if (cur_cprob.prob_mi.size() > 0)
+        os << cur_cprob.prob_mi << '\t';
     else 
         os << "NA" << '\t';
     
-    if (cur_jprob.prob_im.size() > 0)
-        os << cur_jprob.prob_im << '\t';
+    if (cur_cprob.prob_im.size() > 0)
+        os << cur_cprob.prob_im << '\t';
     else
         os << "NA" << '\t';
     
-    if (cur_jprob.prob_ii.size() > 0)
-        os << cur_jprob.prob_ii;
+    if (cur_cprob.prob_ii.size() > 0)
+        os << cur_cprob.prob_ii;
     else
         os << "NA";
     return os;

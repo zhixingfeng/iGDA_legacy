@@ -79,27 +79,57 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
     if (ptr_ErrorModeler == NULL)
         throw runtime_error("Error in PreCallerMultiple::callVar: ptr_ErrorModeler is NULL.");
     
-    // calculate pairwise conditional probability 
+    // calculate pairwise conditional probability ( use jprob* for function names and variables here for historical reason)
+    string cprobfile = outprefix + ".cprob";
+    this->calCondProb(cprobfile);
     
+    // get reference genome
+    ptr_ErrorModeler->setPileupFile(this->pileupfile);
+    ptr_ErrorModeler->getRefGenome();
     
-    // scanf pileupfile
-    //ifstream fs_pileupfile; open_infile(fs_pileupfile, pileupfile);
-    //ptr_PileupParser->setPileupFileStream(& fs_pileupfile);
+    // scan cprobfile
+    ifstream fs_cprobfile; open_infile(fs_cprobfile, cprobfile+".sorted");
+    ofstream fs_ratiofile; open_outfile(fs_ratiofile, cprobfile+".sorted.ratio");
+    int refID, locus_l, locus_r, mcvg;
+    string refSeq;
     
-    /*deque <Pileup> buf;
     while(true) {
-        ptr_PileupParser->readLine();
-        if (fs_pileupfile.eof()) break;
+        JointProb cur_cprob;
+        this->readCondProb(fs_cprobfile, refID, locus_l, locus_r, refSeq, mcvg, cur_cprob);
+        if (fs_cprobfile.eof()) break;
         
+        pair<string, string> cur_context = ptr_ErrorModeler->getLocalContext(refID, locus_l, len_l, len_r);
+        int cvg_ctrl = ptr_ErrorModeler->searchErrorContextEffectCvg(refID, locus_l, len_l, len_r);
+        map<string, double> prob_ctrl = ptr_ErrorModeler->searchErrorContextEffectMean(refID, locus_l, len_l, len_r);
+        map<string, double> prob_ctrl_ins = ptr_ErrorModeler->searchErrorContextEffectMeanIns(refID, locus_l, len_l, len_r);
+        
+        double max_prob_mm = this->calProbRatio(cur_cprob.prob_mm, prob_ctrl, refSeq);
+        double max_prob_im = this->calProbRatio(cur_cprob.prob_im, prob_ctrl, refSeq);
+        double max_prob_mi = this->calProbRatio(cur_cprob.prob_mi, prob_ctrl_ins, refSeq);
+        double max_prob_ii = this->calProbRatio(cur_cprob.prob_ii, prob_ctrl_ins, refSeq);
+        
+        fs_ratiofile << refID << '\t' << locus_l << '\t' << locus_r << '\t' << cur_cprob.cvg << '\t' << refSeq << '\t' << mcvg << '\t';
+        fs_ratiofile << max_prob_mm << '\t' << max_prob_im << '\t' << max_prob_mi << '\t' << max_prob_ii << '\t';
+        fs_ratiofile << cur_cprob << '\t' << cur_context << '\t';
+        if (prob_ctrl.size() > 0)
+            fs_ratiofile << prob_ctrl << '\t';
+        else
+            fs_ratiofile << "NA" << '\t';
+        if (prob_ctrl_ins.size() > 0)
+            fs_ratiofile << prob_ctrl_ins << endl;
+        else
+            fs_ratiofile << "NA" << endl;
     }
-    fs_pileupfile.close();
-    */
+    
+    fs_cprobfile.close();
+    fs_ratiofile.close();
+   
 }
-void PreCallerMultiple::calJointProb(string jprobfile) {
+void PreCallerMultiple::calCondProb(string cprobfile) {
     if (pileupfile == "")
-        throw runtime_error("Error in PreCallerMultiple::calJointProb: pileupfile is empty.");
+        throw runtime_error("Error in PreCallerMultiple::calCondProb: pileupfile is empty.");
     if (ptr_PileupParser == NULL)
-        throw runtime_error("Error in PreCallerMultiple::calJointProb: ptr_PileupParser is NULL.");
+        throw runtime_error("Error in PreCallerMultiple::calCondProb: ptr_PileupParser is NULL.");
     
     // check format of pileupfile and calculate number of molecules
     ptr_PileupParser->checkFormat(pileupfile);
@@ -112,7 +142,7 @@ void PreCallerMultiple::calJointProb(string jprobfile) {
     vector<BaseMap> IDmap(n_mol + 1, BaseMap());
     
     // scan pileupfile
-    ofstream fs_jprobfile; open_outfile(fs_jprobfile, jprobfile);
+    ofstream fs_cprobfile; open_outfile(fs_cprobfile, cprobfile);
     ifstream fs_pileupfile; open_infile(fs_pileupfile, pileupfile);
     ptr_PileupParser->setPileupFileStream(& fs_pileupfile);
     
@@ -129,40 +159,40 @@ void PreCallerMultiple::calJointProb(string jprobfile) {
         }
         // scan buf to calculate joint probability
         if (buf.size() == readlen)
-            scanBuf(IDmap_ins, IDmap, buf, fs_jprobfile, false);
+            scanBuf(IDmap_ins, IDmap, buf, fs_cprobfile, false);
     }
     // scan the last buf pairwisely.
     if (buf.size() == readlen) buf.pop_front();
     
-    scanBuf(IDmap_ins, IDmap, buf, fs_jprobfile, true);
+    scanBuf(IDmap_ins, IDmap, buf, fs_cprobfile, true);
     
     fs_pileupfile.close();
-    fs_jprobfile.close();
+    fs_cprobfile.close();
     
-    // sort jprobfile
-    string cmd = "sort -k 1 -k 2 -k 3 -g " + jprobfile + " > " + jprobfile + ".sorted";
+    // sort cprobfile
+    string cmd = "sort -k 1 -k 2 -k 3 -g " + cprobfile + " > " + cprobfile + ".sorted";
     cout << cmd << endl;
     system(cmd.c_str());
     cout << "done" << endl;
 }
 
-void PreCallerMultiple::scanBuf(vector<BaseMap> &IDmap_ins, vector<BaseMap>& IDmap, deque<Pileup>& buf, ofstream &fs_jprobfile, bool is_pairwise) {
+void PreCallerMultiple::scanBuf(vector<BaseMap> &IDmap_ins, vector<BaseMap>& IDmap, deque<Pileup>& buf, ofstream &fs_cprobfile, bool is_pairwise) {
     if (is_pairwise){
         for (int i=0; i<(int)buf.size()-1; i++) {
             setIDmap(IDmap_ins, IDmap, buf[i]);
             for (int j=i+1;j<(int)buf.size();j++) {
-                this->count(IDmap_ins, IDmap, buf[i], buf[j], fs_jprobfile);
+                this->count(IDmap_ins, IDmap, buf[i], buf[j], fs_cprobfile);
             }
         }
     }else {
         setIDmap(IDmap_ins, IDmap, buf[0]);
         for (int i=1; i<(int)buf.size(); i++) {
-            this->count(IDmap_ins, IDmap, buf[0], buf[i], fs_jprobfile);
+            this->count(IDmap_ins, IDmap, buf[0], buf[i], fs_cprobfile);
         }
     }    
 }
 
-void PreCallerMultiple::count(vector<BaseMap> &IDmap_ins, vector<BaseMap>& IDmap, Pileup& pu_x, Pileup& pu_y, ofstream &fs_jprobfile) {
+void PreCallerMultiple::count(vector<BaseMap> &IDmap_ins, vector<BaseMap>& IDmap, Pileup& pu_x, Pileup& pu_y, ofstream &fs_cprobfile) {
     if (pu_x.refID != pu_y.refID || pu_x.refID == -1 || pu_x.locus == -1) return;
     if (pu_x.locus >= pu_y.locus) 
         throw runtime_error("Error in PreCallerMultiple::count(): pu_x.locus >= pu_y.locus.");
@@ -172,66 +202,68 @@ void PreCallerMultiple::count(vector<BaseMap> &IDmap_ins, vector<BaseMap>& IDmap
     if (pu_y.readID.size() != pu_y.readSeq.size())
         throw runtime_error("Error in PreCallerMultiple::count(): unequal size of readID and readSeq");
     
-    JointProb cur_jprob;
+    JointProb cur_cprob;
     
     // insertion of pu_y vs insertion of pu_x
     for (int i=0; i<(int)pu_y.readID_ins.size(); ++i) {
         if (IDmap_ins[pu_y.readID_ins[i]].refID != pu_y.refID) continue;
         if (IDmap_ins[pu_y.readID_ins[i]].locus != pu_x.locus) continue;
-        cur_jprob.prob_ii[NtSeq2Str(pu_y.readSeq_ins[i])][IDmap_ins[pu_y.readID_ins[i]].seq]++;
-        cur_jprob.prob_ii_rev[IDmap_ins[pu_y.readID_ins[i]].seq][NtSeq2Str(pu_y.readSeq_ins[i])]++;
+        cur_cprob.prob_ii[NtSeq2Str(pu_y.readSeq_ins[i])][IDmap_ins[pu_y.readID_ins[i]].seq]++;
+        cur_cprob.prob_ii_rev[IDmap_ins[pu_y.readID_ins[i]].seq][NtSeq2Str(pu_y.readSeq_ins[i])]++;
     }
     
     // match of pu_y vs insertion of pu_x
     for (int i=0; i<(int)pu_y.readID.size(); ++i) {
         if (IDmap_ins[pu_y.readID[i]].refID != pu_y.refID) continue;
         if (IDmap_ins[pu_y.readID[i]].locus != pu_x.locus) continue;
-        cur_jprob.prob_mi[NtSeq2Str(pu_y.readSeq[i])][IDmap_ins[pu_y.readID[i]].seq]++;
-        cur_jprob.prob_mi_rev[IDmap_ins[pu_y.readID[i]].seq][NtSeq2Str(pu_y.readSeq[i])]++;
+        cur_cprob.prob_mi[NtSeq2Str(pu_y.readSeq[i])][IDmap_ins[pu_y.readID[i]].seq]++;
+        cur_cprob.prob_mi_rev[IDmap_ins[pu_y.readID[i]].seq][NtSeq2Str(pu_y.readSeq[i])]++;
     }
     
     // insertion of pu_y vs match of pu_x
     for (int i=0; i<(int)pu_y.readID_ins.size(); ++i) {
         if (IDmap[pu_y.readID_ins[i]].refID != pu_y.refID) continue;
         if (IDmap[pu_y.readID_ins[i]].locus != pu_x.locus) continue;
-        cur_jprob.prob_im[NtSeq2Str(pu_y.readSeq_ins[i])][IDmap[pu_y.readID_ins[i]].seq]++;
-        cur_jprob.prob_im_rev[IDmap[pu_y.readID_ins[i]].seq][NtSeq2Str(pu_y.readSeq_ins[i])]++;
+        cur_cprob.prob_im[NtSeq2Str(pu_y.readSeq_ins[i])][IDmap[pu_y.readID_ins[i]].seq]++;
+        cur_cprob.prob_im_rev[IDmap[pu_y.readID_ins[i]].seq][NtSeq2Str(pu_y.readSeq_ins[i])]++;
     }
     
     // match of pu_y vs match of pu_x
     for (int i=0; i<(int)pu_y.readID.size(); ++i) {
         if (IDmap[pu_y.readID[i]].refID != pu_y.refID) continue;
         if (IDmap[pu_y.readID[i]].locus != pu_x.locus) continue;
-        cur_jprob.prob_mm[NtSeq2Str(pu_y.readSeq[i])][IDmap[pu_y.readID[i]].seq]++;
-        cur_jprob.prob_mm_rev[IDmap[pu_y.readID[i]].seq][NtSeq2Str(pu_y.readSeq[i])]++;
-        ++cur_jprob.cvg;
+        cur_cprob.prob_mm[NtSeq2Str(pu_y.readSeq[i])][IDmap[pu_y.readID[i]].seq]++;
+        cur_cprob.prob_mm_rev[IDmap[pu_y.readID[i]].seq][NtSeq2Str(pu_y.readSeq[i])]++;
+        ++cur_cprob.cvg;
     }
     
     // normalized to get probability 
-    //cur_jprob.calProb();
-    cur_jprob.calCondProb();
+    //cur_cprob.calProb();
+    cur_cprob.calCondProb();
             
     // print joint probability 
-    fs_jprobfile << pu_y.refID << '\t' << pu_x.locus << '\t' << pu_y.locus << '\t' << cur_jprob.cvg << '\t';
-    fs_jprobfile << cur_jprob << endl;
+    fs_cprobfile << pu_x.refID << '\t' << pu_x.locus << '\t' << pu_y.locus << '\t' << cur_cprob.cvg << '\t';
+    fs_cprobfile << pu_x.refSeq << '\t' << pu_x.cvg << '\t';
+    fs_cprobfile << cur_cprob << endl;
     
-    fs_jprobfile << pu_y.refID << '\t' << pu_y.locus << '\t' << pu_x.locus << '\t' << cur_jprob.cvg << '\t';
-    if (cur_jprob.prob_mm_rev.size() > 0)
-        fs_jprobfile << cur_jprob.prob_mm_rev << '\t';
+    fs_cprobfile << pu_y.refID << '\t' << pu_y.locus << '\t' << pu_x.locus << '\t' << cur_cprob.cvg << '\t';
+    fs_cprobfile << pu_y.refSeq << '\t' << pu_y.cvg << '\t';
+    if (cur_cprob.prob_mm_rev.size() > 0)
+        fs_cprobfile << cur_cprob.prob_mm_rev << '\t';
     else
-        fs_jprobfile << "NA" << '\t';
-    if (cur_jprob.prob_mi_rev.size() > 0)
-        fs_jprobfile << cur_jprob.prob_mi_rev << '\t';
+        fs_cprobfile << "NA" << '\t';
+    if (cur_cprob.prob_mi_rev.size() > 0)
+        fs_cprobfile << cur_cprob.prob_mi_rev << '\t';
     else 
-        fs_jprobfile << "NA" << '\t';
-    if (cur_jprob.prob_im_rev.size() > 0)
-        fs_jprobfile << cur_jprob.prob_im_rev << '\t';
+        fs_cprobfile << "NA" << '\t';
+    if (cur_cprob.prob_im_rev.size() > 0)
+        fs_cprobfile << cur_cprob.prob_im_rev << '\t';
     else
-        fs_jprobfile << "NA" << '\t';
-    if (cur_jprob.prob_ii_rev.size() > 0)
-        fs_jprobfile << cur_jprob.prob_ii_rev << endl;
+        fs_cprobfile << "NA" << '\t';
+    if (cur_cprob.prob_ii_rev.size() > 0)
+        fs_cprobfile << cur_cprob.prob_ii_rev << endl;
     else
-        fs_jprobfile << "NA" << endl;
+        fs_cprobfile << "NA" << endl;
     
 }
 
@@ -257,37 +289,63 @@ void PreCallerMultiple::setIDmap(vector<BaseMap> &IDmap_ins, vector<BaseMap>& ID
     
 }
 
-void PreCallerMultiple::readJointProb(ifstream& fs_jprobfile, int& refID, int& locus_l, int& locus_r, JointProb& cur_jprob) {
+void PreCallerMultiple::readCondProb(ifstream& fs_cprobfile, int& refID, int& locus_l, int& locus_r, string &refSeq, int &mcvg, JointProb& cur_cprob) {
     string buf;
-    getline(fs_jprobfile, buf) ;
-    if (fs_jprobfile.eof()) return;
+    getline(fs_cprobfile, buf) ;
+    if (fs_cprobfile.eof()) return;
     
     vector<string> buf_list = split(buf,'\t');
-    if (buf_list.size() != 8)
-            throw runtime_error("Error in PreCallerMultiple::readJointProb(): incorrect format, buf size is not 8.");
+    if (buf_list.size() != 10)
+            throw runtime_error("Error in PreCallerMultiple::readCondProb(): incorrect format, buf size is not 10.");
         
     refID = atoi(buf_list[0].c_str());
     locus_l = atoi(buf_list[1].c_str());
     locus_r = atoi(buf_list[2].c_str());
-    cur_jprob.cvg = atoi(buf_list[3].c_str());
+    cur_cprob.cvg = atoi(buf_list[3].c_str());
+    refSeq = buf_list[4];
+    mcvg = atoi(buf_list[5].c_str());
     
-    this->parseJointProb(cur_jprob.prob_mm, buf_list[4]);
-    this->parseJointProb(cur_jprob.prob_mi, buf_list[5]);
-    this->parseJointProb(cur_jprob.prob_im, buf_list[6]);
-    this->parseJointProb(cur_jprob.prob_ii, buf_list[7]);
+    this->parseCondProb(cur_cprob.prob_mm, buf_list[6]);
+    this->parseCondProb(cur_cprob.prob_mi, buf_list[7]);
+    this->parseCondProb(cur_cprob.prob_im, buf_list[8]);
+    this->parseCondProb(cur_cprob.prob_ii, buf_list[9]);
 }
 
-void PreCallerMultiple::parseJointProb(map<string,map<string,double> >& prob, string& str) {
+void PreCallerMultiple::parseCondProb(map<string,map<string,double> >& prob, string& str) {
     if (str=="NA") return;
     vector<string> str_list = split(str,',');
     for (int i=0; (int)i<str_list.size(); i++) {
         vector<string> str_1 = split(str_list[i], ':');
         if (str_1.size() != 2)
-            throw runtime_error("Error in PreCallerMultiple::parseJointProb(): str_1 size is not 2");
+            throw runtime_error("Error in PreCallerMultiple::parseCondProb(): str_1 size is not 2");
         vector<string> str_2 = split(str_1[0],'&');
         if(str_2.size()!=2)
-            throw runtime_error("Error in PreCallerMultiple::parseJointProb(): str_2 size is not 2");
+            throw runtime_error("Error in PreCallerMultiple::parseCondProb(): str_2 size is not 2");
         prob[str_2[0]][str_2[1]] = atof(str_1[1].c_str());
     }
     
+}
+
+double PreCallerMultiple::calProbRatio(map<string,map<string,double> >& prob, map<string,double> & prob_ctrl, string &refSeq) {
+    double max_ratio = NAN;
+    map<string,map<string,double> >::iterator it_i;
+    map<string,double>::iterator it_j;
+    map<string,double>::iterator it_ctrl;
+    
+    for (it_i=prob.begin(); it_i!=prob.end(); ++it_i) {
+        for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); ++it_j) {
+            it_ctrl = prob_ctrl.find(it_j->first);
+            if (it_ctrl == prob_ctrl.end()) {
+                it_j->second = NAN; continue;
+            }
+            if (it_ctrl->second < EPS) {
+                it_j->second = NAN; continue;
+            }
+            it_j->second /= it_ctrl->second;
+            if (std::isnan(max_ratio) || (it_j->second > max_ratio && it_j->first!=refSeq)) 
+                max_ratio = it_j->second;
+        }
+    }
+    
+    return max_ratio;
 }

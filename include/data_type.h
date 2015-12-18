@@ -258,10 +258,12 @@ inline BaseFreq Pileup2BaseFreq (const Pileup & obj_Pileup) {
     return obj_BaseFreq;
 }
 
-// encode and decode DNA sequences
-//int encodeDNA() {
-    
-//}
+// print pair 
+template<class T>
+inline ostream & operator << (ostream & os, pair<T,T> & x) {
+    os << x.first << ',' << x.second;
+    return os;
+}
 
 #endif /* DATA_TYPE_H */
 
