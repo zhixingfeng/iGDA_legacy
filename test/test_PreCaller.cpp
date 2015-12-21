@@ -101,7 +101,7 @@ TEST_CASE("Test PreCaller calStat()", "[PreCaller]") {
 }
 
 
-TEST_CASE("test PreCallerMultiple::callVar()","[hide]") {
+TEST_CASE("test PreCallerMultiple::callVar()") {
     PreCallerMultiple obj_PreCallerMultiple;
     
     PileupParserGDA obj_PileupParserGDA;
@@ -120,7 +120,7 @@ TEST_CASE("test PreCallerMultiple::callVar()","[hide]") {
     obj_PreCallerMultiple.callVar(1, 1, 1, 1);
 }
 
-TEST_CASE("test PreCallerMultiple::calCondProb()","[PreCallerMultiple]") {
+TEST_CASE("test PreCallerMultiple::calCondProb()","[PreCallerMultiple][hide]") {
     PreCallerMultiple obj_PreCallerMultiple;
     
     PileupParserGDA obj_PileupParserGDA;
@@ -143,7 +143,7 @@ TEST_CASE("test PreCallerMultiple::calCondProb()","[PreCallerMultiple]") {
     
     
     // test larger pileupfile 
-    /*obj_PreCallerMultiple.setPileupfile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
+    obj_PreCallerMultiple.setPileupfile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
     obj_PreCallerMultiple.setReadLen(10000);
     obj_PreCallerMultiple.calCondProb("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.cprob");
     
@@ -152,7 +152,7 @@ TEST_CASE("test PreCallerMultiple::calCondProb()","[PreCallerMultiple]") {
     
     REQUIRE(myWrapper->getHashFromFile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.cprob.sorted")==
             myWrapper->getHashFromFile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam_readlen_1000.cprob.sorted") );
-    */
+    
     delete myWrapper;
 }
 
