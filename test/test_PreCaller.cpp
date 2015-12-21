@@ -101,7 +101,7 @@ TEST_CASE("Test PreCaller calStat()", "[PreCaller]") {
 }
 
 
-TEST_CASE("test PreCallerMultiple::callVar()") {
+TEST_CASE("test PreCallerMultiple::callVar()","[hide]") {
     PreCallerMultiple obj_PreCallerMultiple;
     
     PileupParserGDA obj_PileupParserGDA;
@@ -120,7 +120,7 @@ TEST_CASE("test PreCallerMultiple::callVar()") {
     obj_PreCallerMultiple.callVar(1, 1, 1, 1);
 }
 
-TEST_CASE("test PreCallerMultiple::calCondProb()","[PreCallerMultiple][hide]") {
+TEST_CASE("test PreCallerMultiple::calCondProb()","[PreCallerMultiple]") {
     PreCallerMultiple obj_PreCallerMultiple;
     
     PileupParserGDA obj_PileupParserGDA;
@@ -143,7 +143,7 @@ TEST_CASE("test PreCallerMultiple::calCondProb()","[PreCallerMultiple][hide]") {
     
     
     // test larger pileupfile 
-    obj_PreCallerMultiple.setPileupfile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
+    /*obj_PreCallerMultiple.setPileupfile("./data/mixed_MSSA_78_ratio_0.05_B_1.bam.pileup");
     obj_PreCallerMultiple.setReadLen(10000);
     obj_PreCallerMultiple.calCondProb("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.cprob");
     
@@ -152,7 +152,7 @@ TEST_CASE("test PreCallerMultiple::calCondProb()","[PreCallerMultiple][hide]") {
     
     REQUIRE(myWrapper->getHashFromFile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam.cprob.sorted")==
             myWrapper->getHashFromFile("./results/mixed_MSSA_78_ratio_0.05_B_1.bam_readlen_1000.cprob.sorted") );
-    
+    */
     delete myWrapper;
 }
 
@@ -171,7 +171,15 @@ TEST_CASE("test PreCallerMultiple::readCondProb()") {
         obj_PreCallerMultiple.readCondProb(fs_cprobfile, refID, locus_l, locus_r, refSeq, mcvg, cur_cprob);
         if (fs_cprobfile.eof()) break;
         fs_outfile << refID << '\t' << locus_l << '\t' << locus_r << '\t' << cur_cprob.cvg << '\t';
-        fs_outfile << refSeq << '\t' << mcvg << '\t' << cur_cprob << endl;
+        fs_outfile << refSeq << '\t' << mcvg << '\t' << cur_cprob << '\t';
+        if (cur_cprob.freq_m.size() >0)
+            fs_outfile << cur_cprob.freq_m << '\t';
+        else
+            fs_outfile << "NA" << '\t';
+        if (cur_cprob.freq_i.size() >0)
+            fs_outfile << cur_cprob.freq_i << endl;
+        else
+            fs_outfile << "NA" << endl;
     }
     fs_cprobfile.close();
     fs_outfile.close();

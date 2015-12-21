@@ -24,14 +24,14 @@ void JointProb::calProb() {
     freq2prob(this->prob_ii_rev);
 }
 void JointProb::calCondProb() {
-    jprob2cprob(this->prob_mm);
+    jprob2cprob(this->prob_mm, &this->freq_m);
     jprob2cprob(this->prob_mi);
-    jprob2cprob(this->prob_im);
+    jprob2cprob(this->prob_im, &this->freq_i);
     jprob2cprob(this->prob_ii);
     
-    jprob2cprob(this->prob_mm_rev);
+    jprob2cprob(this->prob_mm_rev, &this->freq_m_rev);
     jprob2cprob(this->prob_mi_rev);
-    jprob2cprob(this->prob_im_rev);
+    jprob2cprob(this->prob_im_rev, &this->freq_i_rev);
     jprob2cprob(this->prob_ii_rev);
 }
 
@@ -43,7 +43,7 @@ void JointProb::freq2prob(map<string,map<string,double> >& prob){
             it_j->second /= this->cvg;
 }
 
-void JointProb::jprob2cprob(map<string,map<string,double> >& prob) {
+void JointProb::jprob2cprob(map<string,map<string,double> >& prob, map<string, double> * mfreq) {
     map<string, map<string, double> >::iterator it_i;
     map<string, double>::iterator it_j;
     for (it_i=prob.begin(); it_i!=prob.end(); ++it_i) {
@@ -52,6 +52,8 @@ void JointProb::jprob2cprob(map<string,map<string,double> >& prob) {
             cur_sum += it_j->second;
         for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); ++it_j)
             it_j->second /= cur_sum;
+        if (mfreq != NULL)
+            (*mfreq)[it_i->first] = cur_sum; 
     }
 }
 
@@ -119,6 +121,8 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
             fs_ratiofile << prob_ctrl_ins << endl;
         else
             fs_ratiofile << "NA" << endl;
+        
+        
     }
     
     fs_cprobfile.close();
@@ -244,8 +248,17 @@ void PreCallerMultiple::count(vector<BaseMap> &IDmap_ins, vector<BaseMap>& IDmap
     // print joint probability 
     fs_cprobfile << pu_x.refID << '\t' << pu_x.locus << '\t' << pu_y.locus << '\t' << cur_cprob.cvg << '\t';
     fs_cprobfile << pu_x.refSeq << '\t' << pu_x.cvg << '\t';
-    fs_cprobfile << cur_cprob << endl;
+    fs_cprobfile << cur_cprob << '\t';
+    if (cur_cprob.freq_m.size() >0)
+        fs_cprobfile << cur_cprob.freq_m << '\t';
+    else
+        fs_cprobfile << "NA" << '\t';
+    if (cur_cprob.freq_i.size() >0)
+        fs_cprobfile << cur_cprob.freq_i << endl;
+    else
+        fs_cprobfile << "NA" << endl;
     
+                
     fs_cprobfile << pu_y.refID << '\t' << pu_y.locus << '\t' << pu_x.locus << '\t' << cur_cprob.cvg << '\t';
     fs_cprobfile << pu_y.refSeq << '\t' << pu_y.cvg << '\t';
     if (cur_cprob.prob_mm_rev.size() > 0)
@@ -261,10 +274,18 @@ void PreCallerMultiple::count(vector<BaseMap> &IDmap_ins, vector<BaseMap>& IDmap
     else
         fs_cprobfile << "NA" << '\t';
     if (cur_cprob.prob_ii_rev.size() > 0)
-        fs_cprobfile << cur_cprob.prob_ii_rev << endl;
+        fs_cprobfile << cur_cprob.prob_ii_rev << '\t';
+    else
+        fs_cprobfile << "NA" << '\t';
+    
+    if (cur_cprob.freq_m_rev.size() >0)
+        fs_cprobfile << cur_cprob.freq_m_rev << '\t';
+    else
+        fs_cprobfile << "NA" << '\t';
+    if (cur_cprob.freq_i_rev.size() >0)
+        fs_cprobfile << cur_cprob.freq_i_rev << endl;
     else
         fs_cprobfile << "NA" << endl;
-    
 }
 
 void PreCallerMultiple::setIDmap(vector<BaseMap> &IDmap_ins, vector<BaseMap>& IDmap, Pileup& pu) {
@@ -295,8 +316,8 @@ void PreCallerMultiple::readCondProb(ifstream& fs_cprobfile, int& refID, int& lo
     if (fs_cprobfile.eof()) return;
     
     vector<string> buf_list = split(buf,'\t');
-    if (buf_list.size() != 10)
-            throw runtime_error("Error in PreCallerMultiple::readCondProb(): incorrect format, buf size is not 10.");
+    if (buf_list.size() != 12)
+            throw runtime_error("Error in PreCallerMultiple::readCondProb(): incorrect format, buf size is not 12.");
         
     refID = atoi(buf_list[0].c_str());
     locus_l = atoi(buf_list[1].c_str());
@@ -309,6 +330,9 @@ void PreCallerMultiple::readCondProb(ifstream& fs_cprobfile, int& refID, int& lo
     this->parseCondProb(cur_cprob.prob_mi, buf_list[7]);
     this->parseCondProb(cur_cprob.prob_im, buf_list[8]);
     this->parseCondProb(cur_cprob.prob_ii, buf_list[9]);
+    
+    this->parseMargProb(cur_cprob.freq_m, buf_list[10]);
+    this->parseMargProb(cur_cprob.freq_i, buf_list[11]);
 }
 
 void PreCallerMultiple::parseCondProb(map<string,map<string,double> >& prob, string& str) {
@@ -323,7 +347,17 @@ void PreCallerMultiple::parseCondProb(map<string,map<string,double> >& prob, str
             throw runtime_error("Error in PreCallerMultiple::parseCondProb(): str_2 size is not 2");
         prob[str_2[0]][str_2[1]] = atof(str_1[1].c_str());
     }
-    
+}
+
+void PreCallerMultiple::parseMargProb(map<string,double>& prob, string& str) {
+    if (str == "NA") return;
+    vector<string> str_list = split(str, ',');
+    for (int i=0; i<(int)str_list.size(); i++) {
+        vector<string> str_1 = split(str_list[i], ':');
+        if (str_1.size() != 2)
+            throw runtime_error("Error in PreCallerMultiple::parseMargProb(): str_1 size is not 2");
+        prob[str_1[0]] = atof(str_1[1].c_str());
+    }
 }
 
 double PreCallerMultiple::calProbRatio(map<string,map<string,double> >& prob, map<string,double> & prob_ctrl, string &refSeq) {

@@ -40,11 +40,17 @@ struct JointProb {
     map<string, map<string, double> > prob_im_rev;
     map<string, map<string, double> > prob_ii_rev;
     
+    map<string, double> freq_m;
+    map<string, double> freq_i;
+    
+    map<string, double> freq_m_rev;
+    map<string, double> freq_i_rev;
+    
     int cvg;
     
 private:
     void freq2prob(map<string, map<string, double> > &prob);
-    void jprob2cprob(map<string, map<string, double> > &prob);
+    void jprob2cprob(map<string, map<string, double> > &prob, map<string, double> * mfreq = NULL);
 };
 
 // define class
@@ -68,6 +74,7 @@ private:
     void count(vector<BaseMap> &IDmap_ins, vector<BaseMap> &IDmap, Pileup& pu_x, Pileup & pu_y, ofstream &fs_cprobfile);
     void setIDmap(vector<BaseMap> &IDmap_ins,vector<BaseMap> &IDmap, Pileup & pu);
     void parseCondProb(map<string, map<string, double> > &prob, string & str);
+    void parseMargProb(map<string, double> & prob, string &str);
     
     double calProbRatio(map<string,map<string,double> >& prob, map<string,double> & prob_ctrl, string &refSeq);
 

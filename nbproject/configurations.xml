@@ -148,7 +148,12 @@
         <ccTool>
           <standard>8</standard>
           <commandlineTool>g++</commandlineTool>
-          <commandLine>-I ./src/tool/ -I ./src/tool/hashlibpp -D_UNITTEST</commandLine>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>src/tool</pElem>
+            <pElem>src/tool/hashlibpp</pElem>
+          </incDir>
+          <commandLine>-D_UNITTEST</commandLine>
         </ccTool>
       </compileType>
       <item path="include/catch.hpp" ex="false" tool="3" flavor2="0">
