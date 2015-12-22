@@ -105,13 +105,17 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
         map<string, double> prob_ctrl = ptr_ErrorModeler->searchErrorContextEffectMean(refID, locus_l, len_l, len_r);
         map<string, double> prob_ctrl_ins = ptr_ErrorModeler->searchErrorContextEffectMeanIns(refID, locus_l, len_l, len_r);
         
-        double max_prob_mm = this->calProbRatio(cur_cprob.prob_mm, prob_ctrl, refSeq);
-        double max_prob_im = this->calProbRatio(cur_cprob.prob_im, prob_ctrl, refSeq);
-        double max_prob_mi = this->calProbRatio(cur_cprob.prob_mi, prob_ctrl_ins, refSeq);
-        double max_prob_ii = this->calProbRatio(cur_cprob.prob_ii, prob_ctrl_ins, refSeq);
+        //double max_prob_mm = this->calProbRatio(cur_cprob.prob_mm, prob_ctrl, refSeq);
+        //double max_prob_im = this->calProbRatio(cur_cprob.prob_im, prob_ctrl, refSeq);
+        //double max_prob_mi = this->calProbRatio(cur_cprob.prob_mi, prob_ctrl_ins, refSeq);
+        //double max_prob_ii = this->calProbRatio(cur_cprob.prob_ii, prob_ctrl_ins, refSeq);
+        double stat_mm = this->calPvalue(cur_cprob.prob_mm, prob_ctrl, cur_cprob.freq_m, refSeq);
+        double stat_im = this->calPvalue(cur_cprob.prob_im, prob_ctrl, cur_cprob.freq_i, refSeq);
+        double stat_mi = this->calPvalue(cur_cprob.prob_mi, prob_ctrl_ins, cur_cprob.freq_m, refSeq);
+        //double stat_ii = this->calPvalue(cur_cprob.prob_ii, prob_ctrl_ins, cur_cprob.freq_i, refSeq);
         
         fs_ratiofile << refID << '\t' << locus_l << '\t' << locus_r << '\t' << cur_cprob.cvg << '\t' << refSeq << '\t' << mcvg << '\t';
-        fs_ratiofile << max_prob_mm << '\t' << max_prob_im << '\t' << max_prob_mi << '\t' << max_prob_ii << '\t';
+        //fs_ratiofile << stat_mm << '\t' << stat_im << '\t' << stat_mi << '\t' << stat_ii << '\t';
         fs_ratiofile << cur_cprob << '\t' << cur_context << '\t';
         if (prob_ctrl.size() > 0)
             fs_ratiofile << prob_ctrl << '\t';
@@ -382,4 +386,38 @@ double PreCallerMultiple::calProbRatio(map<string,map<string,double> >& prob, ma
     }
     
     return max_ratio;
+}
+
+double PreCallerMultiple::calPvalue(map<string,map<string,double> >& prob, map<string,double>& prob_ctrl, map<string,double> mfreq, string& refSeq) {
+    double min_pvalue = NAN;
+    map<string,map<string,double> >::iterator it_i;
+    map<string,double>::iterator it_j;
+    map<string,double>::iterator it_ctrl;
+    map<string,double>::iterator it_m;
+    
+    for (it_i=prob.begin(); it_i!=prob.end(); ++it_i) {
+        it_m = mfreq.find(it_i->first);
+        if (it_m == mfreq.end()){
+            cerr << prob << endl << mfreq << endl;
+            throw runtime_error("Error in PreCallerMultiple::calPvalue(): it_m == mfreq.end().");
+        }
+        if (it_m->second < EPS){
+            cerr << prob << endl << mfreq << endl;
+            throw runtime_error("Error in PreCallerMultiple::calPvalue(): it_m->second < EPS.");
+        }
+        for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); ++it_j) {
+            it_ctrl = prob_ctrl.find(it_j->first);
+            
+            /*if (it_ctrl == prob_ctrl.end()) {
+                it_j->second = NAN; continue;
+            }
+            if (it_ctrl->second < EPS) {
+                it_j->second = NAN; continue;
+            }
+            it_j->second = 1 - binomial_cdf(it_j->second*it_m->second, it_m->second, it_ctrl->second);
+            if (std::isnan(min_pvalue) || (it_j->second < min_pvalue && it_j->first!=refSeq)) 
+                min_pvalue = it_j->second;*/
+        }
+    }
+    return min_pvalue;
 }
