@@ -6,7 +6,7 @@
 
 #include "../include/catch.hpp"
 #include "../include/headers.h"
-
+#include "../src/tool/tool.h"
 
 TEST_CASE ("compare iteration of map vs vector","[hide]") {
     cout << "compare iteration of map vs vector:" << endl;
@@ -232,4 +232,24 @@ TEST_CASE("deque vs vector access speed") {
 }
 
 
+TEST_CASE("test performance of beta_cdf of PROB") {
+    int B = 100000;
+    int t_s,t_e;
+    t_s = clock();
+    for (int i=0; i<B; i++)
+        double rl = beta_cdf(0.5, 10000, 500);
+    t_e = clock();
+    cout << "call beta_cdf: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+}
 
+TEST_CASE("test performance of binomial_cdf of PROB") {
+    int B = 100000;
+    int t_s,t_e;
+    t_s = clock();
+    for (int i=0; i<B; i++)
+        double rl = binomial_cdf(10, 10000, 0.01);
+    t_e = clock();
+    cout << "call binomial_cdf: " << (t_e - t_s)/double(CLOCKS_PER_SEC)*1000 << " ms" << endl;
+    
+}

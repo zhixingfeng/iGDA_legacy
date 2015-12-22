@@ -112,10 +112,10 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
         double stat_mm = this->calPvalue(cur_cprob.prob_mm, prob_ctrl, cur_cprob.freq_m, refSeq);
         double stat_im = this->calPvalue(cur_cprob.prob_im, prob_ctrl, cur_cprob.freq_i, refSeq);
         double stat_mi = this->calPvalue(cur_cprob.prob_mi, prob_ctrl_ins, cur_cprob.freq_m, refSeq);
-        //double stat_ii = this->calPvalue(cur_cprob.prob_ii, prob_ctrl_ins, cur_cprob.freq_i, refSeq);
+        double stat_ii = this->calPvalue(cur_cprob.prob_ii, prob_ctrl_ins, cur_cprob.freq_i, refSeq);
         
         fs_ratiofile << refID << '\t' << locus_l << '\t' << locus_r << '\t' << cur_cprob.cvg << '\t' << refSeq << '\t' << mcvg << '\t';
-        //fs_ratiofile << stat_mm << '\t' << stat_im << '\t' << stat_mi << '\t' << stat_ii << '\t';
+        fs_ratiofile << stat_mm << '\t' << stat_im << '\t' << stat_mi << '\t' << stat_ii << '\t';
         fs_ratiofile << cur_cprob << '\t' << cur_context << '\t';
         if (prob_ctrl.size() > 0)
             fs_ratiofile << prob_ctrl << '\t';
@@ -225,7 +225,7 @@ void PreCallerMultiple::count(vector<BaseMap> &IDmap_ins, vector<BaseMap>& IDmap
         if (IDmap_ins[pu_y.readID[i]].refID != pu_y.refID) continue;
         if (IDmap_ins[pu_y.readID[i]].locus != pu_x.locus) continue;
         cur_cprob.prob_mi[NtSeq2Str(pu_y.readSeq[i])][IDmap_ins[pu_y.readID[i]].seq]++;
-        cur_cprob.prob_mi_rev[IDmap_ins[pu_y.readID[i]].seq][NtSeq2Str(pu_y.readSeq[i])]++;
+        cur_cprob.prob_im_rev[IDmap_ins[pu_y.readID[i]].seq][NtSeq2Str(pu_y.readSeq[i])]++;
     }
     
     // insertion of pu_y vs match of pu_x
@@ -233,7 +233,7 @@ void PreCallerMultiple::count(vector<BaseMap> &IDmap_ins, vector<BaseMap>& IDmap
         if (IDmap[pu_y.readID_ins[i]].refID != pu_y.refID) continue;
         if (IDmap[pu_y.readID_ins[i]].locus != pu_x.locus) continue;
         cur_cprob.prob_im[NtSeq2Str(pu_y.readSeq_ins[i])][IDmap[pu_y.readID_ins[i]].seq]++;
-        cur_cprob.prob_im_rev[IDmap[pu_y.readID_ins[i]].seq][NtSeq2Str(pu_y.readSeq_ins[i])]++;
+        cur_cprob.prob_mi_rev[IDmap[pu_y.readID_ins[i]].seq][NtSeq2Str(pu_y.readSeq_ins[i])]++;
     }
     
     // match of pu_y vs match of pu_x
@@ -408,7 +408,7 @@ double PreCallerMultiple::calPvalue(map<string,map<string,double> >& prob, map<s
         for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); ++it_j) {
             it_ctrl = prob_ctrl.find(it_j->first);
             
-            /*if (it_ctrl == prob_ctrl.end()) {
+            if (it_ctrl == prob_ctrl.end()) {
                 it_j->second = NAN; continue;
             }
             if (it_ctrl->second < EPS) {
@@ -416,7 +416,7 @@ double PreCallerMultiple::calPvalue(map<string,map<string,double> >& prob, map<s
             }
             it_j->second = 1 - binomial_cdf(it_j->second*it_m->second, it_m->second, it_ctrl->second);
             if (std::isnan(min_pvalue) || (it_j->second < min_pvalue && it_j->first!=refSeq)) 
-                min_pvalue = it_j->second;*/
+                min_pvalue = it_j->second;
         }
     }
     return min_pvalue;

@@ -78,6 +78,10 @@
             <itemPath>src/tool/hashlibpp/hl_wrapperfactory.cpp</itemPath>
             <itemPath>src/tool/hashlibpp/hl_wrapperfactory.h</itemPath>
           </logicalFolder>
+          <logicalFolder name="prob" displayName="prob" projectFiles="true">
+            <itemPath>src/tool/prob/prob.cpp</itemPath>
+            <itemPath>src/tool/prob/prob.hpp</itemPath>
+          </logicalFolder>
           <logicalFolder name="tclap" displayName="tclap" projectFiles="true">
             <itemPath>src/tool/tclap/Arg.h</itemPath>
             <itemPath>src/tool/tclap/ArgException.h</itemPath>
@@ -325,6 +329,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/tool/prob/prob.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tool/prob/prob.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/tool/tclap/Arg.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -589,6 +597,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/tool/prob/prob.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/tool/prob/prob.hpp" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/tool/tclap/Arg.h" ex="false" tool="3" flavor2="0">
       </item>

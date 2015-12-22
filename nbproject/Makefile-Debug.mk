@@ -54,6 +54,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/tool/hashlibpp/hl_sha384wrapper.o \
 	${OBJECTDIR}/src/tool/hashlibpp/hl_sha512wrapper.o \
 	${OBJECTDIR}/src/tool/hashlibpp/hl_wrapperfactory.o \
+	${OBJECTDIR}/src/tool/prob/prob.o \
 	${OBJECTDIR}/test/test_ErrorModeler.o \
 	${OBJECTDIR}/test/test_PileupParser.o \
 	${OBJECTDIR}/test/test_PreCaller.o \
@@ -182,6 +183,11 @@ ${OBJECTDIR}/src/tool/hashlibpp/hl_wrapperfactory.o: src/tool/hashlibpp/hl_wrapp
 	${MKDIR} -p ${OBJECTDIR}/src/tool/hashlibpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Iinclude -Isrc/tool -Isrc/tool/hashlibpp -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tool/hashlibpp/hl_wrapperfactory.o src/tool/hashlibpp/hl_wrapperfactory.cpp
+
+${OBJECTDIR}/src/tool/prob/prob.o: src/tool/prob/prob.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src/tool/prob
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -Iinclude -Isrc/tool -Isrc/tool/hashlibpp -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/src/tool/prob/prob.o src/tool/prob/prob.cpp
 
 ${OBJECTDIR}/test/test_ErrorModeler.o: test/test_ErrorModeler.cpp 
 	${MKDIR} -p ${OBJECTDIR}/test
