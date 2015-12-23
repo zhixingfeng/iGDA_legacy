@@ -116,10 +116,6 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
         map<string, double> prob_ctrl_ins = ptr_ErrorModeler->searchErrorContextEffectMeanIns(refID, locus_l, len_l, len_r);
         
         // calculate statitics
-        //double stat_mm = this->calPvalue(cur_cprob.prob_mm, prob_ctrl, cur_cprob.freq_m, refSeq);
-        //double stat_im = this->calPvalue(cur_cprob.prob_im, prob_ctrl, cur_cprob.freq_i, refSeq);
-        //double stat_mi = this->calPvalue(cur_cprob.prob_mi, prob_ctrl_ins, cur_cprob.freq_m, refSeq);
-        //double stat_ii = this->calPvalue(cur_cprob.prob_ii, prob_ctrl_ins, cur_cprob.freq_i, refSeq);
         double stat_mm = this->calLR_log(cur_cprob.prob_mm, prob_ctrl, cur_cprob.freq_m, refSeq);
         double stat_im = this->calLR_log(cur_cprob.prob_im, prob_ctrl, cur_cprob.freq_i, refSeq);
         double stat_mi = this->calLR_log(cur_cprob.prob_mi, prob_ctrl_ins, cur_cprob.freq_m, refSeq);
@@ -160,6 +156,7 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
     fs_statfile.close();
     fs_varfile.close();
 }
+
 void PreCallerMultiple::calCondProb(string cprobfile) {
     if (pileupfile == "")
         throw runtime_error("Error in PreCallerMultiple::calCondProb: pileupfile is empty.");

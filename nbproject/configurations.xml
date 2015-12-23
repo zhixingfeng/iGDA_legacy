@@ -157,7 +157,6 @@
             <pElem>src/tool</pElem>
             <pElem>src/tool/hashlibpp</pElem>
           </incDir>
-          <commandLine>-D_UNITTEST</commandLine>
         </ccTool>
       </compileType>
       <item path="include/catch.hpp" ex="false" tool="3" flavor2="0">
@@ -418,8 +417,13 @@
           <developmentMode>5</developmentMode>
         </cTool>
         <ccTool>
-          <developmentMode>5</developmentMode>
+          <developmentMode>6</developmentMode>
           <standard>8</standard>
+          <incDir>
+            <pElem>include</pElem>
+            <pElem>src/tool</pElem>
+            <pElem>src/tool/hashlibpp</pElem>
+          </incDir>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

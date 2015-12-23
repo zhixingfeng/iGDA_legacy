@@ -73,10 +73,10 @@ int main(int argc, char* argv[]) {
             try {
                 CmdLine cmd("iGDA", ' ', "0.1");
                 ValueArg<int> mArg("m","method","method of pre-calling. 0: single locus, 1: multiple loci", false , 1, "method", cmd);
-                ValueArg<int> vArg("v","cvg","minimum coverage", false , 1, "cvg", cmd);
-                ValueArg<int> cArg("c","cvg_ctrl","minimum coverage in control data", false , 1, "cvg_ctrl", cmd);
-                ValueArg<int> lArg("l","left_len","length of left side context", false , 1, "left_len", cmd);
-                ValueArg<int> rArg("r","right_len","length of right side context", false , 1, "right_len", cmd);
+                ValueArg<int> vArg("v","cvg","minimum coverage, default is 1", false , 1, "cvg", cmd);
+                ValueArg<int> cArg("c","cvg_ctrl","minimum coverage in control data, default is 1", false , 1, "cvg_ctrl", cmd);
+                ValueArg<int> lArg("l","left_len","length of left side context, default is 1", false , 1, "left_len", cmd);
+                ValueArg<int> rArg("r","right_len","length of right side context, default is 1", false , 1, "right_len", cmd);
                 
                 
                 UnlabeledValueArg<string> pileupfileArg("pileupfile", "path of pileup file", true, "", "pileupfile", cmd);
