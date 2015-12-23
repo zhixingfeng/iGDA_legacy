@@ -101,7 +101,7 @@ TEST_CASE("Test PreCaller calStat()", "[PreCaller]") {
 }
 
 
-TEST_CASE("test PreCallerMultiple::callVar()","[hide]") {
+TEST_CASE("test PreCallerMultiple::callVar()") {
     PreCallerMultiple obj_PreCallerMultiple;
     
     PileupParserGDA obj_PileupParserGDA;

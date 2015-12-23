@@ -78,6 +78,7 @@ private:
     
     double calProbRatio(map<string,map<string,double> >& prob, map<string,double> & prob_ctrl, string &refSeq);
     double calPvalue(map<string,map<string,double> >& prob, map<string,double> & prob_ctrl, map<string, double> mfreq, string &refSeq);
+    double calLR_log(map<string,map<string,double> >& prob, map<string,double> & prob_ctrl, map<string, double> mfreq, string &refSeq);
     double calBF(map<string,map<string,double> >& prob, map<string,double> & prob_ctrl, map<string, double> mfreq, string &refSeq);
     
 

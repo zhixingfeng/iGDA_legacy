@@ -96,7 +96,7 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
     int refID, locus_l, locus_r, mcvg;
     string refSeq;
     
-    double cur_stat = 1; double cur_stat_ins = 1;
+    double cur_stat = 0; double cur_stat_ins = 0;
     int prev_refID = -1; int prev_locus = -1;
     
     while(true) {
@@ -116,10 +116,14 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
         map<string, double> prob_ctrl_ins = ptr_ErrorModeler->searchErrorContextEffectMeanIns(refID, locus_l, len_l, len_r);
         
         // calculate statitics
-        double stat_mm = this->calPvalue(cur_cprob.prob_mm, prob_ctrl, cur_cprob.freq_m, refSeq);
-        double stat_im = this->calPvalue(cur_cprob.prob_im, prob_ctrl, cur_cprob.freq_i, refSeq);
-        double stat_mi = this->calPvalue(cur_cprob.prob_mi, prob_ctrl_ins, cur_cprob.freq_m, refSeq);
-        double stat_ii = this->calPvalue(cur_cprob.prob_ii, prob_ctrl_ins, cur_cprob.freq_i, refSeq);
+        //double stat_mm = this->calPvalue(cur_cprob.prob_mm, prob_ctrl, cur_cprob.freq_m, refSeq);
+        //double stat_im = this->calPvalue(cur_cprob.prob_im, prob_ctrl, cur_cprob.freq_i, refSeq);
+        //double stat_mi = this->calPvalue(cur_cprob.prob_mi, prob_ctrl_ins, cur_cprob.freq_m, refSeq);
+        //double stat_ii = this->calPvalue(cur_cprob.prob_ii, prob_ctrl_ins, cur_cprob.freq_i, refSeq);
+        double stat_mm = this->calLR_log(cur_cprob.prob_mm, prob_ctrl, cur_cprob.freq_m, refSeq);
+        double stat_im = this->calLR_log(cur_cprob.prob_im, prob_ctrl, cur_cprob.freq_i, refSeq);
+        double stat_mi = this->calLR_log(cur_cprob.prob_mi, prob_ctrl_ins, cur_cprob.freq_m, refSeq);
+        double stat_ii = this->calLR_log(cur_cprob.prob_ii, prob_ctrl_ins, cur_cprob.freq_i, refSeq);
         
         // record pairwise statistics
         fs_statfile << refID << '\t' << locus_l << '\t' << locus_r << '\t' << cur_cprob.cvg << '\t' << refSeq << '\t' << mcvg << '\t';
@@ -138,14 +142,14 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
         if (refID != prev_refID || locus_l != prev_locus){
             if (prev_refID != -1 && prev_locus != -1)
                 fs_varfile << prev_refID << '\t' << prev_locus << '\t' << cur_stat << '\t' << cur_stat_ins << endl;
-            cur_stat = 1;
-            cur_stat_ins = 1;
+            cur_stat = 0;
+            cur_stat_ins = 0;
         }else {
             if (!std::isnan(stat_mm))
-                if (stat_mm < cur_stat) 
+                if (stat_mm > cur_stat) 
                     cur_stat = stat_mm;
             if (!std::isnan(stat_mi))
-                if (stat_mi < cur_stat_ins)
+                if (stat_mi > cur_stat_ins)
                     cur_stat_ins = stat_mi;
         }
         prev_refID = refID;
@@ -437,7 +441,6 @@ double PreCallerMultiple::calPvalue(map<string,map<string,double> >& prob, map<s
             if (it_ctrl->second < EPS) {
                 it_j->second = NAN; continue;
             }
-            //it_j->second = 1 - binomial_cdf(int(it_j->second*it_m->second+0.5), it_m->second, it_ctrl->second) + binomial_pdf(int(it_j->second*it_m->second+0.5), it_m->second, it_ctrl->second);
             double x = int(it_j->second*it_m->second+0.5);
             double n =  it_m->second;
             double p0 = it_ctrl->second;
@@ -448,6 +451,7 @@ double PreCallerMultiple::calPvalue(map<string,map<string,double> >& prob, map<s
                 throw runtime_error("negative prob in cdf");
             }
             double d_dens = binomial_pdf(x, n, p0);
+            d_dens = d_dens > EPS ? d_dens : EPS;
             if (d_dens < 0 ){
                 cerr << "warning negative prob in pdf: " << d_dens << '\t' << x << '\t' << n << '\t' << p0 << endl;
                 throw runtime_error("negative prob in pdf");
@@ -459,6 +463,63 @@ double PreCallerMultiple::calPvalue(map<string,map<string,double> >& prob, map<s
         }
     }
     return min_pvalue;
+}
+
+double PreCallerMultiple::calLR_log(map<string,map<string,double> >& prob, map<string,double>& prob_ctrl, map<string,double> mfreq, string& refSeq) {
+    double max_LR_log = 0;
+    map<string,map<string,double> >::iterator it_i;
+    map<string,double>::iterator it_j;
+    map<string,double>::iterator it_ctrl;
+    map<string,double>::iterator it_m;
+    
+    for (it_i=prob.begin(); it_i!=prob.end(); ++it_i) {
+        // get marginal distribution of reference locus
+        it_m = mfreq.find(it_i->first);
+        if (it_m == mfreq.end()){
+            cerr << prob << endl << mfreq << endl;
+            throw runtime_error("Error in PreCallerMultiple::calPvalue(): it_m == mfreq.end().");
+        }
+        if (it_m->second < EPS){
+            cerr << prob << endl << mfreq << endl;
+            throw runtime_error("Error in PreCallerMultiple::calPvalue(): it_m->second < EPS.");
+        }
+        
+        // calculate log-Lieklihood ratio of focal locus
+        for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); ++it_j) {
+            // get context-matched control
+            it_ctrl = prob_ctrl.find(it_j->first);
+            
+            if (it_ctrl == prob_ctrl.end()) {
+                it_j->second = NAN; continue;
+            }
+            if (it_ctrl->second < EPS) {
+                it_j->second = NAN; continue;
+            }
+            
+            // calculate log-likelihood ratio 
+            double x = int(it_j->second*it_m->second+0.5);
+            double n = it_m->second;
+            double p0 = it_ctrl->second;
+            double p1 = it_j->second;
+            
+            if (x > n || x < 0)
+                throw runtime_error("Error in PreCallerMultiple::calLR_log(): x > n || x < 0");
+            if (p0 < 0 || p0 > 1)
+                throw runtime_error("Error in PreCallerMultiple::calLR_log(): p0 < 0 || p0 > 1");
+            if (p1 < 0 || p1 > 1)
+                throw runtime_error("Error in PreCallerMultiple::calLR_log(): p1 < 0 || p1 > 1");
+            
+            if (p1 <= p0)
+                it_j->second = 0;
+            else
+                it_j->second = x* ( log(p1) - log(p0) ) + (n-x)* ( log(1 - p1) - log(1 - p0) );
+            
+            if (it_j->second > max_LR_log && it_j->first!=refSeq)
+                max_LR_log = it_j->second;
+        }
+    }
+    
+    return max_LR_log;
 }
  // no finished yet
 double PreCallerMultiple::calBF(map<string,map<string,double> >& prob, map<string,double>& prob_ctrl, map<string,double> mfreq, string& refSeq) {
@@ -494,3 +555,4 @@ double PreCallerMultiple::calBF(map<string,map<string,double> >& prob, map<strin
         }
     }
 }
+

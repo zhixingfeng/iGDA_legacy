@@ -45,6 +45,7 @@ TEST_CASE("Test incomplete beta function") {
 
 TEST_CASE("Test binomial_pdf") {
     cout << "binomial_pdf: " << binomial_pdf(15,117,0.0828139) << endl;
-    
+    cout << "binomial_pdf: " << binomial_pdf(55,117,0.5) << endl;
+    cout << "binomial_pdf: " << binomial_pdf(55,117,0.5) << endl;
 }
 
