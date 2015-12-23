@@ -26,8 +26,8 @@ void print_usage() {
     cout << "Usage: igda [mode]" << endl;
     cout << "[mode] is one of the following:" << endl << endl;
     cout << "train: train background model using known homogeneous data." << endl;
-    cout << "detect: detect low frequency variants" << endl;
-    cout << endl << "type igda [mode] to print usage of each mode.";
+    cout << "precall: detect low frequency variants" << endl;
+    cout << endl << "type igda [mode] to print usage of each mode." << endl;
 }
 
 void print_usage_train() {
