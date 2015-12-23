@@ -38,8 +38,13 @@ TEST_CASE ("Test EPS") {
 }
 
 
-// performance test
+TEST_CASE("Test incomplete beta function") {
+    //cout << "beta_cdf: " << 1 - beta_cdf(0.01, 2, 1) << endl;
+    
+}
 
-
-
+TEST_CASE("Test binomial_pdf") {
+    cout << "binomial_pdf: " << binomial_pdf(15,117,0.0828139) << endl;
+    
+}
 

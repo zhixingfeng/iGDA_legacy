@@ -81,8 +81,8 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
     if (ptr_ErrorModeler == NULL)
         throw runtime_error("Error in PreCallerMultiple::callVar: ptr_ErrorModeler is NULL.");
     
-    // calculate pairwise conditional probability ( use jprob* for function names and variables here for historical reason)
-    string cprobfile = outprefix + ".cprob";
+    // calculate pairwise conditional probability 
+    string cprobfile = this->outprefix + ".cprob";
     this->calCondProb(cprobfile);
     
     // get reference genome
@@ -90,48 +90,71 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
     ptr_ErrorModeler->getRefGenome();
     
     // scan cprobfile
-    ifstream fs_cprobfile; open_infile(fs_cprobfile, cprobfile+".sorted");
-    ofstream fs_ratiofile; open_outfile(fs_ratiofile, cprobfile+".sorted.ratio");
+    ifstream fs_cprobfile; open_infile(fs_cprobfile, cprobfile + ".sorted");
+    ofstream fs_statfile; open_outfile(fs_statfile, this->outprefix + ".stat");
+    ofstream fs_varfile; open_outfile(fs_varfile, this->outprefix + ".var");
     int refID, locus_l, locus_r, mcvg;
     string refSeq;
     
+    double cur_stat = 1; double cur_stat_ins = 1;
+    int prev_refID = -1; int prev_locus = -1;
+    
     while(true) {
+        // read conditional probability
         JointProb cur_cprob;
         this->readCondProb(fs_cprobfile, refID, locus_l, locus_r, refSeq, mcvg, cur_cprob);
-        if (fs_cprobfile.eof()) break;
+        if (fs_cprobfile.eof()) {
+            if (prev_refID != -1 && prev_locus != -1)
+                fs_varfile << prev_refID << '\t' << prev_locus << '\t' << cur_stat << '\t' << cur_stat_ins << endl;
+            break;
+        }
         
+        // get null distribution from context matched control data
         pair<string, string> cur_context = ptr_ErrorModeler->getLocalContext(refID, locus_l, len_l, len_r);
         int cvg_ctrl = ptr_ErrorModeler->searchErrorContextEffectCvg(refID, locus_l, len_l, len_r);
         map<string, double> prob_ctrl = ptr_ErrorModeler->searchErrorContextEffectMean(refID, locus_l, len_l, len_r);
         map<string, double> prob_ctrl_ins = ptr_ErrorModeler->searchErrorContextEffectMeanIns(refID, locus_l, len_l, len_r);
         
-        //double max_prob_mm = this->calProbRatio(cur_cprob.prob_mm, prob_ctrl, refSeq);
-        //double max_prob_im = this->calProbRatio(cur_cprob.prob_im, prob_ctrl, refSeq);
-        //double max_prob_mi = this->calProbRatio(cur_cprob.prob_mi, prob_ctrl_ins, refSeq);
-        //double max_prob_ii = this->calProbRatio(cur_cprob.prob_ii, prob_ctrl_ins, refSeq);
+        // calculate statitics
         double stat_mm = this->calPvalue(cur_cprob.prob_mm, prob_ctrl, cur_cprob.freq_m, refSeq);
         double stat_im = this->calPvalue(cur_cprob.prob_im, prob_ctrl, cur_cprob.freq_i, refSeq);
         double stat_mi = this->calPvalue(cur_cprob.prob_mi, prob_ctrl_ins, cur_cprob.freq_m, refSeq);
         double stat_ii = this->calPvalue(cur_cprob.prob_ii, prob_ctrl_ins, cur_cprob.freq_i, refSeq);
         
-        fs_ratiofile << refID << '\t' << locus_l << '\t' << locus_r << '\t' << cur_cprob.cvg << '\t' << refSeq << '\t' << mcvg << '\t';
-        fs_ratiofile << stat_mm << '\t' << stat_im << '\t' << stat_mi << '\t' << stat_ii << '\t';
-        fs_ratiofile << cur_cprob << '\t' << cur_context << '\t';
+        // record pairwise statistics
+        fs_statfile << refID << '\t' << locus_l << '\t' << locus_r << '\t' << cur_cprob.cvg << '\t' << refSeq << '\t' << mcvg << '\t';
+        fs_statfile << stat_mm << '\t' << stat_im << '\t' << stat_mi << '\t' << stat_ii << '\t';
+        fs_statfile << cur_cprob << '\t' << cur_context << '\t';
         if (prob_ctrl.size() > 0)
-            fs_ratiofile << prob_ctrl << '\t';
+            fs_statfile << prob_ctrl << '\t';
         else
-            fs_ratiofile << "NA" << '\t';
+            fs_statfile << "NA" << '\t';
         if (prob_ctrl_ins.size() > 0)
-            fs_ratiofile << prob_ctrl_ins << endl;
+            fs_statfile << prob_ctrl_ins << endl;
         else
-            fs_ratiofile << "NA" << endl;
+            fs_statfile << "NA" << endl;
         
-        
+        // calculate max stat for each locus
+        if (refID != prev_refID || locus_l != prev_locus){
+            if (prev_refID != -1 && prev_locus != -1)
+                fs_varfile << prev_refID << '\t' << prev_locus << '\t' << cur_stat << '\t' << cur_stat_ins << endl;
+            cur_stat = 1;
+            cur_stat_ins = 1;
+        }else {
+            if (!std::isnan(stat_mm))
+                if (stat_mm < cur_stat) 
+                    cur_stat = stat_mm;
+            if (!std::isnan(stat_mi))
+                if (stat_mi < cur_stat_ins)
+                    cur_stat_ins = stat_mi;
+        }
+        prev_refID = refID;
+        prev_locus = locus_l;
     }
     
     fs_cprobfile.close();
-    fs_ratiofile.close();
-   
+    fs_statfile.close();
+    fs_varfile.close();
 }
 void PreCallerMultiple::calCondProb(string cprobfile) {
     if (pileupfile == "")
@@ -389,7 +412,7 @@ double PreCallerMultiple::calProbRatio(map<string,map<string,double> >& prob, ma
 }
 
 double PreCallerMultiple::calPvalue(map<string,map<string,double> >& prob, map<string,double>& prob_ctrl, map<string,double> mfreq, string& refSeq) {
-    double min_pvalue = NAN;
+    double min_pvalue = 1;
     map<string,map<string,double> >::iterator it_i;
     map<string,double>::iterator it_j;
     map<string,double>::iterator it_ctrl;
@@ -414,10 +437,60 @@ double PreCallerMultiple::calPvalue(map<string,map<string,double> >& prob, map<s
             if (it_ctrl->second < EPS) {
                 it_j->second = NAN; continue;
             }
-            it_j->second = 1 - binomial_cdf(it_j->second*it_m->second, it_m->second, it_ctrl->second);
-            if (std::isnan(min_pvalue) || (it_j->second < min_pvalue && it_j->first!=refSeq)) 
+            //it_j->second = 1 - binomial_cdf(int(it_j->second*it_m->second+0.5), it_m->second, it_ctrl->second) + binomial_pdf(int(it_j->second*it_m->second+0.5), it_m->second, it_ctrl->second);
+            double x = int(it_j->second*it_m->second+0.5);
+            double n =  it_m->second;
+            double p0 = it_ctrl->second;
+            
+            it_j->second = 1 - binomial_cdf(x, n, p0);
+            if (it_j->second < 0 ){
+                cerr << "warning negative prob in cdf: " << it_j->second << '\t' << x << '\t' << n << '\t' << p0 << endl;
+                throw runtime_error("negative prob in cdf");
+            }
+            double d_dens = binomial_pdf(x, n, p0);
+            if (d_dens < 0 ){
+                cerr << "warning negative prob in pdf: " << d_dens << '\t' << x << '\t' << n << '\t' << p0 << endl;
+                throw runtime_error("negative prob in pdf");
+            }
+            it_j->second += d_dens;
+            
+            if (it_j->second < min_pvalue && it_j->first!=refSeq) 
                 min_pvalue = it_j->second;
         }
     }
     return min_pvalue;
+}
+ // no finished yet
+double PreCallerMultiple::calBF(map<string,map<string,double> >& prob, map<string,double>& prob_ctrl, map<string,double> mfreq, string& refSeq) {
+    double max_BF = 0;
+    map<string,map<string,double> >::iterator it_i;
+    map<string,double>::iterator it_j;
+    map<string,double>::iterator it_ctrl;
+    map<string,double>::iterator it_m;
+    
+    for (it_i=prob.begin(); it_i!=prob.end(); ++it_i) {
+        it_m = mfreq.find(it_i->first);
+        if (it_m == mfreq.end()){
+            cerr << prob << endl << mfreq << endl;
+            throw runtime_error("Error in PreCallerMultiple::calPvalue(): it_m == mfreq.end().");
+        }
+        if (it_m->second < EPS){
+            cerr << prob << endl << mfreq << endl;
+            throw runtime_error("Error in PreCallerMultiple::calPvalue(): it_m->second < EPS.");
+        }
+        for (it_j=it_i->second.begin(); it_j!=it_i->second.end(); ++it_j) {
+            it_ctrl = prob_ctrl.find(it_j->first);
+            
+            if (it_ctrl == prob_ctrl.end()) {
+                it_j->second = NAN; continue;
+            }
+            if (it_ctrl->second < EPS) {
+                it_j->second = NAN; continue;
+            }
+            double x = int(it_j->second*it_m->second+0.5);
+            double n = it_m->second;
+            double p0 = it_ctrl->second;
+            // no finished yet
+        }
+    }
 }
