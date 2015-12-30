@@ -14,11 +14,25 @@
 #include "BamFilter.h"
 
 BamFilter::BamFilter() {
+    
 }
 
 BamFilter::BamFilter(const BamFilter& orig) {
+    
 }
 
 BamFilter::~BamFilter() {
+    
 }
+
+void BamFilter::bam2Fa(string infile, string outfile) {
+    BamReader reader;
+    if ( !reader.Open(infile) ) 
+        throw runtime_error("Error in BamFilter::bam2Fa, fail to open " + infile);
+    
+    
+    reader.Close();
+    
+}
+
 

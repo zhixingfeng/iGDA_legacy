@@ -14,16 +14,17 @@
 #ifndef BAMFILTER_H
 #define BAMFILTER_H
 
-#include <api/BamReader.h>
-#include <api/BamWriter.h>
+#include "../../include/headers.h"
 
-using namespace BamTools;
 class BamFilter {
 public:
     BamFilter();
     BamFilter(const BamFilter& orig);
     
-    void test(){BamReader reader;}
+    static void bam2Fa(string infile, string outfile);
+    static void getForward(string infile, string outfile);
+    static void getHighConfAlign(string infile, string outfile);
+    
     
     virtual ~BamFilter();
 private:

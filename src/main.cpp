@@ -16,7 +16,7 @@
 #include "../include/catch.hpp"
 #include "../src/tool/tool.h"
 #include "iGDA.h"
-
+#include "util/BamFilter.h"
 
 #ifndef _UNITTEST
 
@@ -27,6 +27,7 @@ void print_usage() {
     cout << "[mode] is one of the following:" << endl << endl;
     cout << "train: train background model using known homogeneous data." << endl;
     cout << "precall: detect low frequency variants" << endl;
+    cout << "filter: filter bam files." << endl;
     cout << endl << "type igda [mode] to print usage of each mode." << endl;
 }
 
@@ -36,6 +37,7 @@ void print_usage_train() {
 
 
 int main(int argc, char* argv[]) {
+try{
     if (argc == 1) { print_usage(); return 0; }
     
     string cmdname = "igda "; cmdname += argv[1];
@@ -68,6 +70,7 @@ int main(int argc, char* argv[]) {
             gda.setErrorModeler(& obj_ErrorModelerHomo);
             
             gda.trainErrorModel(outfile);
+            return 0;
         }
         if (strcmp(argv[1],"precall")==0) {
             try {
@@ -110,16 +113,55 @@ int main(int argc, char* argv[]) {
             }catch(ArgException &e) {
                 cerr << "error: " << e.error() << " for arg " << e.argId() << endl;
             }
+            return 0;
+        }
+        if (strcmp(argv[1],"filter")==0) {
+            try {
+                CmdLine cmd("iGDA", ' ', "0.1");
+                SwitchArg bam2faArg("t", "bam2fa", "convert bam to fasta", cmd, false);
+                
+                UnlabeledValueArg<string> infileArg("infile", "path of input file", true, "", "infile", cmd);
+                UnlabeledValueArg<string> outfileArg("outfile", "path of output file", true, "", "outfile", cmd);
+                
+                cmd.parse(argv2);
+                
+                if (bam2faArg.getValue()) {
+                    BamFilter::bam2Fa( infileArg.getValue(), outfileArg.getValue() );
+                    return 0;
+                }
+                
+                if (infileArg.getValue()!="" && outfileArg.getValue()!="")
+                    cerr << "Error: Invalid argument. type \"igda filter -h\"" << endl;
+               
+            }catch(ArgException &e) {
+                cerr << "error: " << e.error() << " for arg " << e.argId() << endl;
+            }
+            return 0;
+            
         }
     }
-    
-
+     
     return 0;
+}
+catch(const std::overflow_error& e) {
+    cerr << "overflow_error: " << e.what() << endl;
+} catch(const std::runtime_error& e) {
+    cerr << "runtime_error: " << e.what() << endl;
+} catch(const std::exception& e) {
+    cerr << "expection: " << e.what() << endl;
+} catch(...) {
+    
+}
+
 }
 
 #else
 
+using namespace boost::filesystem;
+
 int main(int argc, char* argv[]) {
+    if (!exists("./results"))
+        create_directory("./results");
     int result = Catch::Session().run( argc, argv );
     return result;
 }

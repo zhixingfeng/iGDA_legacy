@@ -19,6 +19,10 @@
 #include "data_type.h"
 #include "utils.h"
 #include "../src/tool/tool.h"
+#include <api/BamReader.h>
+#include <api/BamWriter.h>
+
+using namespace BamTools;
 
 #endif /* HEADERS_H */
 

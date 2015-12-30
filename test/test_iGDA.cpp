@@ -99,7 +99,7 @@ TEST_CASE("Test iGDA::preCall()") {
     gda.preCall("./results/mixed_MSSA_78_ratio_0.05_B_1.bam", 1, 1, 1, 1);
 }
 
-TEST_CASE("Test iGDA::preCall() (PreCallerMultiple)") {
+TEST_CASE("Test iGDA::preCall() (PreCallerMultiple)", "[hide]") {
     iGDA gda;
     PileupParserGDA obj_PileupParserGDA;
     ErrorModelerHomo obj_ErrorModelerHomo;
