@@ -110,6 +110,10 @@
           </logicalFolder>
           <itemPath>src/tool/tool.h</itemPath>
         </logicalFolder>
+        <logicalFolder name="util" displayName="util" projectFiles="true">
+          <itemPath>src/util/BamFilter.cpp</itemPath>
+          <itemPath>src/util/BamFilter.h</itemPath>
+        </logicalFolder>
         <itemPath>src/iGDA.cpp</itemPath>
         <itemPath>src/iGDA.h</itemPath>
         <itemPath>src/main.cpp</itemPath>
@@ -156,6 +160,7 @@
             <pElem>include</pElem>
             <pElem>src/tool</pElem>
             <pElem>src/tool/hashlibpp</pElem>
+            <pElem>third_party/local/bamtools/include</pElem>
           </incDir>
         </ccTool>
       </compileType>
@@ -389,6 +394,10 @@
       </item>
       <item path="src/tool/tool.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/util/BamFilter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/util/BamFilter.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="test/test_ErrorModeler.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="test/test_PileupParser.cpp" ex="false" tool="1" flavor2="0">
@@ -423,6 +432,7 @@
             <pElem>include</pElem>
             <pElem>src/tool</pElem>
             <pElem>src/tool/hashlibpp</pElem>
+            <pElem>third_party/local/bamtools/include</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -661,6 +671,10 @@
             flavor2="0">
       </item>
       <item path="src/tool/tool.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/util/BamFilter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/util/BamFilter.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="test/test_ErrorModeler.cpp" ex="false" tool="1" flavor2="0">
       </item>

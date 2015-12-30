@@ -34,3 +34,5 @@ nbproject
 results/*
 uml/*~*
 data/.*
+third_party/local
+
