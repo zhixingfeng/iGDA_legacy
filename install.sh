@@ -13,3 +13,4 @@ if [ $(uname) == "Linux" ]; then
 	ln -s libbamtools.so.2.4.0 libbamtools.so
 fi
 
+make CONF=Release
