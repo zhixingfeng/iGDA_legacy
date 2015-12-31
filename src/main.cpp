@@ -119,6 +119,8 @@ try{
             try {
                 CmdLine cmd("iGDA", ' ', "0.1");
                 SwitchArg bam2faArg("t", "bam2fa", "convert bam to fasta", cmd, false);
+                SwitchArg forwardArg("f", "forward", "extract forward strand reads", cmd, false);
+                ValueArg<int> minMatchArg("m","minmatch","minimal matches , default is 0", false , 0, "minmatch", cmd);
                 
                 UnlabeledValueArg<string> infileArg("infile", "path of input file", true, "", "infile", cmd);
                 UnlabeledValueArg<string> outfileArg("outfile", "path of output file", true, "", "outfile", cmd);
@@ -126,19 +128,30 @@ try{
                 cmd.parse(argv2);
                 
                 if (bam2faArg.getValue()) {
+                    if (forwardArg.getValue() || minMatchArg.getValue() > 0) {
+                        cerr << "-t can NOT be combined with -f or -m" << endl;
+                        return 1;
+                    }
                     BamFilter::bam2Fa( infileArg.getValue(), outfileArg.getValue() );
                     return 0;
                 }
                 
-                if (infileArg.getValue()!="" && outfileArg.getValue()!="")
+                if (forwardArg.getValue() || minMatchArg.getValue() > 0) {
+                    BamFilter::filter(infileArg.getValue(), outfileArg.getValue(), forwardArg.getValue(), minMatchArg.getValue());
+                    return 0;
+                }
+                
+                if (infileArg.getValue()!="" && outfileArg.getValue()!=""){
                     cerr << "Error: Invalid argument. type \"igda filter -h\"" << endl;
+                    return 1;
+                }
                
             }catch(ArgException &e) {
                 cerr << "error: " << e.error() << " for arg " << e.argId() << endl;
             }
             return 0;
-            
         }
+        cerr << "[mode] should be train, precall, filter" << endl;
     }
      
     return 0;
