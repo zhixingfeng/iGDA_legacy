@@ -35,4 +35,9 @@ results/*
 uml/*~*
 data/.*
 third_party/local
+third_party/src/bamtools/build
+third_party/src/bamtools/bin
+third_party/src/bamtools/include
+third_party/src/bamtools/lib
+
 

@@ -13629,8 +13629,9 @@
             <pElem>src/tool</pElem>
             <pElem>src/tool/hashlibpp</pElem>
             <pElem>src/tool/boost/include</pElem>
-            <pElem>third_party/local/bamtools/include</pElem>
+            <pElem>third_party/src/bamtools/include</pElem>
           </incDir>
+          <commandLine>-Lthird_party/src/bamtools/lib -lbamtools</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
