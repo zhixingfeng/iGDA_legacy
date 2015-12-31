@@ -1,4 +1,3 @@
-mkdir third_party/local/
 
 # compile bamtools
 #mkdir third_party/local/bamtools
@@ -7,11 +6,10 @@ mkdir build
 cd build
 cmake ..
 make
-#cd ..
 
-#mv build ../../local/bamtools
-#mv bin ../../local/bamtools
-#mv include ../../local/bamtools
-#mv lib ../../local/bamtools
-
+cd ../lib
+if [ $(uname) == "Linux" ]; then
+	echo "Linux"
+	ln -s libbamtools.so.2.4.0 libbamtools.so
+fi
 
