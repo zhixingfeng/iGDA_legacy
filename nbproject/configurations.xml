@@ -13613,7 +13613,7 @@
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
-        <compilerSet>default</compilerSet>
+        <compilerSet>GNU|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -13624,6 +13624,7 @@
         <ccTool>
           <developmentMode>6</developmentMode>
           <standard>8</standard>
+          <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>include</pElem>
             <pElem>src/tool</pElem>
@@ -13639,6 +13640,9 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <commandlineTool>icpc</commandlineTool>
+        </linkerTool>
       </compileType>
       <item path="include/catch.hpp" ex="false" tool="3" flavor2="0">
       </item>
