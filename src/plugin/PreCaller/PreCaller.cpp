@@ -19,6 +19,7 @@ PreCaller::PreCaller() {
     ptr_PileupParser = NULL;
     ptr_ErrorModeler = NULL;
     signature = "PreCaller";
+    this->readlen = 1000;
 }
 
 PreCaller::PreCaller(const PreCaller& orig) {

@@ -59,9 +59,7 @@ public:
     PreCallerMultiple();
     PreCallerMultiple(const PreCallerMultiple& orig);
     virtual ~PreCallerMultiple();
-    
-    void setReadLen(int a_readlen) { readlen = a_readlen; }
-    
+        
     void callVar(int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1);
    
     void calCondProb(string cprobfile);
@@ -84,7 +82,7 @@ private:
 
 private:
     
-    int readlen;
+    
 };
 
 inline ostream & operator << (ostream & os,  JointProb & cur_cprob) {

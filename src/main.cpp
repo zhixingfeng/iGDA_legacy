@@ -81,6 +81,8 @@ try{
                 ValueArg<int> lArg("l","left_len","length of left side context, default is 1", false , 1, "left_len", cmd);
                 ValueArg<int> rArg("r","right_len","length of right side context, default is 1", false , 1, "right_len", cmd);
                 
+                ValueArg<int> LArg("L","read_len","read length, default is 1000", false , 1000, "read_length", cmd);
+                
                 
                 UnlabeledValueArg<string> pileupfileArg("pileupfile", "path of pileup file", true, "", "pileupfile", cmd);
                 UnlabeledValueArg<string> errfileArg("errfile", "path of error model file", true, "", "errfile", cmd);
@@ -104,6 +106,7 @@ try{
                         cout << "precall using multiple loci method." << endl;
                         gda.setPreCaller(& obj_PreCallerMultiple);
                         gda.loadErrorModel(errfileArg.getValue());
+                        gda.setReadLen(LArg.getValue());
                         gda.preCall(outprefixArg.getValue(), vArg.getValue(), cArg.getValue(), lArg.getValue(), rArg.getValue());
                         break;
                     default:

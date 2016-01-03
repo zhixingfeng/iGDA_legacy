@@ -58,6 +58,7 @@ public:
     void setPileupParser (PileupParser * a_PileupParser); 
     void setErrorModeler (ErrorModeler * a_ErrorModeler); 
     
+    void setReadLen(int a_readlen){readlen = a_readlen;}
     void loadErrorModel (string err_context_file);
     virtual void callVar(int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1) = 0;
     void calStat(VarStat &stat, map<string, double> & prob, map<string, double> & prob_ctrl);
@@ -92,6 +93,7 @@ protected:
     //map<int, map<string,double> > mprob;
     
     string signature;
+    int readlen;
 };
 
 #endif /* PRECALLER_H */

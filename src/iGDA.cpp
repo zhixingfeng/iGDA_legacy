@@ -22,6 +22,8 @@ iGDA::iGDA() {
     ptr_PileupParser = NULL;
     ptr_ErrorModeler = NULL;
     ptr_PreCaller = NULL;
+    
+    this->readlen = 1000;
 }
 
 iGDA::iGDA(const iGDA& orig) {
@@ -85,6 +87,7 @@ void iGDA::preCall(string out_prefix, int min_cvg, int min_cvg_ctrl, int len_l, 
     }
     
     if (ptr_PreCaller->getSignature() == "PreCallerMultiple") {
+        ptr_PreCaller->setReadLen(this->readlen);
         ptr_PreCaller->setOutprefix(out_prefix);
         ptr_PreCaller->callVar(min_cvg, min_cvg_ctrl, len_l, len_r);
     }

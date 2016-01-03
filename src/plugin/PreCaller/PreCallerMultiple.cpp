@@ -58,7 +58,6 @@ void JointProb::jprob2cprob(map<string,map<string,double> >& prob, map<string, d
 }
 
 PreCallerMultiple::PreCallerMultiple() {
-    readlen = 1000;
     signature = "PreCallerMultiple";
 }
 
@@ -189,7 +188,7 @@ void PreCallerMultiple::calCondProb(string cprobfile) {
         if (buf.size() > readlen){
             buf.pop_front();
         }
-        // scan buf to calculate joint probability
+        // scan buf to calculate joint probabilitsy
         if (buf.size() == readlen)
             scanBuf(IDmap_ins, IDmap, buf, fs_cprobfile, false);
     }

@@ -37,6 +37,7 @@ public:
     void trainErrorModel(string err_model_file);
     void loadErrorModel(string a_err_model_file);
     
+    void setReadLen(int a_readlen=1000){readlen = a_readlen;}
     void preCall(string out_prefix, int min_cvg=1, int min_cvg_ctrl=1, int len_l = 1, int len_r = 1);
     void run();
     SeqFreq getSeqFreq();
@@ -72,6 +73,8 @@ protected:
     ErrorModeler * ptr_ErrorModeler;
     PreCaller * ptr_PreCaller;
 
+    // read length
+    int readlen;
     
 };
 
