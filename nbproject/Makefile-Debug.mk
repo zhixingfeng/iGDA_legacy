@@ -79,8 +79,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=-Lthird_party/src/bamtools/lib -lbamtools
-CXXFLAGS=-Lthird_party/src/bamtools/lib -lbamtools
+CCFLAGS=
+CXXFLAGS=
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -97,7 +97,7 @@ LDLIBSOPTIONS=
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/igda: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/igda ${OBJECTFILES} ${LDLIBSOPTIONS}
+	g++ -Lthird_party/src/bamtools/lib -lbamtools -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/igda ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/src/iGDA.o: src/iGDA.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
