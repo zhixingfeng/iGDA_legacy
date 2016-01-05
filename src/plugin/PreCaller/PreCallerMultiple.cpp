@@ -90,7 +90,9 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
     
     // scan cprobfile
     ifstream fs_cprobfile; open_infile(fs_cprobfile, cprobfile + ".sorted");
+#ifdef _USESTAT
     ofstream fs_statfile; open_outfile(fs_statfile, this->outprefix + ".stat");
+#endif
     ofstream fs_varfile; open_outfile(fs_varfile, this->outprefix + ".var");
     int refID, locus_l, locus_r, mcvg;
     string refSeq;
@@ -120,6 +122,7 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
         double stat_mi = this->calLR_log(cur_cprob.prob_mi, prob_ctrl_ins, cur_cprob.freq_m, refSeq);
         double stat_ii = this->calLR_log(cur_cprob.prob_ii, prob_ctrl_ins, cur_cprob.freq_i, refSeq);
         
+#ifdef _USESTAT
         // record pairwise statistics
         fs_statfile << refID << '\t' << locus_l << '\t' << locus_r << '\t' << cur_cprob.cvg << '\t' << refSeq << '\t' << mcvg << '\t';
         fs_statfile << stat_mm << '\t' << stat_im << '\t' << stat_mi << '\t' << stat_ii << '\t';
@@ -132,7 +135,7 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
             fs_statfile << prob_ctrl_ins << endl;
         else
             fs_statfile << "NA" << endl;
-        
+#endif        
         // calculate max stat for each locus
         if (refID != prev_refID || locus_l != prev_locus){
             if (prev_refID != -1 && prev_locus != -1)
@@ -152,8 +155,10 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
     }
     
     fs_cprobfile.close();
-    fs_statfile.close();
     fs_varfile.close();
+#ifdef _USESTAT   
+    fs_statfile.close();
+#endif    
 }
 
 void PreCallerMultiple::calCondProb(string cprobfile) {
@@ -550,5 +555,6 @@ double PreCallerMultiple::calBF(map<string,map<string,double> >& prob, map<strin
             // no finished yet
         }
     }
+    return max_BF;
 }
 
