@@ -13634,6 +13634,7 @@
             <pElem>src/tool/boost/include</pElem>
             <pElem>third_party/src/bamtools/include</pElem>
           </incDir>
+          <commandLine>-D_USESTAT</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

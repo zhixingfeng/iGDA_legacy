@@ -137,6 +137,8 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
             fs_statfile << "NA" << endl;
 #endif        
         // calculate max stat for each locus
+        int left_rm_len = cur_context.first.size();
+        int right_rm_len = cur_context.second.size() > 1 ? cur_context.second.size() - 1 : 0;
         if (refID != prev_refID || locus_l != prev_locus){
             if (prev_refID != -1 && prev_locus != -1)
                 fs_varfile << prev_refID << '\t' << prev_locus << '\t' << cur_stat << '\t' << cur_stat_ins << endl;
@@ -144,10 +146,10 @@ void PreCallerMultiple::callVar(int min_cvg, int min_cvg_ctrl, int len_l, int le
             cur_stat_ins = 0;
         }else {
             if (!std::isnan(stat_mm))
-                if (stat_mm > cur_stat) 
+                if (stat_mm > cur_stat && (locus_r - locus_l < -left_rm_len || locus_r - locus_l > right_rm_len) ) 
                     cur_stat = stat_mm;
             if (!std::isnan(stat_mi))
-                if (stat_mi > cur_stat_ins)
+                if (stat_mi > cur_stat_ins && (locus_r - locus_l < -left_rm_len || locus_r - locus_l > right_rm_len) )
                     cur_stat_ins = stat_mi;
         }
         prev_refID = refID;
