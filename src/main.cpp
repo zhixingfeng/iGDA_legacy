@@ -37,6 +37,7 @@ void print_usage_train() {
 
 
 int main(int argc, char* argv[]) {
+    cout << "test" << endl;
 try{
     if (argc == 1) { print_usage(); return 0; }
     
